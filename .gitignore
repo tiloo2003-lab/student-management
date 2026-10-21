@@ -1,0 +1,12 @@
+.env
+*.local
+node_modules/
+vendor/
+dist/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude/
+
+backend/public/uploads/posts/up-*
