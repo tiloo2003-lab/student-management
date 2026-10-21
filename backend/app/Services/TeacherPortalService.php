@@ -62,23 +62,54 @@ class TeacherPortalService implements TeacherPortalServiceInterface
         ];
     }
 
-    public function updateGrade(User $user, Enrollment $enrollment, ?float $midterm, ?float $final): Grade
+    public function saveGrades(User $user, Course $course, array $rows): array
     {
-        $course = $this->enrollments->withCourse($enrollment)->course;
-
         $this->ensureOwns($user, $course);
         $this->ensureNotLocked($user, $course);
 
+        $enrollments = $this->enrollments->forCourse($course->id)->keyBy('id');
+        $summary = $this->attendances->courseSummary($course->id);
+        $saved = 0;
+        $errors = [];
+
+        $this->transaction->run(function () use ($rows, $enrollments, $summary, &$saved, &$errors) {
+            foreach ($rows as $row) {
+                $enrollment = $enrollments->get($row['enrollment_id']);
+
+                if (! $enrollment) {
+                    $errors[] = ['enrollment_id' => $row['enrollment_id'], 'message' => 'Sinh viên không thuộc lớp học phần này.'];
+                    continue;
+                }
+
+                try {
+                    $this->applyGrade($enrollment, $summary, $row['midterm'], $row['final']);
+                    $saved++;
+                } catch (UnprocessableEntityHttpException $e) {
+                    $errors[] = [
+                        'enrollment_id' => $enrollment->id,
+                        'student_code' => $enrollment->student->student_code,
+                        'name' => $enrollment->student->user->name,
+                        'message' => $e->getMessage(),
+                    ];
+                }
+            }
+        });
+
+        return ['saved' => $saved, 'errors' => $errors];
+    }
+
+    private function applyGrade(Enrollment $enrollment, array $summary, ?float $midterm, ?float $final): Grade
+    {
         if ($final !== null && $midterm === null) {
             throw new UnprocessableEntityHttpException('Phải nhập điểm giữa kỳ trước khi nhập điểm cuối kỳ.');
         }
 
         if ($final !== null) {
-            $info = $this->attendanceInfo($enrollment->student_id, $this->attendances->courseSummary($course->id));
+            $info = $this->attendanceInfo($enrollment->student_id, $summary);
             if ($info['banned']) {
                 $limit = (int) round((float) config('school.absence_ratio_limit') * 100);
                 throw new UnprocessableEntityHttpException(
-                    "Sinh viên vắng {$info['absent']}/{$info['sessions']} buổi (quá {$limit}%), bị cấm thi nên không thể nhập điểm cuối kỳ."
+                    "Vắng {$info['absent']}/{$info['sessions']} buổi (quá {$limit}%), bị cấm thi nên không nhập được điểm cuối kỳ."
                 );
             }
         }
@@ -94,7 +125,6 @@ class TeacherPortalService implements TeacherPortalServiceInterface
             'letter' => GradeCalculator::letter($total),
         ]);
     }
-
     public function attendance(User $user, Course $course, string $date): Collection
     {
         $this->ensureOwns($user, $course);

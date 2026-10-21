@@ -31,7 +31,7 @@ class EnrollmentRepository extends BaseRepository implements EnrollmentRepositor
     {
         return Enrollment::with([
             'course.subject:id,code,name,credits',
-            'course.semester:id,name,is_current',
+            'course.semester:id,name,academic_year,is_current',
             'course.teacher',
             'grade',
         ])->where('student_id', $studentId)->get();

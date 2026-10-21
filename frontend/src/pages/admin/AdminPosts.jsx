@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { errMsg, fieldErrors } from '../../api';
 import { Loading, Modal, Pager, useToast } from '../../components/ui';
+import { confirmDelete, confirmSave } from '../../notify';
 import { fmtDate } from '../../utils';
 
 const empty = { title: '', description: '', content: '', category_id: '' };
@@ -60,6 +61,7 @@ export default function AdminPosts() {
 
   const save = async (e) => {
     e.preventDefault();
+    if (!(await confirmSave(!!modal.item, 'bài viết'))) return;
     setSaving(true);
     setErrors({});
     const fd = new FormData();
@@ -84,7 +86,7 @@ export default function AdminPosts() {
   };
 
   const remove = async (p) => {
-    if (!window.confirm('Xóa bài viết này?')) return;
+    if (!(await confirmDelete('Bài viết và ảnh bìa sẽ bị xóa.'))) return;
     try {
       await api.delete(`/manage/posts/${p.id}`);
       toast('Đã xóa');

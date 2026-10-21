@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\Repositories\EnrollmentRepositoryInterface;
+use App\Contracts\Repositories\SchoolClassRepositoryInterface;
 use App\Contracts\Repositories\SemesterRepositoryInterface;
 use App\Contracts\Services\ReportServiceInterface;
 use App\Support\GradeCalculator;
@@ -13,23 +14,29 @@ class ReportService implements ReportServiceInterface
     public function __construct(
         private SemesterRepositoryInterface $semesters,
         private EnrollmentRepositoryInterface $enrollments,
+        private SchoolClassRepositoryInterface $classes,
     ) {
     }
 
-    public function overview(?int $semesterId): array
+    public function overview(?int $semesterId, ?int $classId = null): array
     {
         $all = $this->semesters->all();
         $semester = $semesterId
             ? $this->semesters->findOrFail($semesterId)
             : ($this->semesters->current() ?? $all->first());
 
-        $list = $all->map(fn ($s) => $s->only(['id', 'name', 'is_current']))->values();
+        $base = [
+            'semesters' => $all->map(fn ($s) => $s->only(['id', 'name', 'academic_year', 'is_current']))->values(),
+            'class_options' => $this->classes->all()->sortBy('code')->map(fn ($c) => $c->only(['id', 'code', 'name']))->values(),
+        ];
 
         if (! $semester) {
-            return ['semesters' => $list, 'semester' => null];
+            return $base + ['semester' => null];
         }
 
-        $items = $this->enrollments->forSemester($semester->id);
+        $items = $this->enrollments->forSemester($semester->id)
+            ->when($classId, fn ($c) => $c->filter(fn ($e) => (int) $e->student->class_id === $classId))
+            ->values();
         $graded = $items->filter(fn ($e) => $e->grade?->total !== null);
         $students = $this->studentRows($items);
 
@@ -37,9 +44,9 @@ class ReportService implements ReportServiceInterface
         $minGpa = (float) config('school.scholarship_min_gpa');
         $minCredits = (int) config('school.scholarship_min_credits');
 
-        return [
-            'semesters' => $list,
-            'semester' => $semester->only(['id', 'name', 'is_current']),
+        return $base + [
+            'semester' => $semester->only(['id', 'name', 'academic_year', 'is_current']),
+            'class_id' => $classId,
             'summary' => [
                 'enrollments' => $items->count(),
                 'graded' => $graded->count(),

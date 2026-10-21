@@ -17,7 +17,7 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
 
     public function forPost(Post $post, int $limit = 100): Collection
     {
-        return $post->comments()->orderByDesc('id')->limit($limit)->get(['id', 'name', 'content', 'created_at']);
+        return $post->comments()->orderByDesc('id')->limit($limit)->get(['id', 'user_id', 'name', 'content', 'created_at']);
     }
 
     public function paginateAdmin(array $filters, int $perPage): LengthAwarePaginator
@@ -32,10 +32,10 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
             ->paginate($perPage);
     }
 
-    public function existsRecent(int $postId, string $name, string $content, int $seconds): bool
+    public function existsRecent(int $postId, int $userId, string $content, int $seconds): bool
     {
         return Comment::where('post_id', $postId)
-            ->where('name', $name)
+            ->where('user_id', $userId)
             ->where('content', $content)
             ->where('created_at', '>=', now()->subSeconds($seconds))
             ->exists();

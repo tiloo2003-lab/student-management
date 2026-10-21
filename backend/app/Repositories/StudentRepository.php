@@ -10,11 +10,17 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
 {
     protected string $model = Student::class;
 
-    protected array $with = ['user:id,name,email,phone,status', 'schoolClass:id,code,name'];
+    protected array $with = ['user:id,name,email,phone,status', 'schoolClass:id,code,name,department_id,academic_year'];
 
     protected array $searchable = ['student_code', 'user.name', 'user.email'];
 
-    protected array $filterable = ['class_id'];
+    protected array $filterable = ['class_id', 'gender'];
+
+    protected array $relationFilters = [
+        'academic_year' => 'schoolClass.academic_year',
+        'department_id' => 'schoolClass.department_id',
+        'status' => 'user.status',
+    ];
 
     public function findByUserId(int $userId): ?Student
     {

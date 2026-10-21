@@ -236,13 +236,16 @@ CREATE TABLE posts (
 CREATE TABLE comments (
   id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   post_id    BIGINT UNSIGNED NOT NULL,
+  user_id    BIGINT UNSIGNED NULL,
   name       VARCHAR(100)    NOT NULL,
   content    VARCHAR(1000)   NOT NULL,
   created_at TIMESTAMP       NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP       NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   KEY comments_post_index (post_id),
-  CONSTRAINT fk_comments_post FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+  KEY comments_user_index (user_id),
+  CONSTRAINT fk_comments_post FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+  CONSTRAINT fk_comments_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE contact_messages (

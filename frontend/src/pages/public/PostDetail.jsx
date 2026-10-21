@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api, { errMsg } from '../../api';
+import { useAuth } from '../../auth';
+import { confirmDelete, confirmDialog, notify } from '../../notify';
 import PostCard, { RankList } from './PostCard';
 import { fmtDate } from '../../utils';
 import { fmtNumber, readMinutes, timeAgo, useLikes } from './likes';
 
 export default function PostDetail() {
   const { id } = useParams();
+  const { user } = useAuth();
   const { liked, toggle } = useLikes();
   const [post, setPost] = useState(null);
   const [missing, setMissing] = useState(false);
   const [popular, setPopular] = useState([]);
   const [comments, setComments] = useState([]);
-  const [form, setForm] = useState({ name: '', content: '' });
+  const [content, setContent] = useState('');
   const [sending, setSending] = useState(false);
-  const [notice, setNotice] = useState('');
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -33,29 +35,46 @@ export default function PostDetail() {
 
   const isLiked = liked.includes(post.id);
   const url = window.location.href;
+  const loginUrl = `/admin/login?redirect=${encodeURIComponent(`/posts/${post.id}`)}`;
 
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
-    } catch { setNotice('Không thể sao chép liên kết'); }
+    } catch {
+      notify('Không thể sao chép liên kết', 'bad');
+    }
   };
 
   const send = async (e) => {
     e.preventDefault();
+    if (!(await confirmDialog({ title: 'Gửi bình luận?', text: 'Bình luận sẽ hiển thị công khai dưới tên của bạn.', confirmText: 'Gửi bình luận' }))) return;
     setSending(true);
-    setNotice('');
     try {
-      const { data } = await api.post(`/posts/${post.id}/comments`, form);
+      const { data } = await api.post(`/posts/${post.id}/comments`, { content });
       setComments((c) => [data, ...c]);
-      setForm({ name: form.name, content: '' });
+      setContent('');
+      notify('Đã đăng bình luận');
     } catch (err) {
-      setNotice(errMsg(err));
+      notify(errMsg(err), 'bad');
     } finally {
       setSending(false);
     }
   };
+
+  const remove = async (comment) => {
+    if (!(await confirmDelete('Bình luận của bạn sẽ bị xóa.'))) return;
+    try {
+      await api.delete(`/posts/${post.id}/comments/${comment.id}`);
+      setComments((c) => c.filter((x) => x.id !== comment.id));
+      notify('Đã xóa bình luận');
+    } catch (err) {
+      notify(errMsg(err), 'bad');
+    }
+  };
+
+  const canDelete = (c) => user && (user.role === 'admin' || c.user_id === user.id);
 
   return (
     <main className="pub-main">
@@ -93,20 +112,28 @@ export default function PostDetail() {
 
           <section className="comments">
             <h3 className="sec-title"><span>Bình luận ({comments.length})</span></h3>
-            <form onSubmit={send} className="cmt-form">
-              <input placeholder="Tên của bạn" value={form.name} maxLength={100} required onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              <textarea rows={3} placeholder="Viết bình luận..." value={form.content} maxLength={1000} required onChange={(e) => setForm({ ...form, content: e.target.value })} />
-              {notice && <div className="form-err">{notice}</div>}
-              <button className="pub-btn solid" disabled={sending}>{sending ? 'Đang gửi...' : 'Gửi bình luận'}</button>
-            </form>
-            {comments.length === 0 && <div className="sub-muted">Chưa có bình luận nào, hãy là người đầu tiên.</div>}
+
+            {user ? (
+              <form onSubmit={send} className="cmt-form">
+                <div className="cmt-as">Bình luận với tên <b>{user.name}</b></div>
+                <textarea rows={3} placeholder="Viết bình luận..." value={content} maxLength={1000} required onChange={(e) => setContent(e.target.value)} />
+                <button className="pub-btn solid" disabled={sending || !content.trim()}>{sending ? 'Đang gửi...' : 'Gửi bình luận'}</button>
+              </form>
+            ) : (
+              <div className="cmt-login">
+                Bạn cần <Link to={loginUrl}>đăng nhập</Link> để tham gia bình luận.
+              </div>
+            )}
+
+            {comments.length === 0 && <div className="sub-muted">Chưa có bình luận nào.</div>}
             {comments.map((c) => (
               <div className="cmt" key={c.id}>
                 <span className="cmt-ava">{c.name.trim()[0]?.toUpperCase()}</span>
-                <div>
+                <div className="cmt-main">
                   <b>{c.name}</b> <small>{timeAgo(c.created_at)}</small>
                   <p>{c.content}</p>
                 </div>
+                {canDelete(c) && <button className="cmt-del" onClick={() => remove(c)}>Xóa</button>}
               </div>
             ))}
           </section>

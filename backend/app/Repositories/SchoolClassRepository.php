@@ -15,7 +15,7 @@ class SchoolClassRepository extends BaseRepository implements SchoolClassReposit
 
     protected array $searchable = ['code', 'name'];
 
-    protected array $filterable = ['department_id'];
+    protected array $filterable = ['department_id', 'academic_year'];
 
     public function countByHomeroomTeacher(int $teacherId, ?int $exceptClassId = null): int
     {

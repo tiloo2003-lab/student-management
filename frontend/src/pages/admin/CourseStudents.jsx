@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api, { errMsg } from '../../api';
 import { Badge, Loading, useToast } from '../../components/ui';
+import { confirmDelete, confirmDialog } from '../../notify';
 import { letterColor, scheduleLabel } from '../../utils';
 
 export default function CourseStudents() {
@@ -24,6 +25,9 @@ export default function CourseStudents() {
 
   const add = async () => {
     if (!pick) return;
+    const student = students.find((s) => String(s.id) === String(pick));
+    const ok = await confirmDialog({ title: 'Thêm sinh viên vào lớp?', text: student ? `${student.student_code} - ${student.name}` : '', confirmText: 'Thêm vào lớp' });
+    if (!ok) return;
     try {
       await api.post(`/courses/${id}/students`, { student_id: pick });
       toast('Đã thêm sinh viên');
@@ -33,7 +37,7 @@ export default function CourseStudents() {
   };
 
   const remove = async (enr) => {
-    if (!window.confirm('Xóa sinh viên khỏi lớp học phần này?')) return;
+    if (!(await confirmDelete('Sinh viên sẽ bị xóa khỏi lớp học phần này.'))) return;
     try {
       await api.delete(`/courses/${id}/students/${enr.id}`);
       toast('Đã xóa');

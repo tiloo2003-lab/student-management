@@ -12,5 +12,5 @@ interface CommentRepositoryInterface extends BaseRepositoryInterface
 
     public function paginateAdmin(array $filters, int $perPage): LengthAwarePaginator;
 
-    public function existsRecent(int $postId, string $name, string $content, int $seconds): bool;
+    public function existsRecent(int $postId, int $userId, string $content, int $seconds): bool;
 }

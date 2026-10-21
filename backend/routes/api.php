@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DepartmentController;
+use App\Http\Controllers\Api\ExportController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\ReportController;
@@ -28,7 +29,6 @@ Route::get('/categories', [CategoryController::class, 'publicIndex']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
 Route::get('/posts/{post}/comments', [CommentController::class, 'index']);
-Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->middleware('throttle:10,1');
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1');
 Route::middleware('throttle:60,1')->group(function () {
     Route::post('/posts/{post}/like', [PostController::class, 'like']);
@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile', [AuthController::class, 'updateProfile']);
     Route::put('/password', [AuthController::class, 'changePassword']);
     Route::get('/dashboard', DashboardController::class);
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->middleware('throttle:10,1');
+    Route::delete('/posts/{post}/comments/{comment}', [CommentController::class, 'destroyOwn']);
     Route::get('/announcements', [AnnouncementController::class, 'index']);
 
     Route::middleware('role:admin')->group(function () {
@@ -61,6 +63,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/manage/messages/{message}', [ContactController::class, 'destroy']);
 
         Route::get('/reports/overview', [ReportController::class, 'overview']);
+        Route::get('/reports/export', [ExportController::class, 'report']);
+        Route::get('/export/students/{student}', [ExportController::class, 'studentTranscript']);
 
         Route::get('/manage/posts', [PostController::class, 'adminIndex']);
         Route::post('/manage/posts', [PostController::class, 'store']);
@@ -76,7 +80,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:teacher,admin')->prefix('teacher')->group(function () {
         Route::get('/courses', [TeacherPortalController::class, 'courses']);
         Route::get('/courses/{course}', [TeacherPortalController::class, 'show']);
-        Route::put('/enrollments/{enrollment}/grade', [TeacherPortalController::class, 'updateGrade']);
+        Route::put('/courses/{course}/grades', [TeacherPortalController::class, 'saveGrades']);
+        Route::get('/courses/{course}/export', [ExportController::class, 'courseGradeSheet']);
         Route::get('/courses/{course}/attendance', [TeacherPortalController::class, 'attendance']);
         Route::post('/courses/{course}/attendance', [TeacherPortalController::class, 'saveAttendance']);
     });
@@ -87,6 +92,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/registration/{course}', [RegistrationController::class, 'destroy']);
         Route::get('/courses', [StudentPortalController::class, 'courses']);
         Route::get('/grades', [StudentPortalController::class, 'grades']);
+        Route::get('/grades/export', [ExportController::class, 'myTranscript']);
         Route::get('/attendance', [StudentPortalController::class, 'attendance']);
     });
 });

@@ -13,7 +13,7 @@ class TeacherRepository extends BaseRepository implements TeacherRepositoryInter
 
     protected array $searchable = ['teacher_code', 'user.name', 'user.email'];
 
-    protected array $filterable = ['department_id'];
+    protected array $filterable = ['department_id', 'degree'];
 
     public function findByUserId(int $userId): ?Teacher
     {

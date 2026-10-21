@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api, { errMsg } from '../../api';
 import { Badge, Loading, useToast } from '../../components/ui';
+import { exportPdf } from '../../download';
+import { confirmDialog, infoDialog } from '../../notify';
 import { attendanceLabel, letterColor, scheduleLabel } from '../../utils';
 
 export function TeacherCourses() {
@@ -39,17 +41,23 @@ export function TeacherCourses() {
 
 const today = () => new Date().toISOString().slice(0, 10);
 
+const errorList = (errors) =>
+  `<ul class="swal-errors">${errors.map((e) => `<li><b>${e.student_code || ''} ${e.name || ''}</b> ${e.message}</li>`).join('')}</ul>`;
+
 export function TeacherCourseDetail() {
   const { id } = useParams();
   const toast = useToast();
   const [tab, setTab] = useState('grades');
   const [data, setData] = useState(null);
   const [edits, setEdits] = useState({});
+  const [rowErrors, setRowErrors] = useState({});
+  const [saving, setSaving] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [date, setDate] = useState(today());
   const [att, setAtt] = useState(null);
 
   const load = useCallback(() => {
-    api.get(`/teacher/courses/${id}`).then((r) => { setData(r.data); setEdits({}); }).catch((e) => toast(errMsg(e), 'bad'));
+    api.get(`/teacher/courses/${id}`).then((r) => { setData(r.data); setEdits({}); setRowErrors({}); }).catch((e) => toast(errMsg(e), 'bad'));
   }, [id, toast]);
   useEffect(load, [load]);
 
@@ -62,21 +70,60 @@ export function TeacherCourseDetail() {
 
   const cell = (e, k) => edits[e.id]?.[k] ?? e.grade?.[k] ?? '';
   const setCell = (e, k, v) => setEdits({ ...edits, [e.id]: { ...edits[e.id], [k]: v } });
+  const changed = useMemo(() => Object.keys(edits).length, [edits]);
 
-  const saveGrade = async (e) => {
-    const mid = cell(e, 'midterm');
-    const fin = cell(e, 'final');
-    try {
-      const { data: g } = await api.put(`/teacher/enrollments/${e.id}/grade`, {
-        midterm: mid === '' ? null : Number(mid), final: fin === '' ? null : Number(fin),
+  const saveAll = async () => {
+    if (!changed) return;
+    const ok = await confirmDialog({ title: 'Lưu điểm cả lớp?', text: `Sẽ cập nhật điểm của ${changed} sinh viên trong lớp này.`, confirmText: 'Lưu điểm' });
+    if (!ok) return;
+    const grades = data.students
+      .filter((e) => edits[e.id])
+      .map((e) => {
+        const mid = cell(e, 'midterm');
+        const fin = cell(e, 'final');
+        return { enrollment_id: e.id, midterm: mid === '' ? null : Number(mid), final: fin === '' ? null : Number(fin) };
       });
-      setData((d) => ({ ...d, students: d.students.map((s) => (s.id === e.id ? { ...s, grade: g } : s)) }));
-      setEdits((x) => { const n = { ...x }; delete n[e.id]; return n; });
-      toast('Đã lưu điểm');
-    } catch (err) { toast(errMsg(err), 'bad'); }
+
+    setSaving(true);
+    try {
+      const { data: res } = await api.put(`/teacher/courses/${id}/grades`, { grades });
+      const failed = Object.fromEntries(res.errors.map((x) => [x.enrollment_id, x.message]));
+      const refreshed = await api.get(`/teacher/courses/${id}`);
+      setData(refreshed.data);
+      setEdits((prev) => Object.fromEntries(Object.entries(prev).filter(([k]) => failed[k])));
+      setRowErrors(failed);
+
+      if (res.errors.length === 0) {
+        toast(`Đã lưu điểm cho ${res.saved} sinh viên`);
+      } else {
+        await infoDialog({
+          icon: res.saved ? 'warning' : 'error',
+          title: res.saved ? `Đã lưu ${res.saved}, còn ${res.errors.length} dòng lỗi` : 'Không lưu được điểm',
+          html: errorList(res.errors),
+        });
+      }
+    } catch (err) {
+      toast(errMsg(err), 'bad');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const discard = async () => {
+    if (!(await confirmDialog({ title: 'Hủy các thay đổi?', text: `${changed} dòng chưa lưu sẽ bị bỏ.`, confirmText: 'Hủy thay đổi', danger: true }))) return;
+    setEdits({});
+    setRowErrors({});
+  };
+
+  const exportSheet = async () => {
+    setExporting(true);
+    await exportPdf(`/teacher/courses/${id}/export`, {}, 'bang-diem-lop.pdf');
+    setExporting(false);
   };
 
   const saveAttendance = async () => {
+    const ok = await confirmDialog({ title: 'Lưu điểm danh?', text: `Điểm danh ngày ${date} sẽ được ghi nhận cho cả lớp.`, confirmText: 'Lưu điểm danh' });
+    if (!ok) return;
     try {
       await api.post(`/teacher/courses/${id}/attendance`, {
         date, records: att.map(({ student_id, status, note }) => ({ student_id, status, note })),
@@ -100,6 +147,7 @@ export function TeacherCourseDetail() {
           <h1>{course.code} · {course.subject.name}</h1>
           <div className="sub">{course.semester.name} · {scheduleLabel(course)} · Phòng {course.room || '—'} · {students.length} sinh viên</div>
         </div>
+        <button className="btn" disabled={exporting} onClick={exportSheet}>{exporting ? 'Đang xuất...' : 'Xuất bảng điểm PDF'}</button>
       </div>
 
       {locked && (
@@ -109,27 +157,38 @@ export function TeacherCourseDetail() {
       )}
 
       <div className="tabs">
-        <button className={`tab ${tab === 'grades' ? 'active' : ''}`} onClick={() => setTab('grades')}>Nhập điểm</button>
+        <button className={`tab ${tab === 'grades' ? 'active' : ''}`} onClick={() => setTab('grades')}>Nhập điểm cả lớp</button>
         <button className={`tab ${tab === 'attendance' ? 'active' : ''}`} onClick={() => setTab('attendance')}>Điểm danh</button>
       </div>
 
       {tab === 'grades' && (
         <div className="card">
-          <div className="sub" style={{ marginBottom: 10 }}>
-            Tổng kết = Giữa kỳ × 40% + Cuối kỳ × 60%. Phải có điểm giữa kỳ mới nhập được cuối kỳ.
-            Sinh viên vắng quá {limit}% số buổi (từ {rules.min_sessions_for_ban} buổi) bị cấm thi.
+          <div className="grade-bar">
+            <div className="sub">
+              Nhập điểm cho nhiều sinh viên rồi bấm lưu một lần. Tổng kết = Giữa kỳ × 40% + Cuối kỳ × 60%.
+              Cần có giữa kỳ mới nhập được cuối kỳ; vắng quá {limit}% số buổi (từ {rules.min_sessions_for_ban} buổi) bị cấm thi.
+            </div>
+            <div className="grade-actions">
+              {changed > 0 && <button className="btn" disabled={saving} onClick={discard}>Hủy thay đổi</button>}
+              <button className="btn primary" disabled={locked || !changed || saving} onClick={saveAll}>
+                {saving ? 'Đang lưu...' : changed ? `Lưu điểm cả lớp (${changed})` : 'Lưu điểm cả lớp'}
+              </button>
+            </div>
           </div>
           <div className="table-wrap">
             <table>
-              <thead><tr><th>MSSV</th><th>Họ tên</th><th>Lớp</th><th>Chuyên cần</th><th>Giữa kỳ</th><th>Cuối kỳ</th><th>Tổng kết</th><th /></tr></thead>
+              <thead><tr><th>MSSV</th><th>Họ tên</th><th>Lớp</th><th>Chuyên cần</th><th>Giữa kỳ</th><th>Cuối kỳ</th><th>Tổng kết</th></tr></thead>
               <tbody>
-                {students.length === 0 ? <tr><td colSpan={8} className="empty">Lớp chưa có sinh viên</td></tr>
+                {students.length === 0 ? <tr><td colSpan={7} className="empty">Lớp chưa có sinh viên</td></tr>
                   : students.map((e) => {
                     const a = e.attendance;
                     return (
-                      <tr key={e.id}>
+                      <tr key={e.id} className={edits[e.id] ? 'row-dirty' : ''}>
                         <td>{e.student.student_code}</td>
-                        <td>{e.student.user.name}</td>
+                        <td>
+                          {e.student.user.name}
+                          {rowErrors[e.id] && <div className="row-err">{rowErrors[e.id]}</div>}
+                        </td>
                         <td>{e.student.school_class?.code}</td>
                         <td>
                           {a.sessions === 0 ? <span className="sub">Chưa điểm danh</span> : (
@@ -149,9 +208,6 @@ export function TeacherCourseDetail() {
                             value={cell(e, 'final')} onChange={(ev) => setCell(e, 'final', ev.target.value)} />
                         </td>
                         <td>{e.grade?.total != null ? <>{e.grade.total} <Badge color={letterColor(e.grade.letter)}>{e.grade.letter}</Badge></> : '—'}</td>
-                        <td className="actions">
-                          <button className="btn sm primary" disabled={locked || !edits[e.id]} onClick={() => saveGrade(e)}>Lưu</button>
-                        </td>
                       </tr>
                     );
                   })}

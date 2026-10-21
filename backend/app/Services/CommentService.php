@@ -6,8 +6,10 @@ use App\Contracts\Repositories\CommentRepositoryInterface;
 use App\Contracts\Services\CommentServiceInterface;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CommentService implements CommentServiceInterface
@@ -21,23 +23,27 @@ class CommentService implements CommentServiceInterface
         return $this->comments->forPost($post);
     }
 
-    public function add(Post $post, array $data): Comment
+    public function add(Post $post, User $author, array $data): Comment
     {
-        $name = trim(strip_tags($data['name']));
         $content = trim(preg_replace('/[ \t]+/u', ' ', strip_tags($data['content'])));
 
-        if ($name === '' || $content === '') {
-            throw new UnprocessableEntityHttpException('Tên và nội dung bình luận không được để trống.');
+        if ($content === '') {
+            throw new UnprocessableEntityHttpException('Nội dung bình luận không được để trống.');
         }
 
         $this->assertNoBannedWords($content);
         $this->assertNotTooManyLinks($content);
 
-        if ($this->comments->existsRecent($post->id, $name, $content, (int) config('school.comment_duplicate_seconds'))) {
+        if ($this->comments->existsRecent($post->id, $author->id, $content, (int) config('school.comment_duplicate_seconds'))) {
             throw new UnprocessableEntityHttpException('Bạn vừa gửi bình luận này, vui lòng đợi một lát trước khi gửi lại.');
         }
 
-        return $this->comments->create(['post_id' => $post->id, 'name' => $name, 'content' => $content]);
+        return $this->comments->create([
+            'post_id' => $post->id,
+            'user_id' => $author->id,
+            'name' => $author->name,
+            'content' => $content,
+        ]);
     }
 
     public function adminList(array $filters, int $perPage): LengthAwarePaginator
@@ -47,6 +53,15 @@ class CommentService implements CommentServiceInterface
 
     public function delete(Comment $comment): void
     {
+        $this->comments->delete($comment);
+    }
+
+    public function deleteOwn(User $user, Comment $comment): void
+    {
+        if ($user->role !== 'admin' && $comment->user_id !== $user->id) {
+            throw new AccessDeniedHttpException('Bạn chỉ có thể xóa bình luận của chính mình.');
+        }
+
         $this->comments->delete($comment);
     }
 

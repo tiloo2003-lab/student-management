@@ -12,6 +12,8 @@ class ReportController extends Controller
     {
         $semesterId = $request->filled('semester_id') ? (int) $request->query('semester_id') : null;
 
-        return $reports->overview($semesterId);
+        $classId = $request->filled('class_id') ? (int) $request->query('class_id') : null;
+
+        return $reports->overview($semesterId, $classId);
     }
 }

@@ -6,9 +6,8 @@ use App\Contracts\Services\TeacherPortalServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttendanceDateRequest;
 use App\Http\Requests\SaveAttendanceRequest;
-use App\Http\Requests\UpdateGradeRequest;
+use App\Http\Requests\SaveGradesRequest;
 use App\Models\Course;
-use App\Models\Enrollment;
 use Illuminate\Http\Request;
 
 class TeacherPortalController extends Controller
@@ -29,17 +28,15 @@ class TeacherPortalController extends Controller
         return $this->portal->course($request->user(), $course);
     }
 
-    public function updateGrade(UpdateGradeRequest $request, Enrollment $enrollment)
+    public function saveGrades(SaveGradesRequest $request, Course $course)
     {
-        $midterm = $request->validated('midterm');
-        $final = $request->validated('final');
+        $rows = array_map(fn ($row) => [
+            'enrollment_id' => (int) $row['enrollment_id'],
+            'midterm' => isset($row['midterm']) ? (float) $row['midterm'] : null,
+            'final' => isset($row['final']) ? (float) $row['final'] : null,
+        ], $request->validated('grades'));
 
-        return $this->portal->updateGrade(
-            $request->user(),
-            $enrollment,
-            $midterm !== null ? (float) $midterm : null,
-            $final !== null ? (float) $final : null
-        );
+        return $this->portal->saveGrades($request->user(), $course, $rows);
     }
 
     public function attendance(AttendanceDateRequest $request, Course $course)

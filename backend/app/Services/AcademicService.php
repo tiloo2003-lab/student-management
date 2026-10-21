@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\Repositories\EnrollmentRepositoryInterface;
 use App\Contracts\Services\AcademicServiceInterface;
 use App\Support\GradeCalculator;
+use Illuminate\Support\Collection;
 
 class AcademicService implements AcademicServiceInterface
 {
@@ -12,9 +13,10 @@ class AcademicService implements AcademicServiceInterface
     {
     }
 
-    public function transcript(int $studentId): array
+    public function transcript(int $studentId, array $filters = []): array
     {
-        $items = $this->enrollments->forStudent($studentId);
+        $all = $this->enrollments->forStudent($studentId);
+        $items = $this->applyFilters($all, $filters);
 
         $semesters = $items
             ->groupBy(fn ($e) => $e->course->semester_id)
@@ -23,7 +25,7 @@ class AcademicService implements AcademicServiceInterface
                 $summary = GradeCalculator::summarize($group);
 
                 return [
-                    'semester' => $semester->only(['id', 'name', 'is_current']),
+                    'semester' => $semester->only(['id', 'name', 'academic_year', 'is_current']),
                     'registered_credits' => (int) $group->sum(fn ($e) => $e->course->subject->credits),
                     'graded_credits' => $summary['credits'],
                     'credits_earned' => $summary['credits_earned'],
@@ -60,6 +62,33 @@ class AcademicService implements AcademicServiceInterface
                 'classification' => GradeCalculator::classification($summary['gpa']),
             ],
             'standing' => $this->standing($semesters->first(fn ($s) => $s['graded_credits'] > 0)),
+            'options' => $this->options($all),
+        ];
+    }
+
+    private function applyFilters(Collection $items, array $filters): Collection
+    {
+        return $items
+            ->when(! empty($filters['academic_year']), fn ($c) => $c->filter(
+                fn ($e) => $e->course->semester->academic_year === $filters['academic_year']
+            ))
+            ->when(! empty($filters['semester_id']), fn ($c) => $c->filter(
+                fn ($e) => (int) $e->course->semester_id === (int) $filters['semester_id']
+            ))
+            ->when(! empty($filters['subject_id']), fn ($c) => $c->filter(
+                fn ($e) => (int) $e->course->subject_id === (int) $filters['subject_id']
+            ))
+            ->values();
+    }
+
+    private function options(Collection $all): array
+    {
+        return [
+            'academic_years' => $all->map(fn ($e) => $e->course->semester->academic_year)->unique()->sortDesc()->values(),
+            'semesters' => $all->map(fn ($e) => $e->course->semester->only(['id', 'name', 'academic_year']))
+                ->unique('id')->sortByDesc('id')->values(),
+            'subjects' => $all->map(fn ($e) => ['id' => $e->course->subject->id, 'name' => $e->course->subject->name])
+                ->unique('id')->sortBy('name')->values(),
         ];
     }
 

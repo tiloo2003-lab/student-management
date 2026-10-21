@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../../api';
 import { Badge, Loading } from '../../components/ui';
+import { exportPdf } from '../../download';
 import { attendanceLabel, fmtDate, letterColor, scheduleLabel } from '../../utils';
 
 export function StudentCourses() {
@@ -38,24 +39,68 @@ export function StudentCourses() {
 
 export function StudentGrades() {
   const [data, setData] = useState(null);
-  useEffect(() => { api.get('/student/grades').then((r) => setData(r.data)); }, []);
-  if (!data) return <Loading />;
+  const [filters, setFilters] = useState({ academic_year: '', semester_id: '', subject_id: '' });
+  const [options, setOptions] = useState(null);
+  const [exporting, setExporting] = useState(false);
+
+  useEffect(() => {
+    const params = Object.fromEntries(Object.entries(filters).filter(([, v]) => v !== ''));
+    api.get('/student/grades', { params }).then((r) => {
+      setData(r.data);
+      setOptions((prev) => prev || r.data.options);
+    });
+  }, [filters]);
+
+  if (!data || !options) return <Loading />;
+
+  const set = (key, value) => setFilters((f) => ({
+    ...f,
+    [key]: value,
+    ...(key === 'academic_year' ? { semester_id: '' } : {}),
+  }));
+  const semesterOptions = options.semesters.filter((s) => !filters.academic_year || s.academic_year === filters.academic_year);
+  const filtered = Object.values(filters).some((v) => v !== '');
+
+  const exportFile = async () => {
+    setExporting(true);
+    await exportPdf('/student/grades/export', filters, 'ket-qua-hoc-tap.pdf');
+    setExporting(false);
+  };
 
   return (
     <>
-      <div className="page-head"><h1>Bảng điểm</h1></div>
+      <div className="page-head">
+        <h1>Bảng điểm</h1>
+        <button className="btn primary" disabled={exporting} onClick={exportFile}>{exporting ? 'Đang xuất...' : 'Xuất PDF'}</button>
+      </div>
+
+      <div className="filter-row">
+        <select value={filters.academic_year} onChange={(e) => set('academic_year', e.target.value)}>
+          <option value="">Tất cả năm học</option>
+          {options.academic_years.map((y) => <option key={y} value={y}>{y}</option>)}
+        </select>
+        <select value={filters.semester_id} onChange={(e) => set('semester_id', e.target.value)}>
+          <option value="">Tất cả học kỳ</option>
+          {semesterOptions.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+        </select>
+        <select value={filters.subject_id} onChange={(e) => set('subject_id', e.target.value)}>
+          <option value="">Tất cả môn học</option>
+          {options.subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+        </select>
+        {filtered && <button className="btn" onClick={() => setFilters({ academic_year: '', semester_id: '', subject_id: '' })}>Bỏ lọc</button>}
+      </div>
 
       {data.standing?.warning && <div className="alert">{data.standing.warning}</div>}
       {data.standing?.scholarship && <div className="alert ok">{data.standing.scholarship}</div>}
 
       <div className="grid stats">
-        <div className="card stat"><div className="ico">⭐</div><div><div className="num">{data.gpa ?? '—'}</div><div className="lbl">Điểm TB tích lũy (hệ 10)</div></div></div>
+        <div className="card stat"><div className="ico">⭐</div><div><div className="num">{data.gpa ?? '—'}</div><div className="lbl">Điểm TB{filtered ? ' (theo bộ lọc)' : ' tích lũy'} · hệ 10</div></div></div>
         <div className="card stat"><div className="ico">🎯</div><div><div className="num">{data.gpa4 ?? '—'}</div><div className="lbl">Điểm TB hệ 4</div></div></div>
         <div className="card stat"><div className="ico">🏅</div><div><div className="num" style={{ fontSize: 26 }}>{data.classification ?? '—'}</div><div className="lbl">Xếp loại học lực</div></div></div>
         <div className="card stat"><div className="ico">✅</div><div><div className="num">{data.credits_earned}</div><div className="lbl">Tín chỉ đạt ({data.credits_failed} chưa đạt)</div></div></div>
       </div>
 
-      {data.semesters.length === 0 && <div className="card empty">Chưa có dữ liệu</div>}
+      {data.semesters.length === 0 && <div className="card empty">Không có dữ liệu phù hợp với bộ lọc</div>}
 
       {data.semesters.map((s) => (
         <div className="card" key={s.semester.id}>
@@ -92,7 +137,6 @@ export function StudentGrades() {
     </>
   );
 }
-
 const attColor = { present: 'green', late: 'amber', absent: 'red', excused: 'blue' };
 
 export function StudentAttendance() {

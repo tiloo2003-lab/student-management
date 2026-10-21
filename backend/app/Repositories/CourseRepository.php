@@ -18,6 +18,11 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
 
     protected array $filterable = ['semester_id', 'teacher_id', 'subject_id'];
 
+    protected array $relationFilters = [
+        'academic_year' => 'semester.academic_year',
+        'department_id' => 'subject.department_id',
+    ];
+
     public function forPortal(?int $teacherId = null, ?int $semesterId = null): Collection
     {
         return Course::with(['subject:id,code,name,credits', 'semester:id,name,is_current'])

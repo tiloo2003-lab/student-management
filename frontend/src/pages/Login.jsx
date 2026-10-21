@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../auth';
 import { errMsg } from '../api';
 
@@ -12,12 +12,15 @@ const DEMO = [
 export default function Login() {
   const { user, login } = useAuth();
   const nav = useNavigate();
+  const [params] = useSearchParams();
+  const wanted = params.get('redirect');
+  const target = wanted && wanted.startsWith('/') && !wanted.startsWith('//') ? wanted : '/admin';
   const [email, setEmail] = useState('admin1@school.test');
   const [password, setPassword] = useState('password');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
-  if (user) return <Navigate to="/admin" replace />;
+  if (user) return <Navigate to={target} replace />;
 
   const submit = async (e) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ export default function Login() {
     setError('');
     try {
       await login(email, password);
-      nav('/admin');
+      nav(target);
     } catch (err) {
       setError(errMsg(err));
     } finally {

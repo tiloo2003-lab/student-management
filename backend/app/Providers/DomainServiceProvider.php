@@ -10,9 +10,11 @@ use App\Http\Controllers\Api\SubjectController;
 use App\Repositories;
 use App\Services;
 use App\Contracts\Support\LoginThrottleInterface;
+use App\Contracts\Support\PdfRendererInterface;
 use App\Contracts\Support\TransactionInterface;
 use App\Support\CacheLoginThrottle;
 use App\Support\DatabaseTransaction;
+use App\Support\DompdfRenderer;
 use App\Support\PublicImageStorage;
 use Illuminate\Support\ServiceProvider;
 
@@ -56,6 +58,7 @@ class DomainServiceProvider extends ServiceProvider
         S\AcademicServiceInterface::class => Services\AcademicService::class,
         S\ReportServiceInterface::class => Services\ReportService::class,
         S\SchoolClassServiceInterface::class => Services\SchoolClassService::class,
+        S\ExportServiceInterface::class => Services\ExportService::class,
         S\StudentPortalServiceInterface::class => Services\StudentPortalService::class,
     ];
 
@@ -77,6 +80,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->bind(ImageStorageInterface::class, PublicImageStorage::class);
         $this->app->bind(TransactionInterface::class, DatabaseTransaction::class);
         $this->app->bind(LoginThrottleInterface::class, CacheLoginThrottle::class);
+        $this->app->bind(PdfRendererInterface::class, DompdfRenderer::class);
 
         foreach (self::GENERIC_CRUD as $controller => $repository) {
             $this->app->when($controller)

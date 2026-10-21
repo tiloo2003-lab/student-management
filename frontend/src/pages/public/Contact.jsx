@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { errMsg, fieldErrors } from '../../api';
+import { confirmDialog } from '../../notify';
 
 const empty = { name: '', email: '', phone: '', subject: '', message: '' };
 
@@ -15,6 +16,7 @@ export default function Contact() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (!(await confirmDialog({ title: 'Gửi liên hệ?', text: 'Nội dung sẽ được gửi tới nhà trường.', confirmText: 'Gửi liên hệ' }))) return;
     setSending(true);
     setErrors({});
     setError('');

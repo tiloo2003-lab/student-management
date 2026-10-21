@@ -1,21 +1,8 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { notify } from '../notify';
 
-const ToastCtx = createContext(() => {});
-export const useToast = () => useContext(ToastCtx);
+export const useToast = () => notify;
 
-export function ToastProvider({ children }) {
-  const [t, setT] = useState(null);
-  const show = useCallback((msg, type = 'ok') => {
-    setT({ msg, type });
-    setTimeout(() => setT(null), 3000);
-  }, []);
-  return (
-    <ToastCtx.Provider value={show}>
-      {children}
-      {t && <div className={`toast ${t.type}`}>{t.msg}</div>}
-    </ToastCtx.Provider>
-  );
-}
+export const ToastProvider = ({ children }) => children;
 
 export function Modal({ title, onClose, children, footer }) {
   return (

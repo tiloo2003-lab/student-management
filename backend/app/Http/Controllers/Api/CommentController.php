@@ -23,9 +23,16 @@ class CommentController extends Controller
 
     public function store(CommentRequest $request, Post $post): JsonResponse
     {
-        $comment = $this->comments->add($post, $request->validated());
+        $comment = $this->comments->add($post, $request->user(), $request->validated());
 
-        return response()->json($comment->only(['id', 'name', 'content', 'created_at']), 201);
+        return response()->json($comment->only(['id', 'user_id', 'name', 'content', 'created_at']), 201);
+    }
+
+    public function destroyOwn(Request $request, Post $post, Comment $comment): array
+    {
+        $this->comments->deleteOwn($request->user(), $comment);
+
+        return ['message' => 'Đã xóa bình luận.'];
     }
 
     public function adminIndex(Request $request)

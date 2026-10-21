@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import api, { errMsg, fieldErrors } from '../api';
 import { useAuth } from '../auth';
 import { Badge, Loading, Modal, Pager, useToast } from '../components/ui';
+import { confirmDelete, confirmSave } from '../notify';
 import { fmtDate, targetLabel } from '../utils';
 
 export default function Announcements() {
@@ -27,6 +28,7 @@ export default function Announcements() {
 
   const save = async (e) => {
     e.preventDefault();
+    if (!(await confirmSave(!!modal.item, 'thông báo'))) return;
     try {
       if (modal.item) await api.put(`/announcements/${modal.item.id}`, form);
       else await api.post('/announcements', form);
@@ -40,7 +42,7 @@ export default function Announcements() {
   };
 
   const remove = async (a) => {
-    if (!window.confirm('Xóa thông báo này?')) return;
+    if (!(await confirmDelete('Thông báo sẽ bị xóa.'))) return;
     await api.delete(`/announcements/${a.id}`);
     toast('Đã xóa');
     load();

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import api, { errMsg, fieldErrors } from '../api';
 import { get } from '../utils';
 import { Modal, Pager, useToast, Loading } from './ui';
+import { confirmDelete, confirmSave } from '../notify';
 
 const optionCache = new Map();
 
@@ -56,8 +57,11 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
 
   const optsFor = (f) => {
     if (f.options) return f.options;
-    const list = options[f.optionsFrom.endpoint] || [];
-    return list.map((r) => ({ value: r.id, label: f.optionsFrom.label(r) }));
+    const source = f.optionsFrom;
+    const valueOf = source.value || ((r) => r.id);
+    const mapped = (options[source.endpoint] || []).map((r) => ({ value: valueOf(r), label: source.label(r) }));
+    if (!source.unique) return mapped;
+    return [...new Map(mapped.map((o) => [o.value, o])).values()].sort((a, b) => String(b.value).localeCompare(String(a.value)));
   };
 
   const openForm = (item) => {
@@ -72,6 +76,7 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
 
   const save = async (e) => {
     e.preventDefault();
+    if (!(await confirmSave(!!modal.item, title.toLowerCase()))) return;
     setSaving(true);
     setErrors({});
     const payload = { ...form };
@@ -93,7 +98,7 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
   };
 
   const remove = async (row) => {
-    if (!window.confirm('Bạn có chắc muốn xóa bản ghi này?')) return;
+    if (!(await confirmDelete())) return;
     try {
       await api.delete(`/${endpoint}/${row.id}`);
       optionCache.delete(endpoint);

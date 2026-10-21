@@ -3,8 +3,6 @@
 namespace App\Contracts\Services;
 
 use App\Models\Course;
-use App\Models\Enrollment;
-use App\Models\Grade;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
@@ -14,7 +12,7 @@ interface TeacherPortalServiceInterface
 
     public function course(User $user, Course $course): array;
 
-    public function updateGrade(User $user, Enrollment $enrollment, ?float $midterm, ?float $final): Grade;
+    public function saveGrades(User $user, Course $course, array $rows): array;
 
     public function attendance(User $user, Course $course, string $date): Collection;
 

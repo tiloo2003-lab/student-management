@@ -12,6 +12,8 @@ class SemesterRepository extends BaseRepository implements SemesterRepositoryInt
 
     protected array $searchable = ['name', 'academic_year'];
 
+    protected array $filterable = ['academic_year'];
+
     public function current(): ?Semester
     {
         return Semester::where('is_current', true)->first();

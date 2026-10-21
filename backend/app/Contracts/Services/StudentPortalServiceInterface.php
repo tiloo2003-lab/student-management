@@ -9,7 +9,7 @@ interface StudentPortalServiceInterface
 {
     public function courses(User $user): Collection;
 
-    public function grades(User $user): array;
+    public function grades(User $user, array $filters = []): array;
 
     public function attendance(User $user): array;
 }

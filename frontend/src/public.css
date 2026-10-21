@@ -152,11 +152,18 @@
 .like-bar .share { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
 .comments { margin-top: 36px; }
 .cmt-form { display: grid; gap: 10px; margin-bottom: 24px; }
-.cmt-form input, .cmt-form textarea, .contact-form input, .contact-form textarea { border: 1px solid #e6e6e6; border-radius: 10px; padding: 11px 14px; font: inherit; width: 100%; outline: none; }
-.cmt-form input:focus, .cmt-form textarea:focus, .contact-form input:focus, .contact-form textarea:focus { border-color: var(--o); box-shadow: 0 0 0 3px var(--o-soft); }
+.cmt-form textarea, .contact-form input, .contact-form textarea { border: 1px solid #e6e6e6; border-radius: 10px; padding: 11px 14px; font: inherit; width: 100%; outline: none; }
+.cmt-form textarea:focus, .contact-form input:focus, .contact-form textarea:focus { border-color: var(--o); box-shadow: 0 0 0 3px var(--o-soft); }
 .cmt-form .pub-btn { justify-self: start; }
 .cmt { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .cmt-ava { width: 42px; height: 42px; border-radius: 50%; background: var(--o-soft); color: var(--o-dark); display: grid; place-items: center; flex-shrink: 0; }
+.cmt-main { flex: 1; min-width: 0; }
+.cmt-as { color: var(--mut); font-size: 14.5px; }
+.cmt-as b { color: var(--ink); font-weight: 500; }
+.cmt-login { background: var(--o-soft); border-radius: 12px; padding: 16px 18px; margin-bottom: 22px; }
+.cmt-login a { color: var(--o-dark) !important; text-decoration: underline; }
+.cmt-del { align-self: flex-start; background: none; border: 0; color: var(--mut); cursor: pointer; font: inherit; font-size: 14px; }
+.cmt-del:hover { color: #dc2626; }
 .cmt small { color: var(--mut); margin-left: 6px; }
 .cmt b { font-weight: 500; }
 .cmt p { margin: 4px 0 0; white-space: pre-wrap; }

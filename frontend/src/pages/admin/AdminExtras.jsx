@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api, { errMsg } from '../../api';
 import CrudPage from '../../components/CrudPage';
 import { Badge, Loading, Modal, Pager, useToast } from '../../components/ui';
+import { confirmDelete, confirmDialog } from '../../notify';
 import { fmtDate } from '../../utils';
 
 export const CategoriesPage = () => (
@@ -50,7 +51,7 @@ export function CommentsPage() {
   const { data, setPage, setQuery, reload, toast } = useList('/manage/comments');
 
   const remove = async (c) => {
-    if (!window.confirm('Xóa bình luận này?')) return;
+    if (!(await confirmDelete('Bình luận sẽ bị xóa khỏi bài viết.'))) return;
     try {
       await api.delete(`/manage/comments/${c.id}`);
       toast('Đã xóa');
@@ -91,15 +92,18 @@ export function MessagesPage() {
   const { data, setPage, setQuery, reload, toast } = useList('/manage/messages');
   const [view, setView] = useState(null);
 
-  const open = async (m) => {
-    setView(m);
-    if (!m.is_read) {
-      try { await api.put(`/manage/messages/${m.id}/read`); reload(); } catch {}
-    }
+  const markRead = async (m) => {
+    if (!(await confirmDialog({ title: 'Đánh dấu đã đọc?', text: 'Tin nhắn sẽ chuyển sang trạng thái đã đọc.', confirmText: 'Đánh dấu' }))) return;
+    try {
+      await api.put(`/manage/messages/${m.id}/read`);
+      toast('Đã đánh dấu đã đọc');
+      setView({ ...m, is_read: true });
+      reload();
+    } catch (e) { toast(errMsg(e), 'bad'); }
   };
 
   const remove = async (m) => {
-    if (!window.confirm('Xóa tin nhắn này?')) return;
+    if (!(await confirmDelete('Tin nhắn liên hệ sẽ bị xóa.'))) return;
     try {
       await api.delete(`/manage/messages/${m.id}`);
       toast('Đã xóa');
@@ -127,7 +131,7 @@ export function MessagesPage() {
                     <td>{fmtDate(m.created_at)}</td>
                     <td><Badge color={m.is_read ? 'gray' : 'amber'}>{m.is_read ? 'Đã đọc' : 'Mới'}</Badge></td>
                     <td className="actions">
-                      <button className="btn sm" onClick={() => open(m)}>Xem</button>
+                      <button className="btn sm" onClick={() => setView(m)}>Xem</button>
                       <button className="btn sm danger" onClick={() => remove(m)}>Xóa</button>
                     </td>
                   </tr>
@@ -140,7 +144,10 @@ export function MessagesPage() {
 
       {view && (
         <Modal title={view.subject} onClose={() => setView(null)}
-          footer={<button className="btn" onClick={() => setView(null)}>Đóng</button>}>
+          footer={<>
+            {!view.is_read && <button className="btn primary" onClick={() => markRead(view)}>Đánh dấu đã đọc</button>}
+            <button className="btn" onClick={() => setView(null)}>Đóng</button>
+          </>}>
           <p className="sub">Từ: <b>{view.name}</b> · {view.email}{view.phone ? ` · ${view.phone}` : ''} · {fmtDate(view.created_at)}</p>
           <p style={{ whiteSpace: 'pre-wrap' }}>{view.message}</p>
         </Modal>

@@ -20,6 +20,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     protected array $filterable = [];
 
+    protected array $relationFilters = [];
+
     protected function query(): Builder
     {
         return ($this->model)::query()->with($this->with)->withCount($this->withCount);
@@ -46,6 +48,15 @@ abstract class BaseRepository implements BaseRepositoryInterface
         foreach ($this->filterable as $field) {
             if (isset($filters[$field]) && $filters[$field] !== '') {
                 $query->where($field, $filters[$field]);
+            }
+        }
+
+        foreach ($this->relationFilters as $param => $path) {
+            if (isset($filters[$param]) && $filters[$param] !== '') {
+                $cut = strrpos($path, '.');
+                $relation = substr($path, 0, $cut);
+                $column = substr($path, $cut + 1);
+                $query->whereHas($relation, fn (Builder $q) => $q->where($column, $filters[$param]));
             }
         }
 

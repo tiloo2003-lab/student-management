@@ -19,7 +19,7 @@ class StudentPortalController extends Controller
 
     public function grades(Request $request)
     {
-        return $this->portal->grades($request->user());
+        return $this->portal->grades($request->user(), $request->only(['academic_year', 'semester_id', 'subject_id']));
     }
 
     public function attendance(Request $request)

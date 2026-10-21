@@ -64,6 +64,16 @@ Quy tắc phân lớp: Controller không chứa nghiệp vụ; Service không g�
 
 Thêm một thực thể mới: tạo Model, `XRepositoryInterface` + `XRepository`, (service nếu có nghiệp vụ riêng), `XRequest`, `XController`, rồi khai báo trong `DomainServiceProvider`.
 
+## Xuất PDF, bộ lọc, nhập điểm cả lớp
+
+- **Xuất PDF** (dompdf, font DejaVu hỗ trợ tiếng Việt):
+  - Sinh viên: `Bảng điểm` lọc theo năm học, học kỳ, môn học rồi bấm **Xuất PDF**.
+  - Giáo viên/Admin: nút **Xuất bảng điểm PDF** trong trang lớp học phần.
+  - Admin: nút **PDF** ở danh sách sinh viên (chọn học kỳ), và **Xuất PDF** ở Báo cáo học vụ.
+- **Bộ lọc**: sinh viên (niên khóa, khoa, lớp, giới tính, trạng thái), lớp (khoa, niên khóa), lớp học phần (năm học, học kỳ, khoa, giáo viên), học kỳ (năm học), giáo viên (khoa, học vị), báo cáo (năm học, học kỳ, lớp).
+- **Nhập điểm theo cả lớp**: sửa điểm nhiều sinh viên rồi bấm **Lưu điểm cả lớp** một lần; dòng lỗi (cấm thi, thiếu giữa kỳ...) được báo riêng, các dòng hợp lệ vẫn lưu.
+- **Bình luận** yêu cầu đăng nhập; người dùng xóa được bình luận của mình, admin xóa được tất cả.
+- **Popup** dùng SweetAlert2 (xác nhận xóa, thông báo, chọn học kỳ khi xuất PDF).
 ## Quy tắc nghiệp vụ (cấu hình ở `backend/config/school.php`)
 
 | Nhóm | Quy tắc | Nơi xử lý |

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import api, { errMsg, fieldErrors } from '../api';
 import { useAuth } from '../auth';
 import { useToast } from '../components/ui';
+import { confirmDialog } from '../notify';
 import { roleLabel } from '../utils';
 
 export default function Profile() {
@@ -13,6 +14,7 @@ export default function Profile() {
 
   const saveInfo = async (e) => {
     e.preventDefault();
+    if (!(await confirmDialog({ title: 'Cập nhật hồ sơ?', text: 'Thông tin cá nhân của bạn sẽ được thay đổi.', confirmText: 'Cập nhật' }))) return;
     try {
       const { data } = await api.put('/profile', info);
       setUser(data);
@@ -22,6 +24,7 @@ export default function Profile() {
 
   const savePw = async (e) => {
     e.preventDefault();
+    if (!(await confirmDialog({ title: 'Đổi mật khẩu?', text: 'Bạn sẽ dùng mật khẩu mới cho lần đăng nhập sau.', confirmText: 'Đổi mật khẩu' }))) return;
     setPwErr({});
     try {
       await api.put('/password', pw);

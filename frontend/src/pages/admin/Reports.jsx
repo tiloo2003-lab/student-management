@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import api, { errMsg } from '../../api';
 import { Badge, Loading, useToast } from '../../components/ui';
+import { exportPdf } from '../../download';
 import { letterColor } from '../../utils';
 
 const pct = (v) => (v === null || v === undefined ? '—' : `${v}%`);
@@ -27,16 +28,40 @@ function Table({ title, rows, columns, empty }) {
 export default function Reports() {
   const toast = useToast();
   const [semesterId, setSemesterId] = useState('');
+  const [classId, setClassId] = useState('');
+  const [year, setYear] = useState('');
   const [data, setData] = useState(null);
+  const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
-    api.get('/reports/overview', { params: semesterId ? { semester_id: semesterId } : {} })
+    const params = {};
+    if (semesterId) params.semester_id = semesterId;
+    if (classId) params.class_id = classId;
+    api.get('/reports/overview', { params })
       .then((r) => setData(r.data))
       .catch((e) => toast(errMsg(e), 'bad'));
-  }, [semesterId, toast]);
+  }, [semesterId, classId, toast]);
+
+  const years = useMemo(() => [...new Set((data?.semesters || []).map((s) => s.academic_year))], [data?.semesters]);
 
   if (!data) return <Loading />;
+
+  const activeYear = year || data.semester?.academic_year || '';
+  const semesterOptions = data.semesters.filter((s) => !activeYear || s.academic_year === activeYear);
   const s = data.summary;
+
+  const pickYear = (value) => {
+    setYear(value);
+    const first = data.semesters.find((x) => x.academic_year === value);
+    if (first) setSemesterId(String(first.id));
+  };
+
+  const exportFile = async () => {
+    setExporting(true);
+    await exportPdf('/reports/export', { semester_id: data.semester?.id, class_id: classId }, 'bao-cao-hoc-vu.pdf');
+    setExporting(false);
+  };
+
   const studentCols = [
     { key: 'student_code', label: 'MSSV' }, { key: 'name', label: 'Họ tên' }, { key: 'class', label: 'Lớp' },
     { key: 'gpa', label: 'ĐTB kỳ' }, { key: 'credits', label: 'TC' }, { key: 'credits_failed', label: 'TC chưa đạt' },
@@ -47,10 +72,21 @@ export default function Reports() {
       <div className="page-head">
         <div>
           <h1>Báo cáo học vụ</h1>
-          <div className="sub">{data.semester?.name}</div>
+          <div className="sub">{data.semester?.name}{classId ? ` · lớp ${data.class_options.find((c) => String(c.id) === String(classId))?.code}` : ''}</div>
         </div>
-        <select style={{ width: 'auto', minWidth: 220 }} value={semesterId || data.semester?.id || ''} onChange={(e) => setSemesterId(e.target.value)}>
-          {data.semesters.map((x) => <option key={x.id} value={x.id}>{x.name}{x.is_current ? ' (hiện tại)' : ''}</option>)}
+        <button className="btn primary" disabled={exporting || !data.semester} onClick={exportFile}>{exporting ? 'Đang xuất...' : 'Xuất PDF'}</button>
+      </div>
+
+      <div className="filter-row">
+        <select value={activeYear} onChange={(e) => pickYear(e.target.value)}>
+          {years.map((y) => <option key={y} value={y}>Năm học {y}</option>)}
+        </select>
+        <select value={data.semester?.id || ''} onChange={(e) => setSemesterId(e.target.value)}>
+          {semesterOptions.map((x) => <option key={x.id} value={x.id}>{x.name}{x.is_current ? ' (hiện tại)' : ''}</option>)}
+        </select>
+        <select value={classId} onChange={(e) => setClassId(e.target.value)}>
+          <option value="">Tất cả các lớp</option>
+          {data.class_options.map((c) => <option key={c.id} value={c.id}>{c.code} - {c.name}</option>)}
         </select>
       </div>
 

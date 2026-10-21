@@ -27,10 +27,9 @@ class StudentPortalService implements StudentPortalServiceInterface
             ->values();
     }
 
-    public function grades(User $user): array
+    public function grades(User $user, array $filters = []): array
     {
-        $studentId = $this->studentIdOf($user);
-        $transcript = $this->academic->transcript($studentId);
+        $transcript = $this->academic->transcript($this->studentIdOf($user), $filters);
         $cumulative = $transcript['cumulative'];
 
         return [
@@ -42,7 +41,7 @@ class StudentPortalService implements StudentPortalServiceInterface
             'classification' => $cumulative['classification'],
             'standing' => $transcript['standing'],
             'semesters' => $transcript['semesters'],
-            'items' => $this->courses($user),
+            'options' => $transcript['options'],
         ];
     }
 

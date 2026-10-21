@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import api, { errMsg } from '../../api';
 import { Badge, Loading, useToast } from '../../components/ui';
+import { confirmDialog } from '../../notify';
 import { scheduleLabel } from '../../utils';
 
 export default function Registration() {
@@ -15,6 +16,14 @@ export default function Registration() {
   useEffect(load, [load]);
 
   const act = async (course, method) => {
+    const cancelling = method === 'delete';
+    const ok = await confirmDialog({
+      title: cancelling ? 'Hủy đăng ký học phần?' : 'Đăng ký học phần?',
+      text: `${course.code} - ${course.subject.name} (${course.subject.credits} tín chỉ)`,
+      confirmText: cancelling ? 'Hủy đăng ký' : 'Đăng ký',
+      danger: cancelling,
+    });
+    if (!ok) return;
     setBusy(course.id);
     try {
       const { data: res } = await api({ method, url: `/student/registration/${course.id}` });
