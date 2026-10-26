@@ -19,7 +19,7 @@ class ContactController extends Controller
     {
         $this->contacts->submit($request->validated());
 
-        return response()->json(['message' => 'Đã gửi liên hệ. Chúng tôi sẽ phản hồi sớm nhất.'], 201);
+        return response()->json(['message' => 'Your message has been sent. We will get back to you soon.'], 201);
     }
 
     public function index(Request $request)
@@ -36,6 +36,6 @@ class ContactController extends Controller
     {
         $this->contacts->delete($message);
 
-        return ['message' => 'Đã xóa.'];
+        return ['message' => 'Deleted.'];
     }
 }

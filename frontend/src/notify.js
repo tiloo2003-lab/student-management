@@ -18,14 +18,14 @@ const Toast = Swal.mixin({
 export const notify = (message, type = 'ok') =>
   Toast.fire({ icon: type === 'bad' ? 'error' : 'success', title: message });
 
-export const confirmDialog = async ({ title = 'Xác nhận', text = '', confirmText = 'Đồng ý', danger = false } = {}) => {
+export const confirmDialog = async ({ title = 'Confirm', text = '', confirmText = 'Confirm', danger = false } = {}) => {
   const result = await Swal.fire({
     icon: danger ? 'warning' : 'question',
     title,
     text,
     showCancelButton: true,
     confirmButtonText: confirmText,
-    cancelButtonText: 'Hủy',
+    cancelButtonText: 'Cancel',
     confirmButtonColor: danger ? DANGER : PRIMARY,
     cancelButtonColor: '#9aa5b5',
     reverseButtons: true,
@@ -34,16 +34,16 @@ export const confirmDialog = async ({ title = 'Xác nhận', text = '', confirmT
   return result.isConfirmed;
 };
 
-export const confirmDelete = (text = 'Dữ liệu sẽ bị xóa và không thể khôi phục.') =>
-  confirmDialog({ title: 'Bạn có chắc muốn xóa?', text, confirmText: 'Xóa', danger: true });
+export const confirmDelete = (text = 'This will be permanently deleted and cannot be restored.') =>
+  confirmDialog({ title: 'Are you sure you want to delete?', text, confirmText: 'Delete', danger: true });
 
-export const confirmSave = (editing, what = 'dữ liệu') => confirmDialog({
-  title: editing ? `Lưu thay đổi ${what}?` : `Thêm mới ${what}?`,
-  text: editing ? 'Thông tin hiện tại sẽ được cập nhật.' : 'Dữ liệu mới sẽ được lưu vào hệ thống.',
-  confirmText: editing ? 'Lưu thay đổi' : 'Thêm mới',
+export const confirmSave = (editing, what = 'this record') => confirmDialog({
+  title: editing ? `Save changes to ${what}?` : `Add new ${what}?`,
+  text: editing ? 'The existing information will be updated.' : 'The new record will be saved to the system.',
+  confirmText: editing ? 'Save changes' : 'Add',
 });
 
-export const selectDialog = async ({ title, text = '', options, confirmText = 'Xuất PDF' }) => {
+export const selectDialog = async ({ title, text = '', options, confirmText = 'Export PDF' }) => {
   const result = await Swal.fire({
     title,
     text,
@@ -51,7 +51,7 @@ export const selectDialog = async ({ title, text = '', options, confirmText = 'X
     inputOptions: options,
     showCancelButton: true,
     confirmButtonText: confirmText,
-    cancelButtonText: 'Hủy',
+    cancelButtonText: 'Cancel',
     confirmButtonColor: PRIMARY,
     cancelButtonColor: '#9aa5b5',
     reverseButtons: true,
@@ -60,4 +60,4 @@ export const selectDialog = async ({ title, text = '', options, confirmText = 'X
 };
 
 export const infoDialog = ({ title, html, icon = 'info' }) =>
-  Swal.fire({ icon, title, html, confirmButtonText: 'Đã hiểu', confirmButtonColor: PRIMARY });
+  Swal.fire({ icon, title, html, confirmButtonText: 'Got it', confirmButtonColor: PRIMARY });

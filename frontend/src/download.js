@@ -6,15 +6,15 @@ const readError = async (error) => {
   if (data instanceof Blob) {
     try {
       const json = JSON.parse(await data.text());
-      return json.message || 'Không thể xuất file';
+      return json.message || 'Could not export the file';
     } catch {
-      return 'Không thể xuất file';
+      return 'Could not export the file';
     }
   }
   return errMsg(error);
 };
 
-export async function exportPdf(url, params = {}, fallbackName = 'tai-lieu.pdf') {
+export async function exportPdf(url, params = {}, fallbackName = 'document.pdf') {
   try {
     const clean = Object.fromEntries(Object.entries(params).filter(([, v]) => v !== '' && v != null));
     const res = await api.get(url, { params: clean, responseType: 'blob' });
@@ -27,7 +27,7 @@ export async function exportPdf(url, params = {}, fallbackName = 'tai-lieu.pdf')
     link.click();
     link.remove();
     setTimeout(() => URL.revokeObjectURL(blobUrl), 1500);
-    notify('Đã xuất file PDF');
+    notify('PDF exported');
     return true;
   } catch (error) {
     notify(await readError(error), 'bad');

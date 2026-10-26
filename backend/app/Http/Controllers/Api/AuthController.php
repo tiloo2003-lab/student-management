@@ -29,7 +29,7 @@ class AuthController extends Controller
     {
         $this->auth->logout($request->user());
 
-        return ['message' => 'Đã đăng xuất.'];
+        return ['message' => 'Logged out.'];
     }
 
     public function updateProfile(UpdateProfileRequest $request)
@@ -41,6 +41,6 @@ class AuthController extends Controller
     {
         $this->auth->changePassword($request->user(), $request->validated('current_password'), $request->validated('password'));
 
-        return ['message' => 'Đổi mật khẩu thành công.'];
+        return ['message' => 'Password changed successfully.'];
     }
 }

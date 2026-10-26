@@ -61,7 +61,7 @@ export default function AdminPosts() {
 
   const save = async (e) => {
     e.preventDefault();
-    if (!(await confirmSave(!!modal.item, 'bài viết'))) return;
+    if (!(await confirmSave(!!modal.item, 'post'))) return;
     setSaving(true);
     setErrors({});
     const fd = new FormData();
@@ -74,7 +74,7 @@ export default function AdminPosts() {
     try {
       if (modal.item) await api.post(`/manage/posts/${modal.item.id}`, fd);
       else await api.post('/manage/posts', fd);
-      toast('Đã lưu bài viết');
+      toast('Post saved');
       setModal(null);
       setTick((t) => t + 1);
     } catch (err) {
@@ -86,10 +86,10 @@ export default function AdminPosts() {
   };
 
   const remove = async (p) => {
-    if (!(await confirmDelete('Bài viết và ảnh bìa sẽ bị xóa.'))) return;
+    if (!(await confirmDelete('The post and its cover image will be deleted.'))) return;
     try {
       await api.delete(`/manage/posts/${p.id}`);
-      toast('Đã xóa');
+      toast('Deleted successfully');
       if (data.data.length === 1 && page > 1) setPage(page - 1); else setTick((t) => t + 1);
     } catch (e) { toast(errMsg(e), 'bad'); }
   };
@@ -98,23 +98,23 @@ export default function AdminPosts() {
     <>
       <div className="page-head">
         <div>
-          <h1>Quản lý bài viết</h1>
-          <div className="sub">{data ? `${data.total} bài viết` : ''}</div>
+          <h1>Posts</h1>
+          <div className="sub">{data ? `${data.total} posts` : ''}</div>
         </div>
-        <button className="btn primary" onClick={() => open(null)}>＋ Đăng bài viết</button>
+        <button className="btn primary" onClick={() => open(null)}>＋ New post</button>
       </div>
 
       <div className="card">
         <form className="toolbar" onSubmit={(e) => { e.preventDefault(); setPage(1); setQuery(search); }}>
-          <input type="search" placeholder="Tìm theo tiêu đề..." value={search} onChange={(e) => setSearch(e.target.value)} />
-          <button className="btn" type="submit">Tìm</button>
+          <input type="search" placeholder="Search by title..." value={search} onChange={(e) => setSearch(e.target.value)} />
+          <button className="btn" type="submit">Search</button>
         </form>
         <div className="table-wrap">
           <table>
-            <thead><tr><th>Ảnh</th><th>Tiêu đề</th><th>Danh mục</th><th>Người đăng</th><th>Thích</th><th>Xem</th><th>Ngày đăng</th><th /></tr></thead>
+            <thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Author</th><th>Likes</th><th>Views</th><th>Published</th><th /></tr></thead>
             <tbody>
               {!data ? <tr><td colSpan={6}><Loading /></td></tr>
-                : data.data.length === 0 ? <tr><td colSpan={6} className="empty">Chưa có bài viết</td></tr>
+                : data.data.length === 0 ? <tr><td colSpan={6} className="empty">No posts yet</td></tr>
                 : data.data.map((p) => (
                   <tr key={p.id}>
                     <td>{p.image_url ? <img className="thumb" src={p.image_url} alt="" loading="lazy" /> : '—'}</td>
@@ -125,8 +125,8 @@ export default function AdminPosts() {
                     <td>{p.views_count}</td>
                     <td>{fmtDate(p.created_at)}</td>
                     <td className="actions">
-                      <button className="btn sm" onClick={() => open(p)}>Sửa</button>
-                      <button className="btn sm danger" onClick={() => remove(p)}>Xóa</button>
+                      <button className="btn sm" onClick={() => open(p)}>Edit</button>
+                      <button className="btn sm danger" onClick={() => remove(p)}>Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -137,38 +137,38 @@ export default function AdminPosts() {
       </div>
 
       {modal && (
-        <Modal title={modal.item ? 'Sửa bài viết' : 'Đăng bài viết'} onClose={() => setModal(null)}
+        <Modal title={modal.item ? 'Edit post' : 'New post'} onClose={() => setModal(null)}
           footer={<>
-            <button className="btn" onClick={() => setModal(null)}>Hủy</button>
-            <button className="btn primary" form="post-form" disabled={saving}>{saving ? 'Đang lưu...' : 'Lưu'}</button>
+            <button className="btn" onClick={() => setModal(null)}>Cancel</button>
+            <button className="btn primary" form="post-form" disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
           </>}>
           <form id="post-form" onSubmit={save}>
-            <label className="field"><span>Tiêu đề *</span>
+            <label className="field"><span>Title *</span>
               <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
               {errors.title && <div className="err">{errors.title[0]}</div>}
             </label>
-            <label className="field"><span>Danh mục</span>
+            <label className="field"><span>Category</span>
               <select value={form.category_id} onChange={(e) => setForm({ ...form, category_id: e.target.value })}>
-                <option value="">— Không có —</option>
+                <option value="">— None —</option>
                 {cats.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>
               {errors.category_id && <div className="err">{errors.category_id[0]}</div>}
             </label>
-            <label className="field"><span>Mô tả ngắn *</span>
+            <label className="field"><span>Short description *</span>
               <textarea rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} required maxLength={500} />
               {errors.description && <div className="err">{errors.description[0]}</div>}
             </label>
-            <label className="field"><span>Nội dung</span>
+            <label className="field"><span>Content</span>
               <textarea rows={7} value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} />
             </label>
             <div className="field">
-              <span>Ảnh bìa</span>
+              <span>Cover image</span>
               {preview && !removeImage && <img className="img-preview" src={preview} alt="" />}
               <input type="file" accept="image/*" onChange={(e) => pickFile(e.target.files[0] || null)} />
               {errors.image && <div className="err">{errors.image[0]}</div>}
               {modal.item?.image && !file && (
                 <label style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 8, fontWeight: 400 }}>
-                  <input type="checkbox" checked={removeImage} onChange={(e) => setRemoveImage(e.target.checked)} /> Xóa ảnh hiện tại
+                  <input type="checkbox" checked={removeImage} onChange={(e) => setRemoveImage(e.target.checked)} /> Remove current image
                 </label>
               )}
             </div>

@@ -26,13 +26,13 @@ export default function PostCard({ post, liked, onLike }) {
     <article className="pcard" onClick={() => nav(`/posts/${post.id}`)}>
       <Thumb post={post} />
       <div className="pcard-body">
-        {post.category && <Link className="chip" to={`/danh-muc/${post.category.slug}`} onClick={(e) => e.stopPropagation()}>{post.category.name}</Link>}
+        {post.category && <Link className="chip" to={`/category/${post.category.slug}`} onClick={(e) => e.stopPropagation()}>{post.category.name}</Link>}
         <h3>{post.title}</h3>
         <p>{post.description}</p>
         <PostMeta post={post} />
         {onLike && (
           <button className={`pub-btn sm ${liked ? 'liked' : ''}`} onClick={(e) => { e.stopPropagation(); onLike(post); }}>
-            {liked ? '♥ Đã thích' : '♡ Thích'}
+            {liked ? '♥ Liked' : '♡ Like'}
           </button>
         )}
       </div>

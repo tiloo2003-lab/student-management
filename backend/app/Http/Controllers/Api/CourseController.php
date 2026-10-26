@@ -35,13 +35,13 @@ class CourseController extends ResourceController
     {
         $this->courses->addStudent($course, (int) $request->validated('student_id'));
 
-        return response()->json(['message' => 'Đã thêm sinh viên.'], 201);
+        return response()->json(['message' => 'Student added.'], 201);
     }
 
     public function removeStudent(Course $course, Enrollment $enrollment): JsonResponse
     {
         $this->courses->removeStudent($course, $enrollment);
 
-        return response()->json(['message' => 'Đã xóa sinh viên khỏi lớp học phần.']);
+        return response()->json(['message' => 'Student removed from the course section.']);
     }
 }

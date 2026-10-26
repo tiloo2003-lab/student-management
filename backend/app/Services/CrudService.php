@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class CrudService implements CrudServiceInterface
 {
-    protected string $deleteConflictMessage = 'Không thể xóa vì dữ liệu đang được sử dụng ở nơi khác.';
+    protected string $deleteConflictMessage = 'Cannot delete because this record is in use elsewhere.';
 
     public function __construct(protected BaseRepositoryInterface $repository)
     {

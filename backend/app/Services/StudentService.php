@@ -72,7 +72,7 @@ class StudentService extends CrudService implements StudentServiceInterface
         $student = $this->students->findOrFail($id);
 
         if ($this->enrollments->countGradedForStudent($student->id) > 0) {
-            throw new ConflictHttpException('Sinh viên đã có điểm trong hệ thống, không thể xóa. Hãy khóa tài khoản thay thế.');
+            throw new ConflictHttpException('This student already has grades and cannot be deleted. Lock the account instead.');
         }
 
         $this->users->delete($student->user);
@@ -83,7 +83,7 @@ class StudentService extends CrudService implements StudentServiceInterface
         $limit = (int) config('school.max_class_size');
 
         if ($this->students->countInClass($classId) >= $limit) {
-            throw new UnprocessableEntityHttpException("Lớp đã đủ sĩ số tối đa {$limit} sinh viên.");
+            throw new UnprocessableEntityHttpException("This class has reached the maximum of {$limit} students.");
         }
     }
 }

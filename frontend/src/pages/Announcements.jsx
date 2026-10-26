@@ -28,11 +28,11 @@ export default function Announcements() {
 
   const save = async (e) => {
     e.preventDefault();
-    if (!(await confirmSave(!!modal.item, 'thông báo'))) return;
+    if (!(await confirmSave(!!modal.item, 'announcement'))) return;
     try {
       if (modal.item) await api.put(`/announcements/${modal.item.id}`, form);
       else await api.post('/announcements', form);
-      toast('Đã lưu thông báo');
+      toast('Announcement saved');
       setModal(null);
       load();
     } catch (err) {
@@ -42,27 +42,27 @@ export default function Announcements() {
   };
 
   const remove = async (a) => {
-    if (!(await confirmDelete('Thông báo sẽ bị xóa.'))) return;
+    if (!(await confirmDelete('This announcement will be deleted.'))) return;
     await api.delete(`/announcements/${a.id}`);
-    toast('Đã xóa');
+    toast('Deleted successfully');
     load();
   };
 
   return (
     <>
       <div className="page-head">
-        <h1>Thông báo</h1>
-        {isAdmin && <button className="btn primary" onClick={() => open(null)}>＋ Đăng thông báo</button>}
+        <h1>Announcements</h1>
+        {isAdmin && <button className="btn primary" onClick={() => open(null)}>＋ New announcement</button>}
       </div>
       <div className="card">
-        {!data ? <Loading /> : data.data.length === 0 ? <div className="empty">Chưa có thông báo</div> : data.data.map((a) => (
+        {!data ? <Loading /> : data.data.length === 0 ? <div className="empty">No announcements yet</div> : data.data.map((a) => (
           <div className="ann" key={a.id}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
               <h4>{a.title}</h4>
               {isAdmin && (
                 <div style={{ whiteSpace: 'nowrap' }}>
-                  <button className="btn sm" onClick={() => open(a)}>Sửa</button>{' '}
-                  <button className="btn sm danger" onClick={() => remove(a)}>Xóa</button>
+                  <button className="btn sm" onClick={() => open(a)}>Edit</button>{' '}
+                  <button className="btn sm danger" onClick={() => remove(a)}>Delete</button>
                 </div>
               )}
             </div>
@@ -74,22 +74,22 @@ export default function Announcements() {
       </div>
 
       {modal && (
-        <Modal title={modal.item ? 'Sửa thông báo' : 'Đăng thông báo'} onClose={() => setModal(null)}
+        <Modal title={modal.item ? 'Edit announcement' : 'New announcement'} onClose={() => setModal(null)}
           footer={<>
-            <button className="btn" onClick={() => setModal(null)}>Hủy</button>
-            <button className="btn primary" form="ann-form">Lưu</button>
+            <button className="btn" onClick={() => setModal(null)}>Cancel</button>
+            <button className="btn primary" form="ann-form">Save</button>
           </>}>
           <form id="ann-form" onSubmit={save}>
-            <label className="field"><span>Tiêu đề *</span>
+            <label className="field"><span>Title *</span>
               <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
               {errors.title && <div className="err">{errors.title[0]}</div>}
             </label>
-            <label className="field"><span>Đối tượng</span>
+            <label className="field"><span>Audience</span>
               <select value={form.target_role} onChange={(e) => setForm({ ...form, target_role: e.target.value })}>
                 {Object.entries(targetLabel).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
               </select>
             </label>
-            <label className="field"><span>Nội dung *</span>
+            <label className="field"><span>Content *</span>
               <textarea rows={6} value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} required />
               {errors.content && <div className="err">{errors.content[0]}</div>}
             </label>

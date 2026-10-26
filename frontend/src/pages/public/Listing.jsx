@@ -4,7 +4,7 @@ import api from '../../api';
 import PostCard from './PostCard';
 import { useLikes } from './likes';
 
-const TABS = [['latest', 'Mới nhất'], ['likes', 'Hot'], ['views', 'Đọc nhiều']];
+const TABS = [['latest', 'Latest'], ['likes', 'Hot'], ['views', 'Most read']];
 
 export default function Listing() {
   const { slug } = useParams();
@@ -32,7 +32,7 @@ export default function Listing() {
   }, [sort, page, q, slug]);
 
   const cat = cats.find((c) => c.slug === slug);
-  const title = q ? `Kết quả tìm kiếm: "${q}"` : slug ? (cat?.name || 'Danh mục') : 'Tất cả bài viết';
+  const title = q ? `Search results: "${q}"` : slug ? (cat?.name || 'Category') : 'All posts';
 
   const onLike = async (p) => {
     const count = await toggle(p.id);
@@ -42,8 +42,8 @@ export default function Listing() {
   return (
     <main className="pub-main">
       <div className="crumbs">
-        <Link to="/">Trang chủ</Link><span>›</span>
-        {slug ? <><Link to="/tin-tuc">Tin tức</Link><span>›</span><b>{cat?.name}</b></> : <b>{q ? 'Tìm kiếm' : 'Tin tức'}</b>}
+        <Link to="/">Home</Link><span>›</span>
+        {slug ? <><Link to="/news">News</Link><span>›</span><b>{cat?.name}</b></> : <b>{q ? 'Search' : 'News'}</b>}
       </div>
 
       <h1 className="page-title">{title}</h1>
@@ -55,13 +55,13 @@ export default function Listing() {
             <button key={v} className={sort === v ? 'active' : ''} onClick={() => setSort(v)}>{l}</button>
           ))}
         </div>
-        <span className="count">{data ? data.total : 0} bài viết</span>
+        <span className="count">{data ? data.total : 0} posts</span>
       </div>
 
       <div className="list-layout">
         <div>
-          {!data ? <div className="pub-empty">Đang tải...</div> : data.data.length === 0 ? (
-            <div className="pub-empty">Không tìm thấy bài viết nào</div>
+          {!data ? <div className="pub-empty">Loading...</div> : data.data.length === 0 ? (
+            <div className="pub-empty">No posts found</div>
           ) : (
             <div className="grid-3">
               {data.data.map((p) => <PostCard key={p.id} post={p} liked={liked.includes(p.id)} onLike={onLike} />)}
@@ -81,11 +81,11 @@ export default function Listing() {
 
         <aside>
           <div className="side-box">
-            <h3 className="side-title">Danh mục</h3>
+            <h3 className="side-title">Categories</h3>
             <ul className="cat-list">
-              <li><NavLink to="/tin-tuc" end>Tất cả</NavLink></li>
+              <li><NavLink to="/news" end>All</NavLink></li>
               {cats.map((c) => (
-                <li key={c.id}><NavLink to={`/danh-muc/${c.slug}`}>{c.name}<small>{c.posts_count}</small></NavLink></li>
+                <li key={c.id}><NavLink to={`/category/${c.slug}`}>{c.name}<small>{c.posts_count}</small></NavLink></li>
               ))}
             </ul>
           </div>

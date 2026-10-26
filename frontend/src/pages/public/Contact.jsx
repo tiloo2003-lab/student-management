@@ -16,7 +16,7 @@ export default function Contact() {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!(await confirmDialog({ title: 'Gửi liên hệ?', text: 'Nội dung sẽ được gửi tới nhà trường.', confirmText: 'Gửi liên hệ' }))) return;
+    if (!(await confirmDialog({ title: 'Send your message?', text: 'Your message will be sent to the school.', confirmText: 'Send message' }))) return;
     setSending(true);
     setErrors({});
     setError('');
@@ -34,33 +34,33 @@ export default function Contact() {
 
   return (
     <main className="pub-main">
-      <div className="crumbs"><Link to="/">Trang chủ</Link><span>›</span><b>Liên hệ</b></div>
-      <h1 className="page-title">Liên hệ</h1>
-      <p className="page-sub">Gửi câu hỏi hoặc góp ý cho nhà trường, chúng tôi sẽ phản hồi qua email.</p>
+      <div className="crumbs"><Link to="/">Home</Link><span>›</span><b>Contact</b></div>
+      <h1 className="page-title">Contact</h1>
+      <p className="page-sub">Send a question or feedback to the school and we will reply by email.</p>
 
       <div className="contact-grid">
         <form className="contact-form" onSubmit={submit}>
           {done && <div className="form-ok">{done}</div>}
           {error && !done && <div className="form-err">{error}</div>}
           <div className="row2">
-            <label><span>Họ tên *</span><input value={form.name} onChange={set('name')} required maxLength={100} />{errors.name && <em>{errors.name[0]}</em>}</label>
+            <label><span>Full name *</span><input value={form.name} onChange={set('name')} required maxLength={100} />{errors.name && <em>{errors.name[0]}</em>}</label>
             <label><span>Email *</span><input type="email" value={form.email} onChange={set('email')} required />{errors.email && <em>{errors.email[0]}</em>}</label>
           </div>
           <div className="row2">
-            <label><span>Số điện thoại</span><input value={form.phone} onChange={set('phone')} maxLength={20} /></label>
-            <label><span>Chủ đề *</span><input value={form.subject} onChange={set('subject')} required maxLength={200} /></label>
+            <label><span>Phone number</span><input value={form.phone} onChange={set('phone')} maxLength={20} /></label>
+            <label><span>Subject *</span><input value={form.subject} onChange={set('subject')} required maxLength={200} /></label>
           </div>
-          <label><span>Nội dung *</span><textarea rows={6} value={form.message} onChange={set('message')} required maxLength={3000} />{errors.message && <em>{errors.message[0]}</em>}</label>
-          <button className="pub-btn solid" disabled={sending}>{sending ? 'Đang gửi...' : 'Gửi liên hệ'}</button>
+          <label><span>Message *</span><textarea rows={6} value={form.message} onChange={set('message')} required maxLength={3000} />{errors.message && <em>{errors.message[0]}</em>}</label>
+          <button className="pub-btn solid" disabled={sending}>{sending ? 'Sending...' : 'Send message'}</button>
         </form>
 
         <aside className="contact-info">
           <div className="side-box">
-            <h3 className="side-title">Thông tin liên hệ</h3>
-            <p><b>Địa chỉ</b><br />123 Đường Lê Lợi, Quận 1, TP. Hồ Chí Minh</p>
-            <p><b>Điện thoại</b><br />0236 123 4567</p>
-            <p><b>Email</b><br />lienhe@truong.edu.vn</p>
-            <p><b>Giờ làm việc</b><br />Thứ 2 – Thứ 6: 7:30 – 17:00</p>
+            <h3 className="side-title">Contact information</h3>
+            <p><b>Address</b><br />123 Le Loi Street, District 1, Ho Chi Minh City</p>
+            <p><b>Phone</b><br />0236 123 4567</p>
+            <p><b>Email</b><br />contact@school.edu</p>
+            <p><b>Opening hours</b><br />Mon – Fri: 7:30 – 17:00</p>
           </div>
         </aside>
       </div>

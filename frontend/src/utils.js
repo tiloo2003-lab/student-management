@@ -7,14 +7,14 @@ export const fmtDate = (d) => {
   return `${day}/${m}/${y}`;
 };
 
-export const roleLabel = { admin: 'Quản trị viên', teacher: 'Giáo viên', student: 'Sinh viên' };
-export const genderLabel = { male: 'Nam', female: 'Nữ', other: 'Khác' };
-export const targetLabel = { all: 'Tất cả', teacher: 'Giáo viên', student: 'Sinh viên' };
-export const attendanceLabel = { present: 'Có mặt', late: 'Đi muộn', absent: 'Vắng', excused: 'Có phép' };
+export const roleLabel = { admin: 'Administrator', teacher: 'Teacher', student: 'Student' };
+export const genderLabel = { male: 'Male', female: 'Female', other: 'Other' };
+export const targetLabel = { all: 'Everyone', teacher: 'Teachers', student: 'Students' };
+export const attendanceLabel = { present: 'Present', late: 'Late', absent: 'Absent', excused: 'Excused' };
 
-export const dayLabel = (d) => (d == null ? '—' : d === 8 ? 'Chủ nhật' : `Thứ ${d}`);
+export const dayLabel = (d) => (d == null ? '—' : ({ 2: 'Mon', 3: 'Tue', 4: 'Wed', 5: 'Thu', 6: 'Fri', 7: 'Sat', 8: 'Sun' })[d]);
 export const scheduleLabel = (c) =>
-  c.day_of_week ? `${dayLabel(c.day_of_week)}, tiết ${c.start_period}-${c.end_period}` : '—';
+  c.day_of_week ? `${dayLabel(c.day_of_week)}, periods ${c.start_period}-${c.end_period}` : '—';
 
 export const letterColor = (l) =>
   ({ A: 'green', B: 'blue', C: 'amber', D: 'orange', F: 'red' })[l] || 'gray';

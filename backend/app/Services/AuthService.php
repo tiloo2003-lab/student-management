@@ -26,7 +26,7 @@ class AuthService implements AuthServiceInterface
             $minutes = $this->throttle->retryAfterMinutes($key);
 
             throw ValidationException::withMessages([
-                'email' => ["Đăng nhập sai quá {$max} lần. Vui lòng thử lại sau {$minutes} phút."],
+                'email' => ["Too many failed login attempts ({$max}). Please try again in {$minutes} minutes."],
             ]);
         }
 
@@ -35,11 +35,11 @@ class AuthService implements AuthServiceInterface
         if (! $user || ! Hash::check($password, $user->password)) {
             $this->throttle->hit($key);
 
-            throw ValidationException::withMessages(['email' => ['Email hoặc mật khẩu không đúng.']]);
+            throw ValidationException::withMessages(['email' => ['Incorrect email or password.']]);
         }
 
         if ($user->status !== 'active') {
-            throw ValidationException::withMessages(['email' => ['Tài khoản đã bị khóa.']]);
+            throw ValidationException::withMessages(['email' => ['This account has been locked.']]);
         }
 
         $this->throttle->clear($key);
@@ -70,11 +70,11 @@ class AuthService implements AuthServiceInterface
     public function changePassword(User $user, string $current, string $new): void
     {
         if (! Hash::check($current, $user->password)) {
-            throw ValidationException::withMessages(['current_password' => ['Mật khẩu hiện tại không đúng.']]);
+            throw ValidationException::withMessages(['current_password' => ['The current password is incorrect.']]);
         }
 
         if (Hash::check($new, $user->password)) {
-            throw ValidationException::withMessages(['password' => ['Mật khẩu mới phải khác mật khẩu hiện tại.']]);
+            throw ValidationException::withMessages(['password' => ['The new password must be different from the current password.']]);
         }
 
         $this->users->update($user, ['password' => $new]);

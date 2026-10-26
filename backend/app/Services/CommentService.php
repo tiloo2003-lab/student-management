@@ -28,14 +28,14 @@ class CommentService implements CommentServiceInterface
         $content = trim(preg_replace('/[ \t]+/u', ' ', strip_tags($data['content'])));
 
         if ($content === '') {
-            throw new UnprocessableEntityHttpException('Nội dung bình luận không được để trống.');
+            throw new UnprocessableEntityHttpException('The comment cannot be empty.');
         }
 
         $this->assertNoBannedWords($content);
         $this->assertNotTooManyLinks($content);
 
         if ($this->comments->existsRecent($post->id, $author->id, $content, (int) config('school.comment_duplicate_seconds'))) {
-            throw new UnprocessableEntityHttpException('Bạn vừa gửi bình luận này, vui lòng đợi một lát trước khi gửi lại.');
+            throw new UnprocessableEntityHttpException('You just sent this comment. Please wait a moment before sending it again.');
         }
 
         return $this->comments->create([
@@ -59,7 +59,7 @@ class CommentService implements CommentServiceInterface
     public function deleteOwn(User $user, Comment $comment): void
     {
         if ($user->role !== 'admin' && $comment->user_id !== $user->id) {
-            throw new AccessDeniedHttpException('Bạn chỉ có thể xóa bình luận của chính mình.');
+            throw new AccessDeniedHttpException('You can only delete your own comments.');
         }
 
         $this->comments->delete($comment);
@@ -71,7 +71,7 @@ class CommentService implements CommentServiceInterface
 
         foreach ((array) config('school.comment_banned_words') as $word) {
             if ($word !== '' && str_contains($text, mb_strtolower($word))) {
-                throw new UnprocessableEntityHttpException('Bình luận chứa nội dung không phù hợp.');
+                throw new UnprocessableEntityHttpException('The comment contains inappropriate content.');
             }
         }
     }
@@ -81,7 +81,7 @@ class CommentService implements CommentServiceInterface
         $links = preg_match_all('~https?://|www\.~i', $content);
 
         if ($links > (int) config('school.comment_max_links')) {
-            throw new UnprocessableEntityHttpException('Bình luận chứa quá nhiều liên kết.');
+            throw new UnprocessableEntityHttpException('The comment contains too many links.');
         }
     }
 }

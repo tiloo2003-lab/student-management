@@ -33,7 +33,7 @@ abstract class ResourceController extends Controller
     {
         $this->service->delete($id);
 
-        return response()->json(['message' => 'Đã xóa.']);
+        return response()->json(['message' => 'Deleted.']);
     }
 
     protected function storeResource(array $data): JsonResponse

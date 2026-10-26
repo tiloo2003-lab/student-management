@@ -16,7 +16,7 @@ const loadOptions = (endpoint) => {
   return optionCache.get(endpoint);
 };
 
-export default function CrudPage({ title, endpoint, columns, fields, filters = [], rowActions, defaults = {}, perPage = 10 }) {
+export default function CrudPage({ title, entity, endpoint, columns, fields, filters = [], rowActions, defaults = {}, perPage = 10 }) {
   const toast = useToast();
   const [rows, setRows] = useState([]);
   const [meta, setMeta] = useState(null);
@@ -76,7 +76,7 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
 
   const save = async (e) => {
     e.preventDefault();
-    if (!(await confirmSave(!!modal.item, title.toLowerCase()))) return;
+    if (!(await confirmSave(!!modal.item, entity || title.toLowerCase()))) return;
     setSaving(true);
     setErrors({});
     const payload = { ...form };
@@ -86,7 +86,7 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
       if (modal.item) await api.put(`/${endpoint}/${modal.item.id}`, payload);
       else await api.post(`/${endpoint}`, payload);
       optionCache.delete(endpoint);
-      toast(modal.item ? 'Đã cập nhật' : 'Đã thêm mới');
+      toast(modal.item ? 'Updated successfully' : 'Created successfully');
       setModal(null);
       reload();
     } catch (err) {
@@ -102,7 +102,7 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
     try {
       await api.delete(`/${endpoint}/${row.id}`);
       optionCache.delete(endpoint);
-      toast('Đã xóa');
+      toast('Deleted successfully');
       if (rows.length === 1 && page > 1) setPage(page - 1); else reload();
     } catch (err) {
       toast(errMsg(err), 'bad');
@@ -114,22 +114,22 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
       <div className="page-head">
         <div>
           <h1>{title}</h1>
-          <div className="sub">{meta ? `${meta.total} bản ghi` : ''}</div>
+          <div className="sub">{meta ? `${meta.total} records` : ''}</div>
         </div>
-        <button className="btn primary" onClick={() => openForm(null)}>＋ Thêm mới</button>
+        <button className="btn primary" onClick={() => openForm(null)}>＋ Add new</button>
       </div>
 
       <div className="card">
         <form className="toolbar" onSubmit={(e) => { e.preventDefault(); setPage(1); setQuery(search); }}>
-          <input type="search" placeholder="Tìm kiếm..." value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input type="search" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
           {filters.map((f) => (
             <select key={f.name} value={filterVals[f.name] || ''}
               onChange={(e) => { setPage(1); setFilterVals({ ...filterVals, [f.name]: e.target.value }); }}>
-              <option value="">{f.label}: tất cả</option>
+              <option value="">{f.label}: all</option>
               {optsFor(f).map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
           ))}
-          <button className="btn" type="submit">Tìm</button>
+          <button className="btn" type="submit">Search</button>
         </form>
 
         <div className={`table-wrap ${loading && rows.length ? 'busy' : ''}`}>
@@ -141,7 +141,7 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
               {loading && rows.length === 0 ? (
                 <tr><td colSpan={columns.length + 1}><Loading /></td></tr>
               ) : rows.length === 0 ? (
-                <tr><td colSpan={columns.length + 1} className="empty">Không có dữ liệu</td></tr>
+                <tr><td colSpan={columns.length + 1} className="empty">No data</td></tr>
               ) : rows.map((row) => (
                 <tr key={row.id}>
                   {columns.map((c) => (
@@ -149,8 +149,8 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
                   ))}
                   <td className="actions">
                     {rowActions?.(row)}
-                    <button className="btn sm" onClick={() => openForm(row)}>Sửa</button>
-                    <button className="btn sm danger" onClick={() => remove(row)}>Xóa</button>
+                    <button className="btn sm" onClick={() => openForm(row)}>Edit</button>
+                    <button className="btn sm danger" onClick={() => remove(row)}>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -161,10 +161,10 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
       </div>
 
       {modal && (
-        <Modal title={`${modal.item ? 'Chỉnh sửa' : 'Thêm mới'} — ${title}`} onClose={() => setModal(null)}
+        <Modal title={`${modal.item ? 'Edit' : 'Add'} — ${title}`} onClose={() => setModal(null)}
           footer={<>
-            <button className="btn" onClick={() => setModal(null)}>Hủy</button>
-            <button className="btn primary" form="crud-form" disabled={saving}>{saving ? 'Đang lưu...' : 'Lưu'}</button>
+            <button className="btn" onClick={() => setModal(null)}>Cancel</button>
+            <button className="btn primary" form="crud-form" disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
           </>}>
           <form id="crud-form" onSubmit={save} className="form-grid">
             {fields.map((f) => {
@@ -180,12 +180,12 @@ export default function CrudPage({ title, endpoint, columns, fields, filters = [
                     <input type="checkbox" checked={!!val} onChange={(e) => set(e.target.checked)} />
                   ) : f.type === 'select' || f.options || f.optionsFrom ? (
                     <select value={val ?? ''} onChange={(e) => set(e.target.value)} required={req}>
-                      <option value="">— Chọn —</option>
+                      <option value="">— Select —</option>
                       {optsFor(f).map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                     </select>
                   ) : (
                     <input type={f.type || 'text'} value={val ?? ''} required={req}
-                      placeholder={f.type === 'password' && modal.item ? 'Để trống nếu không đổi' : f.placeholder}
+                      placeholder={f.type === 'password' && modal.item ? 'Leave blank to keep unchanged' : f.placeholder}
                       onChange={(e) => set(e.target.value)} />
                   )}
                   {errors[f.name] && <div className="err">{errors[f.name][0]}</div>}

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>@yield('title')</title>
@@ -27,9 +27,9 @@
     </style>
 </head>
 <body>
-    <div class="school">QL SINH VIÊN · Cổng thông tin nhà trường</div>
+    <div class="school">STUDENT MANAGEMENT · School information portal</div>
     <h1>@yield('title')</h1>
     @yield('content')
-    <div class="foot">Xuất ngày {{ $generatedAt }}</div>
+    <div class="foot">Exported on {{ $generatedAt }}</div>
 </body>
 </html>

@@ -39,10 +39,10 @@ class CourseService extends CrudService implements CourseServiceInterface
 
         if ($enrolled > 0) {
             if ((int) $data['subject_id'] !== (int) $course->subject_id || (int) $data['semester_id'] !== (int) $course->semester_id) {
-                throw new UnprocessableEntityHttpException('Lớp học phần đã có sinh viên đăng ký, không thể đổi môn học hoặc học kỳ.');
+                throw new UnprocessableEntityHttpException('This course section already has enrolled students, so its subject or semester cannot be changed.');
             }
             if ((int) $data['max_students'] < $enrolled) {
-                throw new UnprocessableEntityHttpException("Sĩ số tối đa không được nhỏ hơn số sinh viên đã đăng ký ({$enrolled}).");
+                throw new UnprocessableEntityHttpException("Maximum capacity cannot be lower than the number of enrolled students ({$enrolled}).");
             }
         }
 
@@ -56,7 +56,7 @@ class CourseService extends CrudService implements CourseServiceInterface
         $course = $this->courses->findOrFail($id);
 
         if ($this->enrollments->countGradedForCourse($course->id) > 0) {
-            throw new ConflictHttpException('Lớp học phần đã có điểm, không thể xóa.');
+            throw new ConflictHttpException('This course section has grades and cannot be deleted.');
         }
 
         parent::delete($id);
@@ -81,7 +81,7 @@ class CourseService extends CrudService implements CourseServiceInterface
         $enrollment = $this->enrollments->findForStudentAndCourse($enrollment->student_id, $course->id);
 
         if ($enrollment?->grade?->midterm !== null || $enrollment?->grade?->final !== null) {
-            throw new UnprocessableEntityHttpException('Sinh viên đã có điểm trong lớp này, không thể xóa khỏi lớp học phần.');
+            throw new UnprocessableEntityHttpException('This student already has grades in this section and cannot be removed.');
         }
 
         $this->enrollments->delete($enrollment);
@@ -93,12 +93,12 @@ class CourseService extends CrudService implements CourseServiceInterface
 
         $limit = (int) config('school.max_courses_per_teacher');
         if ($teacherCourses->count() >= $limit) {
-            throw new UnprocessableEntityHttpException("Giáo viên đã được phân công tối đa {$limit} lớp trong học kỳ này.");
+            throw new UnprocessableEntityHttpException("The teacher is already assigned the maximum of {$limit} course sections this semester.");
         }
 
         $teacherConflict = $teacherCourses->first(fn ($c) => Schedule::conflicts($c, $data));
         if ($teacherConflict) {
-            throw new UnprocessableEntityHttpException("Giáo viên bị trùng lịch dạy với lớp {$teacherConflict->code}.");
+            throw new UnprocessableEntityHttpException("The teacher has a schedule conflict with section {$teacherConflict->code}.");
         }
 
         if (! empty($data['room'])) {
@@ -107,7 +107,7 @@ class CourseService extends CrudService implements CourseServiceInterface
                 ->first(fn ($c) => Schedule::conflicts($c, $data));
 
             if ($roomConflict) {
-                throw new UnprocessableEntityHttpException("Phòng {$data['room']} đã được lớp {$roomConflict->code} sử dụng vào khung giờ này.");
+                throw new UnprocessableEntityHttpException("Room {$data['room']} is already used by section {$roomConflict->code} at this time.");
             }
         }
     }

@@ -18,9 +18,9 @@ export default function Registration() {
   const act = async (course, method) => {
     const cancelling = method === 'delete';
     const ok = await confirmDialog({
-      title: cancelling ? 'Hủy đăng ký học phần?' : 'Đăng ký học phần?',
-      text: `${course.code} - ${course.subject.name} (${course.subject.credits} tín chỉ)`,
-      confirmText: cancelling ? 'Hủy đăng ký' : 'Đăng ký',
+      title: cancelling ? 'Cancel course registration?' : 'Register for this course section?',
+      text: `${course.code} - ${course.subject.name} (${course.subject.credits} credits)`,
+      confirmText: cancelling ? 'Cancel registration' : 'Register',
       danger: cancelling,
     });
     if (!ok) return;
@@ -40,8 +40,8 @@ export default function Registration() {
   if (!data.semester) {
     return (
       <>
-        <div className="page-head"><h1>Đăng ký học phần</h1></div>
-        <div className="card empty">Hiện chưa có học kỳ nào đang mở đăng ký.</div>
+        <div className="page-head"><h1>Course registration</h1></div>
+        <div className="card empty">No semester is currently open for registration.</div>
       </>
     );
   }
@@ -52,19 +52,19 @@ export default function Registration() {
     <>
       <div className="page-head">
         <div>
-          <h1>Đăng ký học phần</h1>
+          <h1>Course registration</h1>
           <div className="sub">{data.semester.name}</div>
         </div>
       </div>
 
       <div className="card">
         <div className="meter-head">
-          <span>Tín chỉ đã đăng ký</span>
+          <span>Credits registered</span>
           <b>{data.credits}/{data.max_credits}</b>
         </div>
         <div className="meter"><i className={pct >= 100 ? 'full' : ''} style={{ width: `${pct}%` }} /></div>
         <div className="sub" style={{ marginTop: 8 }}>
-          Quy định: tối đa {data.max_credits} tín chỉ mỗi học kỳ, không trùng lịch, không đăng ký lại môn đã đạt.
+          Rules: at most {data.max_credits} credits per semester, no schedule conflicts, and no retaking subjects you have already passed.
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export default function Registration() {
         <div className="table-wrap">
           <table>
             <thead>
-              <tr><th>Mã LHP</th><th>Môn học</th><th>TC</th><th>Giáo viên</th><th>Lịch học</th><th>Phòng</th><th>Sĩ số</th><th>Trạng thái</th><th /></tr>
+              <tr><th>Section</th><th>Subject</th><th>Cr.</th><th>Teacher</th><th>Schedule</th><th>Room</th><th>Enrolled</th><th>Status</th><th /></tr>
             </thead>
             <tbody>
               {data.courses.map((c) => {
@@ -87,16 +87,16 @@ export default function Registration() {
                     <td>{c.room || '—'}</td>
                     <td>{c.enrollments_count}/{c.max_students}</td>
                     <td style={{ whiteSpace: 'normal', minWidth: 220 }}>
-                      {r.registered ? <Badge color="green">Đã đăng ký</Badge>
-                        : r.eligible ? <Badge color="blue">Có thể đăng ký</Badge>
+                      {r.registered ? <Badge color="green">Registered</Badge>
+                        : r.eligible ? <Badge color="blue">Available</Badge>
                         : <ul className="reasons">{r.reasons.map((x) => <li key={x}>{x}</li>)}</ul>}
                     </td>
                     <td className="actions">
                       {r.registered ? (
                         <button className="btn sm danger" disabled={!c.can_cancel || busy === c.id} onClick={() => act(c, 'delete')}
-                          title={c.can_cancel ? '' : 'Lớp đã có điểm'}>Hủy</button>
+                          title={c.can_cancel ? '' : 'This section already has grades'}>Cancel</button>
                       ) : (
-                        <button className="btn sm primary" disabled={!r.eligible || busy === c.id} onClick={() => act(c, 'post')}>Đăng ký</button>
+                        <button className="btn sm primary" disabled={!r.eligible || busy === c.id} onClick={() => act(c, 'post')}>Register</button>
                       )}
                     </td>
                   </tr>

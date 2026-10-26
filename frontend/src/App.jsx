@@ -40,13 +40,13 @@ export default function App() {
     <Routes>
       <Route element={<PublicLayout />}>
         <Route index element={<Home />} />
-        <Route path="tin-tuc" element={<Listing />} />
-        <Route path="danh-muc/:slug" element={<Listing />} />
-        <Route path="tim-kiem" element={<Listing />} />
-        <Route path="posts" element={<Navigate to="/tin-tuc" replace />} />
+        <Route path="news" element={<Listing />} />
+        <Route path="category/:slug" element={<Listing />} />
+        <Route path="search" element={<Listing />} />
+        <Route path="posts" element={<Navigate to="/news" replace />} />
         <Route path="posts/:id" element={<PostDetail />} />
-        <Route path="gioi-thieu" element={<About />} />
-        <Route path="lien-he" element={<Contact />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
       </Route>
       <Route path="login" element={<Navigate to="/admin/login" replace />} />
       <Route path="admin/login" element={<Login />} />

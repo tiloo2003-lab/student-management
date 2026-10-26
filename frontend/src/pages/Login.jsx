@@ -5,8 +5,8 @@ import { errMsg } from '../api';
 
 const DEMO = [
   ['Admin', 'admin1@school.test'],
-  ['Giáo viên', 'gv001@school.test'],
-  ['Sinh viên', 'sv0001@school.test'],
+  ['Teacher', 'gv001@school.test'],
+  ['Student', 'sv0001@school.test'],
 ];
 
 export default function Login() {
@@ -39,32 +39,32 @@ export default function Login() {
   return (
     <div className="login-page">
       <section className="login-hero">
-        <h1>Hệ thống<br />quản lý sinh viên</h1>
-        <p>Quản lý khoa, lớp, môn học, điểm số và điểm danh trên một nền tảng thống nhất cho quản trị viên, giáo viên và sinh viên.</p>
+        <h1>Student<br />Management System</h1>
+        <p>Manage departments, classes, subjects, grades and attendance on one unified platform for administrators, teachers and students.</p>
         <ul>
-          <li>Quản trị viên: quản lý toàn bộ dữ liệu đào tạo</li>
-          <li>Giáo viên: nhập điểm, điểm danh lớp học phần</li>
-          <li>Sinh viên: xem bảng điểm, lịch học, điểm danh</li>
+          <li>Administrators: manage all academic data</li>
+          <li>Teachers: enter grades and take attendance for course sections</li>
+          <li>Students: view grades, schedules and attendance</li>
         </ul>
       </section>
       <section className="login-box">
         <div className="login-card">
-          <h2>Đăng nhập</h2>
-          <p className="sub" style={{ marginBottom: 20 }}>Sử dụng tài khoản được cấp bởi nhà trường</p>
+          <h2>Sign in</h2>
+          <p className="sub" style={{ marginBottom: 20 }}>Use the account issued by your school</p>
           {error && <div className="alert">{error}</div>}
           <form onSubmit={submit}>
             <label className="field"><span>Email</span>
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
             </label>
-            <label className="field"><span>Mật khẩu</span>
+            <label className="field"><span>Password</span>
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </label>
             <button className="btn primary" style={{ width: '100%', justifyContent: 'center', padding: 11 }} disabled={busy}>
-              {busy ? 'Đang đăng nhập...' : 'Đăng nhập'}
+              {busy ? 'Signing in...' : 'Sign in'}
             </button>
           </form>
           <div className="demo">
-            <div className="sub">Tài khoản demo (mật khẩu: <b>password</b>)</div>
+            <div className="sub">Demo accounts (password: <b>password</b>)</div>
             <div className="row">
               {DEMO.map(([l, em]) => (
                 <button key={em} type="button" className="btn sm" onClick={() => { setEmail(em); setPassword('password'); }}>{l}</button>

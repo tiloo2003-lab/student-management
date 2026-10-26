@@ -25,10 +25,10 @@ function Hero({ slides }) {
           <div className="hero-slide" key={p.id}>
             <div className="hero-in">
               <div className="hero-text">
-                <span className="hero-tag">{p.category?.name || 'Nổi bật'} · {p.likes_count} lượt thích</span>
+                <span className="hero-tag">{p.category?.name || 'Featured'} · {p.likes_count} likes</span>
                 <h2>{p.title}</h2>
                 <p>{p.description}</p>
-                <button className="hero-btn" onClick={() => nav(`/posts/${p.id}`)}>Xem chi tiết →</button>
+                <button className="hero-btn" onClick={() => nav(`/posts/${p.id}`)}>Read more →</button>
               </div>
               <div className="hero-img" onClick={() => nav(`/posts/${p.id}`)}>
                 {p.image_url && <img src={p.image_url} alt={p.title} />}
@@ -37,8 +37,8 @@ function Hero({ slides }) {
           </div>
         ))}
       </div>
-      <button className="hero-arrow left" onClick={() => go(i - 1)} aria-label="Trước">‹</button>
-      <button className="hero-arrow right" onClick={() => go(i + 1)} aria-label="Sau">›</button>
+      <button className="hero-arrow left" onClick={() => go(i - 1)} aria-label="Previous">‹</button>
+      <button className="hero-arrow right" onClick={() => go(i + 1)} aria-label="Next">›</button>
       <div className="hero-dots">
         {slides.map((p, n) => (
           <button key={p.id} className={n === i ? 'active' : ''} onClick={() => go(n)} aria-label={`Slide ${n + 1}`} />
@@ -65,7 +65,7 @@ function Counter({ value }) {
   return <>{fmtNumber(n)}</>;
 }
 
-const STATS = [['students', 'Sinh viên', '🎓'], ['teachers', 'Giảng viên', '👩‍🏫'], ['departments', 'Khoa', '🏛️'], ['courses', 'Lớp học phần', '📚'], ['posts', 'Bài viết', '📰']];
+const STATS = [['students', 'Students', '🎓'], ['teachers', 'Teachers', '👩‍🏫'], ['departments', 'Departments', '🏛️'], ['courses', 'Course sections', '📚'], ['posts', 'Posts', '📰']];
 
 export default function Home() {
   const nav = useNavigate();
@@ -91,7 +91,7 @@ export default function Home() {
     }));
   };
 
-  if (!data) return <><Hero slides={slides} /><div className="pub-empty">Đang tải...</div></>;
+  if (!data) return <><Hero slides={slides} /><div className="pub-empty">Loading...</div></>;
 
   const [lead, ...rest] = data.latest;
 
@@ -113,7 +113,7 @@ export default function Home() {
       <main className="pub-main">
         <div className="two-col">
           <div>
-            <h2 className="sec-title"><span>Tin mới nhất</span><Link to="/tin-tuc">Xem tất cả →</Link></h2>
+            <h2 className="sec-title"><span>Latest news</span><Link to="/news">View all →</Link></h2>
             {lead && (
               <article className="lead-card" onClick={() => nav(`/posts/${lead.id}`)}>
                 <Thumb post={lead} />
@@ -133,9 +133,9 @@ export default function Home() {
           </div>
 
           <aside>
-            <RankList title="Đọc nhiều" posts={data.popular} />
+            <RankList title="Most read" posts={data.popular} />
             <div className="side-box">
-              <h3 className="side-title">Thông báo</h3>
+              <h3 className="side-title">Announcements</h3>
               <ul className="notice">
                 {data.announcements.map((a) => (
                   <li key={a.id}>
@@ -150,7 +150,7 @@ export default function Home() {
 
         {data.sections.map((s) => (
           <section key={s.category.id} className="cat-section">
-            <h2 className="sec-title"><span>{s.category.name}</span><Link to={`/danh-muc/${s.category.slug}`}>Xem thêm →</Link></h2>
+            <h2 className="sec-title"><span>{s.category.name}</span><Link to={`/category/${s.category.slug}`}>See more →</Link></h2>
             <div className="grid-4">
               {s.posts.map((p) => <PostCard key={p.id} post={p} liked={liked.includes(p.id)} onLike={onLike} />)}
             </div>
@@ -158,12 +158,12 @@ export default function Home() {
         ))}
 
         <section className="cat-section">
-          <h2 className="sec-title"><span>Khám phá theo danh mục</span></h2>
+          <h2 className="sec-title"><span>Browse by category</span></h2>
           <div className="cat-cloud">
             {cats.map((c) => (
-              <Link key={c.id} to={`/danh-muc/${c.slug}`} className="cat-tile">
+              <Link key={c.id} to={`/category/${c.slug}`} className="cat-tile">
                 <b>{c.name}</b>
-                <small>{c.posts_count} bài viết</small>
+                <small>{c.posts_count} posts</small>
               </Link>
             ))}
           </div>
@@ -171,10 +171,10 @@ export default function Home() {
 
         <section className="cta">
           <div>
-            <h2>Bạn cần hỗ trợ thông tin?</h2>
-            <p>Gửi câu hỏi cho nhà trường, chúng tôi sẽ phản hồi trong thời gian sớm nhất.</p>
+            <h2>Need more information?</h2>
+            <p>Send us your question and we will get back to you as soon as possible.</p>
           </div>
-          <Link to="/lien-he" className="hero-btn">Liên hệ ngay</Link>
+          <Link to="/contact" className="hero-btn">Contact us</Link>
         </section>
       </main>
     </>

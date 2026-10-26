@@ -28,7 +28,7 @@ class ExportService implements ExportServiceInterface
     public function studentTranscript(User $user, array $filters): array
     {
         $student = $this->students->findByUserId($user->id)
-            ?? throw new NotFoundHttpException('Không tìm thấy hồ sơ sinh viên.');
+            ?? throw new NotFoundHttpException('Student profile not found.');
 
         return $this->transcriptFor($student->id, $filters);
     }
@@ -43,7 +43,7 @@ class ExportService implements ExportServiceInterface
         $data = $this->portal->course($user, $course);
 
         return [
-            'filename' => 'bang-diem-lop-' . Str::slug($course->code) . '.pdf',
+            'filename' => 'grade-sheet-' . Str::slug($course->code) . '.pdf',
             'content' => $this->pdf->render('pdf.gradesheet', [
                 'course' => $data['course'],
                 'students' => $data['students'],
@@ -57,7 +57,7 @@ class ExportService implements ExportServiceInterface
         $report = $this->reports->overview($semesterId, $classId);
 
         if (empty($report['semester'])) {
-            throw new NotFoundHttpException('Chưa có dữ liệu học kỳ để xuất báo cáo.');
+            throw new NotFoundHttpException('No semester data available to export a report.');
         }
 
         $className = $classId
@@ -65,7 +65,7 @@ class ExportService implements ExportServiceInterface
             : null;
 
         return [
-            'filename' => 'bao-cao-hoc-vu-' . Str::slug($report['semester']['name']) . '.pdf',
+            'filename' => 'academic-report-' . Str::slug($report['semester']['name']) . '.pdf',
             'content' => $this->pdf->render('pdf.report', [
                 'report' => $report,
                 'className' => $className,
@@ -80,7 +80,7 @@ class ExportService implements ExportServiceInterface
         $transcript = $this->academic->transcript($student->id, $filters);
 
         return [
-            'filename' => 'ket-qua-hoc-tap-' . Str::slug($student->student_code) . '.pdf',
+            'filename' => 'transcript-' . Str::slug($student->student_code) . '.pdf',
             'content' => $this->pdf->render('pdf.transcript', [
                 'student' => $student,
                 'transcript' => $transcript,
@@ -95,17 +95,17 @@ class ExportService implements ExportServiceInterface
         $parts = [];
 
         if (! empty($filters['academic_year'])) {
-            $parts[] = 'Năm học: ' . $filters['academic_year'];
+            $parts[] = 'Academic year: ' . $filters['academic_year'];
         }
         if (! empty($filters['semester_id'])) {
             $semester = collect($options['semesters'])->firstWhere('id', (int) $filters['semester_id']);
-            $parts[] = 'Học kỳ: ' . ($semester['name'] ?? $filters['semester_id']);
+            $parts[] = 'Semester: ' . ($semester['name'] ?? $filters['semester_id']);
         }
         if (! empty($filters['subject_id'])) {
             $subject = collect($options['subjects'])->firstWhere('id', (int) $filters['subject_id']);
-            $parts[] = 'Môn học: ' . ($subject['name'] ?? $filters['subject_id']);
+            $parts[] = 'Subject: ' . ($subject['name'] ?? $filters['subject_id']);
         }
 
-        return $parts ? implode(' · ', $parts) : 'Toàn bộ quá trình học tập';
+        return $parts ? implode(' · ', $parts) : 'Entire study history';
     }
 }

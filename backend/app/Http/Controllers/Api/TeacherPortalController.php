@@ -48,6 +48,6 @@ class TeacherPortalController extends Controller
     {
         $this->portal->saveAttendance($request->user(), $course, $request->validated('date'), $request->validated('records'));
 
-        return ['message' => 'Đã lưu điểm danh.'];
+        return ['message' => 'Attendance saved.'];
     }
 }

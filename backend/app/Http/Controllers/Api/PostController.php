@@ -61,6 +61,6 @@ class PostController extends Controller
     {
         $this->posts->delete($post);
 
-        return ['message' => 'Đã xóa bài viết.'];
+        return ['message' => 'Post deleted.'];
     }
 }

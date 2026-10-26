@@ -26,7 +26,7 @@ api.interceptors.response.use(
 export const errMsg = (e) => {
   const d = e.response?.data;
   if (d?.errors) return Object.values(d.errors).flat().join(' ');
-  return d?.message || e.message || 'Có lỗi xảy ra';
+  return d?.message || e.message || 'Something went wrong';
 };
 
 export const fieldErrors = (e) => e.response?.data?.errors || {};

@@ -17,11 +17,11 @@ class SaveGradesRequest extends ApiFormRequest
     public function messages(): array
     {
         return [
-            'grades.required' => 'Vui lòng nhập điểm cho ít nhất một sinh viên.',
-            'grades.*.midterm.between' => 'Điểm giữa kỳ phải từ 0 đến 10.',
-            'grades.*.final.between' => 'Điểm cuối kỳ phải từ 0 đến 10.',
-            'grades.*.midterm.numeric' => 'Điểm giữa kỳ phải là số.',
-            'grades.*.final.numeric' => 'Điểm cuối kỳ phải là số.',
+            'grades.required' => 'Please enter scores for at least one student.',
+            'grades.*.midterm.between' => 'The midterm score must be between 0 and 10.',
+            'grades.*.final.between' => 'The final score must be between 0 and 10.',
+            'grades.*.midterm.numeric' => 'The midterm score must be a number.',
+            'grades.*.final.numeric' => 'The final score must be a number.',
         ];
     }
 }

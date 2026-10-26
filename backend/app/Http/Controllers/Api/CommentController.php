@@ -32,7 +32,7 @@ class CommentController extends Controller
     {
         $this->comments->deleteOwn($request->user(), $comment);
 
-        return ['message' => 'Đã xóa bình luận.'];
+        return ['message' => 'Comment deleted.'];
     }
 
     public function adminIndex(Request $request)
@@ -44,6 +44,6 @@ class CommentController extends Controller
     {
         $this->comments->delete($comment);
 
-        return ['message' => 'Đã xóa bình luận.'];
+        return ['message' => 'Comment deleted.'];
     }
 }

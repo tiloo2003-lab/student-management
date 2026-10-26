@@ -1,27 +1,27 @@
 @extends('pdf.layout')
 
-@section('title', 'BẢNG ĐIỂM LỚP HỌC PHẦN')
+@section('title', 'COURSE SECTION GRADE SHEET')
 
 @section('content')
     <div class="sub">{{ $course->semester->name }}</div>
 
     <table class="info">
         <tr>
-            <td width="16%">Mã lớp học phần:</td><td width="34%"><strong>{{ $course->code }}</strong></td>
-            <td width="16%">Môn học:</td><td>{{ $course->subject->name }} ({{ $course->subject->credits }} tín chỉ)</td>
+            <td width="16%">Section code:</td><td width="34%"><strong>{{ $course->code }}</strong></td>
+            <td width="16%">Subject:</td><td>{{ $course->subject->name }} ({{ $course->subject->credits }} credits)</td>
         </tr>
         <tr>
-            <td>Giáo viên:</td><td>{{ $course->teacher?->user?->name }}</td>
-            <td>Sĩ số:</td><td>{{ count($students) }} sinh viên</td>
+            <td>Teacher:</td><td>{{ $course->teacher?->user?->name }}</td>
+            <td>Enrolled:</td><td>{{ count($students) }} students</td>
         </tr>
     </table>
 
     <table>
         <thead>
             <tr>
-                <th class="c" width="5%">STT</th><th width="12%">MSSV</th><th>Họ và tên</th><th width="10%">Lớp</th>
-                <th class="c" width="10%">Vắng</th><th class="c" width="9%">Giữa kỳ</th><th class="c" width="9%">Cuối kỳ</th>
-                <th class="c" width="10%">Tổng kết</th><th class="c" width="8%">Xếp loại</th>
+                <th class="c" width="5%">No.</th><th width="12%">Student ID</th><th>Full name</th><th width="10%">Class</th>
+                <th class="c" width="10%">Absent</th><th class="c" width="9%">Midterm</th><th class="c" width="9%">Final</th>
+                <th class="c" width="10%">Total</th><th class="c" width="8%">Grade</th>
             </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
                     <td>{{ $e['student']['school_class']['code'] ?? '' }}</td>
                     <td class="c">
                         {{ $e['attendance']['absent'] }}/{{ $e['attendance']['sessions'] }}
-                        @if ($e['attendance']['banned']) <span class="bad">(cấm thi)</span>@endif
+                        @if ($e['attendance']['banned']) <span class="bad">(exam ban)</span>@endif
                     </td>
                     <td class="c">{{ $e['grade']['midterm'] ?? '—' }}</td>
                     <td class="c">{{ $e['grade']['final'] ?? '—' }}</td>
@@ -44,9 +44,9 @@
         </tbody>
     </table>
 
-    <p class="muted">Tổng kết = Giữa kỳ × 40% + Cuối kỳ × 60% (thang điểm 10).</p>
+    <p class="muted">Total = Midterm × 40% + Final × 60% (10-point scale).</p>
 
     <table class="sign">
-        <tr><td width="50%">Trưởng khoa</td><td>Giáo viên phụ trách<br><span class="muted">(Ký, ghi rõ họ tên)</span></td></tr>
+        <tr><td width="50%">Head of department</td><td>Teacher in charge<br><span class="muted">(Signature and full name)</span></td></tr>
     </table>
 @endsection

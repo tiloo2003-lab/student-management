@@ -75,7 +75,7 @@ class TeacherService extends CrudService implements TeacherServiceInterface
         try {
             $this->transaction->run(fn () => $this->users->delete($teacher->user));
         } catch (QueryException) {
-            throw new ConflictHttpException('Không thể xóa giáo viên đang được phân công giảng dạy hoặc chủ nhiệm.');
+            throw new ConflictHttpException('This teacher is assigned to courses or classes and cannot be deleted.');
         }
     }
 
@@ -84,7 +84,7 @@ class TeacherService extends CrudService implements TeacherServiceInterface
         $semester = $this->semesters->current();
 
         if ($semester && $this->courses->forTeacherInSemester($teacherId, $semester->id)->isNotEmpty()) {
-            throw new UnprocessableEntityHttpException('Giáo viên đang phụ trách lớp học phần của học kỳ hiện tại, không thể khóa tài khoản.');
+            throw new UnprocessableEntityHttpException('This teacher is in charge of course sections in the current semester, so the account cannot be locked.');
         }
     }
 }

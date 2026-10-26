@@ -4,9 +4,9 @@ import api from '../../api';
 import { fmtNumber } from './likes';
 
 const VALUES = [
-  ['🎯', 'Sứ mệnh', 'Đào tạo nguồn nhân lực chất lượng cao, đáp ứng nhu cầu của xã hội và doanh nghiệp.'],
-  ['🔭', 'Tầm nhìn', 'Trở thành cơ sở giáo dục hiện đại, lấy người học làm trung tâm và đổi mới sáng tạo.'],
-  ['🤝', 'Giá trị cốt lõi', 'Trách nhiệm, tôn trọng, hợp tác và không ngừng học hỏi.'],
+  ['🎯', 'Mission', 'Train high-quality professionals who meet the needs of society and employers.'],
+  ['🔭', 'Vision', 'Become a modern institution that puts learners first and promotes innovation.'],
+  ['🤝', 'Core values', 'Responsibility, respect, cooperation and lifelong learning.'],
 ];
 
 export default function About() {
@@ -15,11 +15,11 @@ export default function About() {
 
   return (
     <main className="pub-main">
-      <div className="crumbs"><Link to="/">Trang chủ</Link><span>›</span><b>Giới thiệu</b></div>
-      <h1 className="page-title">Giới thiệu về nhà trường</h1>
+      <div className="crumbs"><Link to="/">Home</Link><span>›</span><b>About</b></div>
+      <h1 className="page-title">About our school</h1>
       <p className="page-sub">
-        Hệ thống quản lý sinh viên giúp kết nối quản trị viên, giảng viên và sinh viên trên một nền tảng thống nhất:
-        quản lý lớp học, điểm số, điểm danh và cập nhật tin tức nhanh chóng.
+        The student management system connects administrators, teachers and students on a single platform:
+        class management, grades, attendance and quick news updates.
       </p>
 
       <div className="values">
@@ -34,9 +34,9 @@ export default function About() {
 
       {stats && (
         <section className="cat-section">
-          <h2 className="sec-title"><span>Nhà trường trong những con số</span></h2>
+          <h2 className="sec-title"><span>Our school in numbers</span></h2>
           <div className="num-grid">
-            {[['students', 'Sinh viên'], ['teachers', 'Giảng viên'], ['departments', 'Khoa đào tạo'], ['courses', 'Lớp học phần']].map(([k, l]) => (
+            {[['students', 'Students'], ['teachers', 'Teachers'], ['departments', 'Departments'], ['courses', 'Course sections']].map(([k, l]) => (
               <div key={k}><b>{fmtNumber(stats[k])}</b><small>{l}</small></div>
             ))}
           </div>
@@ -45,10 +45,10 @@ export default function About() {
 
       <section className="cta">
         <div>
-          <h2>Muốn biết thêm thông tin?</h2>
-          <p>Liên hệ với chúng tôi để được tư vấn và hỗ trợ.</p>
+          <h2>Want to know more?</h2>
+          <p>Contact us for advice and support.</p>
         </div>
-        <Link to="/lien-he" className="hero-btn">Liên hệ</Link>
+        <Link to="/contact" className="hero-btn">Contact</Link>
       </section>
     </main>
   );

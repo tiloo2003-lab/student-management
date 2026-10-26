@@ -21,283 +21,283 @@ TRUNCATE TABLE departments;
 TRUNCATE TABLE users;
 
 INSERT INTO `departments` (`id`,`code`,`name`,`description`,`created_at`,`updated_at`) VALUES
-(1,'CNTT','Khoa Công nghệ thông tin','Mô tả về Khoa Công nghệ thông tin','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(2,'KT','Khoa Kinh tế','Mô tả về Khoa Kinh tế','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(3,'NN','Khoa Ngoại ngữ','Mô tả về Khoa Ngoại ngữ','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(4,'DDT','Khoa Điện - Điện tử','Mô tả về Khoa Điện - Điện tử','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,'CK','Khoa Cơ khí','Mô tả về Khoa Cơ khí','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(6,'XD','Khoa Xây dựng','Mô tả về Khoa Xây dựng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(7,'YD','Khoa Y - Dược','Mô tả về Khoa Y - Dược','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(8,'LUAT','Khoa Luật','Mô tả về Khoa Luật','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(9,'SP','Khoa Sư phạm','Mô tả về Khoa Sư phạm','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(10,'DL','Khoa Du lịch','Mô tả về Khoa Du lịch','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(11,'QTKD','Khoa Quản trị kinh doanh','Mô tả về Khoa Quản trị kinh doanh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(12,'KETOAN','Khoa Kế toán - Kiểm toán','Mô tả về Khoa Kế toán - Kiểm toán','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(13,'MKT','Khoa Marketing','Mô tả về Khoa Marketing','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(14,'MT','Khoa Môi trường','Mô tả về Khoa Môi trường','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(15,'HOA','Khoa Hóa học','Mô tả về Khoa Hóa học','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(16,'TOAN','Khoa Toán ứng dụng','Mô tả về Khoa Toán ứng dụng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(17,'LY','Khoa Vật lý','Mô tả về Khoa Vật lý','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,'TT','Khoa Truyền thông','Mô tả về Khoa Truyền thông','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(19,'TKDH','Khoa Thiết kế đồ họa','Mô tả về Khoa Thiết kế đồ họa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(20,'LOG','Khoa Logistics','Mô tả về Khoa Logistics','2026-10-01 08:00:00','2026-10-01 08:00:00');
+(1,'CNTT','Department of Information Technology','Overview of the Department of Information Technology.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(2,'KT','Department of Economics','Overview of the Department of Economics.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(3,'NN','Department of Foreign Languages','Overview of the Department of Foreign Languages.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(4,'DDT','Department of Electrical and Electronics Engineering','Overview of the Department of Electrical and Electronics Engineering.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,'CK','Department of Mechanical Engineering','Overview of the Department of Mechanical Engineering.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(6,'XD','Department of Civil Engineering','Overview of the Department of Civil Engineering.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(7,'YD','Department of Medicine and Pharmacy','Overview of the Department of Medicine and Pharmacy.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(8,'LUAT','Department of Law','Overview of the Department of Law.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(9,'SP','Department of Education','Overview of the Department of Education.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(10,'DL','Department of Tourism','Overview of the Department of Tourism.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(11,'QTKD','Department of Business Administration','Overview of the Department of Business Administration.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(12,'KETOAN','Department of Accounting and Auditing','Overview of the Department of Accounting and Auditing.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(13,'MKT','Department of Marketing','Overview of the Department of Marketing.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(14,'MT','Department of Environment','Overview of the Department of Environment.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(15,'HOA','Department of Chemistry','Overview of the Department of Chemistry.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(16,'TOAN','Department of Applied Mathematics','Overview of the Department of Applied Mathematics.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(17,'LY','Department of Physics','Overview of the Department of Physics.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,'TT','Department of Communications','Overview of the Department of Communications.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(19,'TKDH','Department of Graphic Design','Overview of the Department of Graphic Design.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(20,'LOG','Department of Logistics','Overview of the Department of Logistics.','2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `users` (`id`,`name`,`email`,`password`,`role`,`phone`,`status`,`created_at`,`updated_at`) VALUES
-(1,'Quản trị viên 1','admin1@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','admin','0952082305','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(2,'Quản trị viên 2','admin2@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','admin','0962560774','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(3,'Quản trị viên 3','admin3@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','admin','0973871898','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(4,'Quản trị viên 4','admin4@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','admin','0988273336','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,'Quản trị viên 5','admin5@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','admin','0964617421','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(6,'Ngô Văn Hùng','gv001@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0994665779','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(7,'Phan Thanh Linh','gv002@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0943944928','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(8,'Hoàng Quang Việt','gv003@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0949675558','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(9,'Trần Bảo Hoa','gv004@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0922825076','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(10,'Lý Thành Trung','gv005@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0961367990','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(11,'Phạm Văn Sơn','gv006@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0931418661','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(12,'Phạm Bảo Châu','gv007@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0931154615','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(13,'Huỳnh Quốc Trung','gv008@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0947328984','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(14,'Đỗ Diệu Uyên','gv009@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0992896288','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(15,'Nguyễn Diệu Hoa','gv010@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0970275138','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(16,'Dương Văn Khang','gv011@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0923086112','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(17,'Phạm Mai Hương','gv012@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0946577625','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,'Hồ Hữu Vinh','gv013@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0997687344','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(19,'Ngô Thành Bình','gv014@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0965851789','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(20,'Võ Thành Dũng','gv015@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0919293198','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(21,'Hồ Khánh My','gv016@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0918774838','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(22,'Võ Văn Huy','gv017@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0983757526','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(23,'Bùi Hữu Thắng','gv018@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0985142164','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(24,'Huỳnh Thanh Châu','gv019@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0955410250','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(25,'Võ Thu Hà','gv020@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0956372923','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(26,'Lê Văn Lâm','gv021@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0980077802','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(27,'Lý Ngọc Linh','gv022@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0954786729','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(28,'Phạm Ngọc Oanh','gv023@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0964591828','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(29,'Đặng Bảo Thảo','gv024@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0937000928','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(30,'Dương Gia Sơn','gv025@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','teacher','0929367903','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(31,'Phạm Thu Quỳnh','sv0001@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0958233708','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(32,'Ngô Thành Tài','sv0002@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0985179979','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(33,'Đỗ Khánh Dung','sv0003@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0954867166','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(34,'Võ Quang Long','sv0004@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0967209876','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(35,'Dương Thị Ngân','sv0005@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0929432312','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(36,'Phan Thành Khoa','sv0006@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0944551756','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(37,'Phạm Thị Linh','sv0007@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0914589901','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(38,'Lê Khánh Nhi','sv0008@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0946883055','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(39,'Phan Văn Sơn','sv0009@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0922426244','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(40,'Huỳnh Minh Hiếu','sv0010@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0929316139','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(41,'Huỳnh Quang Huy','sv0011@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0938114556','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(42,'Phạm Thành Khoa','sv0012@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0981444532','inactive','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(43,'Ngô Đức Huy','sv0013@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0976182446','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(44,'Ngô Mai Hằng','sv0014@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0942792138','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(45,'Huỳnh Thu Thảo','sv0015@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0947093052','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(46,'Huỳnh Mai My','sv0016@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0924974298','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(47,'Đỗ Anh Hiếu','sv0017@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0943389917','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(48,'Dương Mai Hoa','sv0018@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0950295642','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(49,'Vũ Đức Khoa','sv0019@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0953378283','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(50,'Huỳnh Đức Hùng','sv0020@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0976309701','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(51,'Nguyễn Bảo Yến','sv0021@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0958008470','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(52,'Phạm Tuấn Việt','sv0022@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0962678221','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(53,'Đặng Quang Nghĩa','sv0023@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0938712639','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(54,'Hoàng Mai Lan','sv0024@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0913776984','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(55,'Huỳnh Hữu Phúc','sv0025@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0996652701','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(56,'Trần Đức Vinh','sv0026@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0983266607','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(57,'Võ Minh Khoa','sv0027@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0942647462','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(58,'Hoàng Anh Đạt','sv0028@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0960031628','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(59,'Trần Tuấn Hùng','sv0029@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0967066362','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(60,'Hoàng Mai Lan','sv0030@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0924487275','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(61,'Trần Thu Nhi','sv0031@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0945227153','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(62,'Đặng Quang Cường','sv0032@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0947050039','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(63,'Phan Hữu Trung','sv0033@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0966681731','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(64,'Phan Quốc Khoa','sv0034@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0986959498','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(65,'Võ Ngọc Thảo','sv0035@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0976050659','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(66,'Nguyễn Quốc Tài','sv0036@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0955595869','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(67,'Trần Thu Loan','sv0037@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0926796323','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(68,'Trần Khánh My','sv0038@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0928176360','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(69,'Phan Văn Khang','sv0039@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0930374249','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(70,'Huỳnh Thanh Loan','sv0040@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0956507570','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(71,'Đỗ Thành Trung','sv0041@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0955619287','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(72,'Bùi Diệu Giang','sv0042@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0911283885','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(73,'Đỗ Bảo Ngân','sv0043@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0955201076','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(74,'Nguyễn Gia Huy','sv0044@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0945721505','inactive','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(75,'Đỗ Anh Việt','sv0045@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0988796025','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(76,'Vũ Mai Ngân','sv0046@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0970813813','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(77,'Trần Khánh Nhi','sv0047@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0972955612','inactive','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(78,'Ngô Thị Hoa','sv0048@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0972594768','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(79,'Đặng Tuấn Thắng','sv0049@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0929942007','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(80,'Đặng Thành Đạt','sv0050@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0911880801','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(81,'Vũ Mai Linh','sv0051@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0950932416','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(82,'Lê Hồng Hoa','sv0052@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0931343440','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(83,'Phạm Hữu Nam','sv0053@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0937558160','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(84,'Lê Thị Loan','sv0054@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0922709537','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(85,'Nguyễn Hữu Bình','sv0055@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0969920580','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(86,'Hoàng Gia Vinh','sv0056@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0966467450','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(87,'Nguyễn Quốc Bình','sv0057@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0961371952','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(88,'Huỳnh Đức Khang','sv0058@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0956753744','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(89,'Dương Văn Nam','sv0059@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0938660728','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(90,'Huỳnh Thị Uyên','sv0060@school.test','$2y$10$1zDNlVb4v4QUBj4PyItAdeQf23c/YGsRhBsSzpj2Jv9SjUF2Pf7xq','student','0993240009','active','2026-10-01 08:00:00','2026-10-01 08:00:00');
+(1,'Administrator 1','admin1@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','admin','0952082305','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(2,'Administrator 2','admin2@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','admin','0962560774','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(3,'Administrator 3','admin3@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','admin','0973871898','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(4,'Administrator 4','admin4@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','admin','0988273336','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,'Administrator 5','admin5@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','admin','0964617421','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(6,'Ngo Van Hung','gv001@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0994665779','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(7,'Phan Thanh Linh','gv002@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0943944928','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(8,'Hoang Quang Viet','gv003@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0949675558','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(9,'Tran Bao Hoa','gv004@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0922825076','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(10,'Ly Thanh Trung','gv005@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0961367990','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(11,'Pham Van Son','gv006@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0931418661','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(12,'Pham Bao Chau','gv007@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0931154615','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(13,'Huynh Quoc Trung','gv008@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0947328984','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(14,'Do Dieu Uyen','gv009@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0992896288','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(15,'Nguyen Dieu Hoa','gv010@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0970275138','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(16,'Duong Van Khang','gv011@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0923086112','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(17,'Pham Mai Huong','gv012@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0946577625','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,'Ho Huu Vinh','gv013@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0997687344','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(19,'Ngo Thanh Binh','gv014@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0965851789','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(20,'Vo Thanh Dung','gv015@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0919293198','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(21,'Ho Khanh My','gv016@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0918774838','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(22,'Vo Van Huy','gv017@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0983757526','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(23,'Bui Huu Thang','gv018@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0985142164','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(24,'Huynh Thanh Chau','gv019@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0955410250','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(25,'Vo Thu Ha','gv020@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0956372923','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(26,'Le Van Lam','gv021@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0980077802','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(27,'Ly Ngoc Linh','gv022@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0954786729','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(28,'Pham Ngoc Oanh','gv023@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0964591828','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(29,'Dang Bao Thao','gv024@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0937000928','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(30,'Duong Gia Son','gv025@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','teacher','0929367903','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(31,'Pham Thu Quynh','sv0001@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0958233708','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(32,'Ngo Thanh Tai','sv0002@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0985179979','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(33,'Do Khanh Dung','sv0003@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0954867166','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(34,'Vo Quang Long','sv0004@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0967209876','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(35,'Duong Thi Ngan','sv0005@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0929432312','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(36,'Phan Thanh Khoa','sv0006@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0944551756','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(37,'Pham Thi Linh','sv0007@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0914589901','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(38,'Le Khanh Nhi','sv0008@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0946883055','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(39,'Phan Van Son','sv0009@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0922426244','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(40,'Huynh Minh Hieu','sv0010@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0929316139','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(41,'Huynh Quang Huy','sv0011@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0938114556','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(42,'Pham Thanh Khoa','sv0012@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0981444532','inactive','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(43,'Ngo Duc Huy','sv0013@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0976182446','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(44,'Ngo Mai Hang','sv0014@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0942792138','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(45,'Huynh Thu Thao','sv0015@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0947093052','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(46,'Huynh Mai My','sv0016@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0924974298','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(47,'Do Anh Hieu','sv0017@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0943389917','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(48,'Duong Mai Hoa','sv0018@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0950295642','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(49,'Vu Duc Khoa','sv0019@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0953378283','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(50,'Huynh Duc Hung','sv0020@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0976309701','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(51,'Nguyen Bao Yen','sv0021@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0958008470','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(52,'Pham Tuan Viet','sv0022@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0962678221','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(53,'Dang Quang Nghia','sv0023@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0938712639','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(54,'Hoang Mai Lan','sv0024@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0913776984','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(55,'Huynh Huu Phuc','sv0025@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0996652701','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(56,'Tran Duc Vinh','sv0026@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0983266607','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(57,'Vo Minh Khoa','sv0027@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0942647462','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(58,'Hoang Anh Dat','sv0028@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0960031628','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(59,'Tran Tuan Hung','sv0029@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0967066362','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(60,'Hoang Mai Lan','sv0030@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0924487275','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(61,'Tran Thu Nhi','sv0031@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0945227153','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(62,'Dang Quang Cuong','sv0032@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0947050039','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(63,'Phan Huu Trung','sv0033@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0966681731','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(64,'Phan Quoc Khoa','sv0034@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0986959498','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(65,'Vo Ngoc Thao','sv0035@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0976050659','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(66,'Nguyen Quoc Tai','sv0036@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0955595869','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(67,'Tran Thu Loan','sv0037@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0926796323','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(68,'Tran Khanh My','sv0038@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0928176360','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(69,'Phan Van Khang','sv0039@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0930374249','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(70,'Huynh Thanh Loan','sv0040@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0956507570','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(71,'Do Thanh Trung','sv0041@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0955619287','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(72,'Bui Dieu Giang','sv0042@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0911283885','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(73,'Do Bao Ngan','sv0043@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0955201076','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(74,'Nguyen Gia Huy','sv0044@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0945721505','inactive','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(75,'Do Anh Viet','sv0045@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0988796025','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(76,'Vu Mai Ngan','sv0046@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0970813813','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(77,'Tran Khanh Nhi','sv0047@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0972955612','inactive','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(78,'Ngo Thi Hoa','sv0048@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0972594768','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(79,'Dang Tuan Thang','sv0049@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0929942007','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(80,'Dang Thanh Dat','sv0050@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0911880801','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(81,'Vu Mai Linh','sv0051@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0950932416','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(82,'Le Hong Hoa','sv0052@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0931343440','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(83,'Pham Huu Nam','sv0053@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0937558160','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(84,'Le Thi Loan','sv0054@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0922709537','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(85,'Nguyen Huu Binh','sv0055@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0969920580','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(86,'Hoang Gia Vinh','sv0056@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0966467450','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(87,'Nguyen Quoc Binh','sv0057@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0961371952','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(88,'Huynh Duc Khang','sv0058@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0956753744','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(89,'Duong Van Nam','sv0059@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0938660728','active','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(90,'Huynh Thi Uyen','sv0060@school.test','$2y$10$WNFMf2YitlqGHsNGKEtDbOHVzOgn9ZsC7..TdLHIgLP5t/uaPFjC6','student','0993240009','active','2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `teachers` (`id`,`user_id`,`department_id`,`teacher_code`,`degree`,`specialization`,`hired_date`,`created_at`,`updated_at`) VALUES
-(1,6,1,'GV001','Thạc sĩ','Chuyên ngành Khoa Công nghệ thông tin','2010-01-13','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(2,7,2,'GV002','Phó giáo sư','Chuyên ngành Khoa Kinh tế','2020-09-28','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(3,8,3,'GV003','Tiến sĩ','Chuyên ngành Khoa Ngoại ngữ','2019-08-05','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(4,9,4,'GV004','Thạc sĩ','Chuyên ngành Khoa Điện - Điện tử','2006-02-01','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,10,5,'GV005','Tiến sĩ','Chuyên ngành Khoa Cơ khí','2013-06-25','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(6,11,6,'GV006','Tiến sĩ','Chuyên ngành Khoa Xây dựng','2011-10-20','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(7,12,7,'GV007','Phó giáo sư','Chuyên ngành Khoa Y - Dược','2020-07-21','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(8,13,8,'GV008','Tiến sĩ','Chuyên ngành Khoa Luật','2014-08-06','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(9,14,9,'GV009','Tiến sĩ','Chuyên ngành Khoa Sư phạm','2009-05-02','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(10,15,10,'GV010','Tiến sĩ','Chuyên ngành Khoa Du lịch','2021-11-20','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(11,16,11,'GV011','Thạc sĩ','Chuyên ngành Khoa Quản trị kinh doanh','2022-09-05','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(12,17,12,'GV012','Phó giáo sư','Chuyên ngành Khoa Kế toán - Kiểm toán','2020-10-03','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(13,18,13,'GV013','Thạc sĩ','Chuyên ngành Khoa Marketing','2008-06-18','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(14,19,14,'GV014','Cử nhân','Chuyên ngành Khoa Môi trường','2008-02-28','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(15,20,15,'GV015','Phó giáo sư','Chuyên ngành Khoa Hóa học','2005-07-17','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(16,21,16,'GV016','Thạc sĩ','Chuyên ngành Khoa Toán ứng dụng','2005-01-17','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(17,22,17,'GV017','Thạc sĩ','Chuyên ngành Khoa Vật lý','2010-10-09','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,23,18,'GV018','Thạc sĩ','Chuyên ngành Khoa Truyền thông','2008-07-01','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(19,24,19,'GV019','Phó giáo sư','Chuyên ngành Khoa Thiết kế đồ họa','2010-09-16','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(20,25,20,'GV020','Phó giáo sư','Chuyên ngành Khoa Logistics','2016-04-01','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(21,26,17,'GV021','Tiến sĩ','Chuyên ngành Khoa Vật lý','2005-09-17','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(22,27,18,'GV022','Tiến sĩ','Chuyên ngành Khoa Truyền thông','2019-05-12','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(23,28,4,'GV023','Cử nhân','Chuyên ngành Khoa Điện - Điện tử','2021-02-14','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(24,29,8,'GV024','Tiến sĩ','Chuyên ngành Khoa Luật','2007-01-09','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(25,30,2,'GV025','Tiến sĩ','Chuyên ngành Khoa Kinh tế','2008-12-18','2026-10-01 08:00:00','2026-10-01 08:00:00');
+(1,6,1,'GV001','Master','Specialist in Information Technology','2010-01-13','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(2,7,2,'GV002','Associate Professor','Specialist in Economics','2020-09-28','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(3,8,3,'GV003','PhD','Specialist in Foreign Languages','2019-08-05','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(4,9,4,'GV004','Master','Specialist in Electrical and Electronics Engineering','2006-02-01','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,10,5,'GV005','PhD','Specialist in Mechanical Engineering','2013-06-25','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(6,11,6,'GV006','PhD','Specialist in Civil Engineering','2011-10-20','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(7,12,7,'GV007','Associate Professor','Specialist in Medicine and Pharmacy','2020-07-21','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(8,13,8,'GV008','PhD','Specialist in Law','2014-08-06','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(9,14,9,'GV009','PhD','Specialist in Education','2009-05-02','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(10,15,10,'GV010','PhD','Specialist in Tourism','2021-11-20','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(11,16,11,'GV011','Master','Specialist in Business Administration','2022-09-05','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(12,17,12,'GV012','Associate Professor','Specialist in Accounting and Auditing','2020-10-03','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(13,18,13,'GV013','Master','Specialist in Marketing','2008-06-18','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(14,19,14,'GV014','Bachelor','Specialist in Environmental Science','2008-02-28','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(15,20,15,'GV015','Associate Professor','Specialist in Chemistry','2005-07-17','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(16,21,16,'GV016','Master','Specialist in Applied Mathematics','2005-01-17','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(17,22,17,'GV017','Master','Specialist in Physics','2010-10-09','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,23,18,'GV018','Master','Specialist in Communications','2008-07-01','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(19,24,19,'GV019','Associate Professor','Specialist in Graphic Design','2010-09-16','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(20,25,20,'GV020','Associate Professor','Specialist in Logistics','2016-04-01','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(21,26,17,'GV021','PhD','Specialist in Physics','2005-09-17','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(22,27,18,'GV022','PhD','Specialist in Communications','2019-05-12','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(23,28,4,'GV023','Bachelor','Specialist in Electrical and Electronics Engineering','2021-02-14','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(24,29,8,'GV024','PhD','Specialist in Law','2007-01-09','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(25,30,2,'GV025','PhD','Specialist in Economics','2008-12-18','2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `classes` (`id`,`code`,`name`,`department_id`,`homeroom_teacher_id`,`academic_year`,`created_at`,`updated_at`) VALUES
-(1,'CNTT21A','Lớp CNTT21A',1,1,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(2,'KT22A','Lớp KT22A',2,2,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(3,'NN23A','Lớp NN23A',3,3,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(4,'DDT24A','Lớp DDT24A',4,4,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,'CK21A','Lớp CK21A',5,5,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(6,'XD22A','Lớp XD22A',6,6,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(7,'YD23A','Lớp YD23A',7,7,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(8,'LUAT24A','Lớp LUAT24A',8,8,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(9,'SP21A','Lớp SP21A',9,9,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(10,'DL22A','Lớp DL22A',10,10,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(11,'QTKD23A','Lớp QTKD23A',11,11,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(12,'KETOAN24A','Lớp KETOAN24A',12,12,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(13,'MKT21A','Lớp MKT21A',13,13,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(14,'MT22A','Lớp MT22A',14,14,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(15,'HOA23A','Lớp HOA23A',15,15,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(16,'TOAN24A','Lớp TOAN24A',16,16,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(17,'LY21A','Lớp LY21A',17,17,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,'TT22A','Lớp TT22A',18,18,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(19,'TKDH23A','Lớp TKDH23A',19,19,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(20,'LOG24A','Lớp LOG24A',20,20,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00');
+(1,'CNTT21A','Class CNTT21A',1,1,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(2,'KT22A','Class KT22A',2,2,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(3,'NN23A','Class NN23A',3,3,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(4,'DDT24A','Class DDT24A',4,4,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,'CK21A','Class CK21A',5,5,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(6,'XD22A','Class XD22A',6,6,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(7,'YD23A','Class YD23A',7,7,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(8,'LUAT24A','Class LUAT24A',8,8,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(9,'SP21A','Class SP21A',9,9,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(10,'DL22A','Class DL22A',10,10,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(11,'QTKD23A','Class QTKD23A',11,11,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(12,'KETOAN24A','Class KETOAN24A',12,12,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(13,'MKT21A','Class MKT21A',13,13,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(14,'MT22A','Class MT22A',14,14,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(15,'HOA23A','Class HOA23A',15,15,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(16,'TOAN24A','Class TOAN24A',16,16,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(17,'LY21A','Class LY21A',17,17,'2021-2025','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,'TT22A','Class TT22A',18,18,'2022-2026','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(19,'TKDH23A','Class TKDH23A',19,19,'2023-2027','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(20,'LOG24A','Class LOG24A',20,20,'2024-2028','2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `students` (`id`,`user_id`,`class_id`,`student_code`,`date_of_birth`,`gender`,`address`,`created_at`,`updated_at`) VALUES
-(1,31,1,'SV0001','2005-11-01','female','198 Lý Thường Kiệt, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(2,32,2,'SV0002','2005-02-22','male','184 Lê Lợi, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(3,33,3,'SV0003','2001-02-08','female','177 Nguyễn Huệ, Nam Định','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(4,34,4,'SV0004','2000-09-20','male','32 Trần Phú, Hải Phòng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,35,5,'SV0005','2003-12-04','female','199 Trần Phú, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(6,36,6,'SV0006','2001-02-13','male','168 Hai Bà Trưng, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(7,37,7,'SV0007','2003-02-03','female','99 Cách Mạng Tháng 8, Buôn Ma Thuột','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(8,38,8,'SV0008','2003-06-06','female','74 Nguyễn Huệ, Huế','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(9,39,9,'SV0009','2002-10-05','male','126 Điện Biên Phủ, TP. Hồ Chí Minh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(10,40,10,'SV0010','2004-11-18','male','56 Lý Thường Kiệt, Thái Nguyên','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(11,41,11,'SV0011','2002-04-17','male','151 Lê Lợi, Đà Nẵng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(12,42,12,'SV0012','2004-03-19','male','165 Nguyễn Huệ, Cần Thơ','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(13,43,13,'SV0013','2002-03-06','male','78 Nguyễn Trãi, Đà Nẵng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(14,44,14,'SV0014','2001-02-03','female','141 Trần Phú, Cần Thơ','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(15,45,15,'SV0015','2000-02-20','female','135 Cách Mạng Tháng 8, Hải Phòng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(16,46,16,'SV0016','2002-06-11','female','190 Phan Chu Trinh, Huế','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(17,47,17,'SV0017','2004-09-28','male','100 Hai Bà Trưng, Hà Nội','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,48,18,'SV0018','2000-10-07','female','110 Điện Biên Phủ, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(19,49,19,'SV0019','2004-09-07','male','100 Phan Chu Trinh, TP. Hồ Chí Minh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(20,50,20,'SV0020','2000-03-24','male','13 Nguyễn Trãi, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(21,51,1,'SV0021','2002-09-05','female','56 Nguyễn Huệ, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(22,52,2,'SV0022','2001-12-20','male','122 Trần Phú, Thái Nguyên','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(23,53,3,'SV0023','2000-11-13','male','32 Trần Phú, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(24,54,4,'SV0024','2004-11-15','female','25 Phan Chu Trinh, Đà Nẵng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(25,55,5,'SV0025','2004-09-24','male','135 Hai Bà Trưng, Cần Thơ','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(26,56,6,'SV0026','2000-06-07','male','74 Điện Biên Phủ, Đà Nẵng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(27,57,7,'SV0027','2004-09-26','male','43 Phan Chu Trinh, TP. Hồ Chí Minh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(28,58,8,'SV0028','2001-04-23','male','195 Nguyễn Huệ, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(29,59,9,'SV0029','2005-10-05','male','99 Phan Chu Trinh, Huế','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(30,60,10,'SV0030','2000-08-14','female','4 Điện Biên Phủ, TP. Hồ Chí Minh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(31,61,11,'SV0031','2000-12-16','female','103 Điện Biên Phủ, Buôn Ma Thuột','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(32,62,12,'SV0032','2000-04-10','male','94 Cách Mạng Tháng 8, Buôn Ma Thuột','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(33,63,13,'SV0033','2003-02-21','male','30 Lê Lợi, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(34,64,14,'SV0034','2003-11-28','male','191 Võ Thị Sáu, Nam Định','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(35,65,15,'SV0035','2005-01-26','female','71 Lê Lợi, Cần Thơ','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(36,66,16,'SV0036','2002-12-20','male','166 Phan Chu Trinh, Cần Thơ','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(37,67,17,'SV0037','2000-06-28','female','136 Lý Thường Kiệt, Hải Phòng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(38,68,18,'SV0038','2001-04-07','female','33 Lý Thường Kiệt, Nam Định','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(39,69,19,'SV0039','2002-09-06','male','127 Nguyễn Trãi, Huế','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(40,70,20,'SV0040','2001-07-01','female','19 Lê Lợi, Buôn Ma Thuột','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(41,71,1,'SV0041','2005-12-20','male','118 Hai Bà Trưng, Vinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(42,72,2,'SV0042','2005-06-17','female','59 Phan Chu Trinh, Đà Nẵng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(43,73,3,'SV0043','2003-06-13','female','3 Nguyễn Trãi, TP. Hồ Chí Minh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(44,74,4,'SV0044','2002-06-25','male','175 Phan Chu Trinh, Cần Thơ','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(45,75,5,'SV0045','2003-06-09','male','125 Trần Phú, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(46,76,6,'SV0046','2003-12-15','female','189 Trần Phú, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(47,77,7,'SV0047','2001-02-03','female','26 Điện Biên Phủ, Nam Định','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(48,78,8,'SV0048','2004-03-07','female','131 Phan Chu Trinh, Huế','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(49,79,9,'SV0049','2000-09-12','male','166 Cách Mạng Tháng 8, Biên Hòa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(50,80,10,'SV0050','2005-06-13','male','73 Phan Chu Trinh, Hà Nội','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(51,81,11,'SV0051','2003-10-23','female','157 Nguyễn Huệ, Buôn Ma Thuột','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(52,82,12,'SV0052','2003-04-20','female','176 Phan Chu Trinh, Nam Định','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(53,83,13,'SV0053','2001-04-15','male','54 Hai Bà Trưng, Đà Nẵng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(54,84,14,'SV0054','2004-11-20','female','171 Trần Phú, Hà Nội','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(55,85,15,'SV0055','2005-11-21','male','75 Lê Lợi, Vinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(56,86,16,'SV0056','2003-02-13','male','49 Điện Biên Phủ, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(57,87,17,'SV0057','2005-10-01','male','66 Lê Lợi, Buôn Ma Thuột','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(58,88,18,'SV0058','2003-11-04','male','33 Hai Bà Trưng, Vinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(59,89,19,'SV0059','2000-03-15','male','96 Phan Chu Trinh, Thái Nguyên','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(60,90,20,'SV0060','2002-02-06','female','136 Điện Biên Phủ, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00');
+(1,31,1,'SV0001','2005-11-01','female','198 Ly Thuong Kiet Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(2,32,2,'SV0002','2005-02-22','male','184 Le Loi Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(3,33,3,'SV0003','2001-02-08','female','177 Nguyen Hue Street, Nam Dinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(4,34,4,'SV0004','2000-09-20','male','32 Tran Phu Street, Hai Phong','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,35,5,'SV0005','2003-12-04','female','199 Tran Phu Street, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(6,36,6,'SV0006','2001-02-13','male','168 Hai Ba Trung Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(7,37,7,'SV0007','2003-02-03','female','99 Cach Mang Thang 8 Street, Buon Ma Thuot','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(8,38,8,'SV0008','2003-06-06','female','74 Nguyen Hue Street, Hue','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(9,39,9,'SV0009','2002-10-05','male','126 Dien Bien Phu Street, Ho Chi Minh City','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(10,40,10,'SV0010','2004-11-18','male','56 Ly Thuong Kiet Street, Thai Nguyen','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(11,41,11,'SV0011','2002-04-17','male','151 Le Loi Street, Da Nang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(12,42,12,'SV0012','2004-03-19','male','165 Nguyen Hue Street, Can Tho','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(13,43,13,'SV0013','2002-03-06','male','78 Nguyen Trai Street, Da Nang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(14,44,14,'SV0014','2001-02-03','female','141 Tran Phu Street, Can Tho','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(15,45,15,'SV0015','2000-02-20','female','135 Cach Mang Thang 8 Street, Hai Phong','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(16,46,16,'SV0016','2002-06-11','female','190 Phan Chu Trinh Street, Hue','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(17,47,17,'SV0017','2004-09-28','male','100 Hai Ba Trung Street, Hanoi','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,48,18,'SV0018','2000-10-07','female','110 Dien Bien Phu Street, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(19,49,19,'SV0019','2004-09-07','male','100 Phan Chu Trinh Street, Ho Chi Minh City','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(20,50,20,'SV0020','2000-03-24','male','13 Nguyen Trai Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(21,51,1,'SV0021','2002-09-05','female','56 Nguyen Hue Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(22,52,2,'SV0022','2001-12-20','male','122 Tran Phu Street, Thai Nguyen','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(23,53,3,'SV0023','2000-11-13','male','32 Tran Phu Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(24,54,4,'SV0024','2004-11-15','female','25 Phan Chu Trinh Street, Da Nang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(25,55,5,'SV0025','2004-09-24','male','135 Hai Ba Trung Street, Can Tho','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(26,56,6,'SV0026','2000-06-07','male','74 Dien Bien Phu Street, Da Nang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(27,57,7,'SV0027','2004-09-26','male','43 Phan Chu Trinh Street, Ho Chi Minh City','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(28,58,8,'SV0028','2001-04-23','male','195 Nguyen Hue Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(29,59,9,'SV0029','2005-10-05','male','99 Phan Chu Trinh Street, Hue','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(30,60,10,'SV0030','2000-08-14','female','4 Dien Bien Phu Street, Ho Chi Minh City','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(31,61,11,'SV0031','2000-12-16','female','103 Dien Bien Phu Street, Buon Ma Thuot','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(32,62,12,'SV0032','2000-04-10','male','94 Cach Mang Thang 8 Street, Buon Ma Thuot','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(33,63,13,'SV0033','2003-02-21','male','30 Le Loi Street, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(34,64,14,'SV0034','2003-11-28','male','191 Vo Thi Sau Street, Nam Dinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(35,65,15,'SV0035','2005-01-26','female','71 Le Loi Street, Can Tho','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(36,66,16,'SV0036','2002-12-20','male','166 Phan Chu Trinh Street, Can Tho','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(37,67,17,'SV0037','2000-06-28','female','136 Ly Thuong Kiet Street, Hai Phong','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(38,68,18,'SV0038','2001-04-07','female','33 Ly Thuong Kiet Street, Nam Dinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(39,69,19,'SV0039','2002-09-06','male','127 Nguyen Trai Street, Hue','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(40,70,20,'SV0040','2001-07-01','female','19 Le Loi Street, Buon Ma Thuot','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(41,71,1,'SV0041','2005-12-20','male','118 Hai Ba Trung Street, Vinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(42,72,2,'SV0042','2005-06-17','female','59 Phan Chu Trinh Street, Da Nang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(43,73,3,'SV0043','2003-06-13','female','3 Nguyen Trai Street, Ho Chi Minh City','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(44,74,4,'SV0044','2002-06-25','male','175 Phan Chu Trinh Street, Can Tho','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(45,75,5,'SV0045','2003-06-09','male','125 Tran Phu Street, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(46,76,6,'SV0046','2003-12-15','female','189 Tran Phu Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(47,77,7,'SV0047','2001-02-03','female','26 Dien Bien Phu Street, Nam Dinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(48,78,8,'SV0048','2004-03-07','female','131 Phan Chu Trinh Street, Hue','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(49,79,9,'SV0049','2000-09-12','male','166 Cach Mang Thang 8 Street, Bien Hoa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(50,80,10,'SV0050','2005-06-13','male','73 Phan Chu Trinh Street, Hanoi','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(51,81,11,'SV0051','2003-10-23','female','157 Nguyen Hue Street, Buon Ma Thuot','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(52,82,12,'SV0052','2003-04-20','female','176 Phan Chu Trinh Street, Nam Dinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(53,83,13,'SV0053','2001-04-15','male','54 Hai Ba Trung Street, Da Nang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(54,84,14,'SV0054','2004-11-20','female','171 Tran Phu Street, Hanoi','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(55,85,15,'SV0055','2005-11-21','male','75 Le Loi Street, Vinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(56,86,16,'SV0056','2003-02-13','male','49 Dien Bien Phu Street, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(57,87,17,'SV0057','2005-10-01','male','66 Le Loi Street, Buon Ma Thuot','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(58,88,18,'SV0058','2003-11-04','male','33 Hai Ba Trung Street, Vinh','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(59,89,19,'SV0059','2000-03-15','male','96 Phan Chu Trinh Street, Thai Nguyen','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(60,90,20,'SV0060','2002-02-06','female','136 Dien Bien Phu Street, Nha Trang','2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `subjects` (`id`,`code`,`name`,`credits`,`department_id`,`description`,`created_at`,`updated_at`) VALUES
-(1,'MH001','Lập trình căn bản',3,1,'Môn học Lập trình căn bản','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(2,'MH002','Cấu trúc dữ liệu và giải thuật',4,1,'Môn học Cấu trúc dữ liệu và giải thuật','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(3,'MH003','Cơ sở dữ liệu',3,1,'Môn học Cơ sở dữ liệu','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(4,'MH004','Mạng máy tính',3,1,'Môn học Mạng máy tính','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,'MH005','Lập trình Web',3,1,'Môn học Lập trình Web','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(6,'MH006','Kinh tế vi mô',3,2,'Môn học Kinh tế vi mô','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(7,'MH007','Kinh tế vĩ mô',3,2,'Môn học Kinh tế vĩ mô','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(8,'MH008','Tiếng Anh giao tiếp',2,3,'Môn học Tiếng Anh giao tiếp','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(9,'MH009','Tiếng Anh chuyên ngành',3,3,'Môn học Tiếng Anh chuyên ngành','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(10,'MH010','Mạch điện',3,4,'Môn học Mạch điện','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(11,'MH011','Điện tử số',3,4,'Môn học Điện tử số','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(12,'MH012','Cơ học kỹ thuật',3,5,'Môn học Cơ học kỹ thuật','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(13,'MH013','Vẽ kỹ thuật',2,5,'Môn học Vẽ kỹ thuật','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(14,'MH014','Sức bền vật liệu',3,6,'Môn học Sức bền vật liệu','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(15,'MH015','Kết cấu công trình',4,6,'Môn học Kết cấu công trình','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(16,'MH016','Giải phẫu học',4,7,'Môn học Giải phẫu học','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(17,'MH017','Dược lý',3,7,'Môn học Dược lý','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,'MH018','Luật dân sự',3,8,'Môn học Luật dân sự','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(19,'MH019','Luật hình sự',3,8,'Môn học Luật hình sự','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(20,'MH020','Tâm lý học giáo dục',2,9,'Môn học Tâm lý học giáo dục','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(21,'MH021','Tổng quan du lịch',2,10,'Môn học Tổng quan du lịch','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(22,'MH022','Quản trị học',3,11,'Môn học Quản trị học','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(23,'MH023','Nguyên lý kế toán',3,12,'Môn học Nguyên lý kế toán','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(24,'MH024','Kế toán tài chính',4,12,'Môn học Kế toán tài chính','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(25,'MH025','Nguyên lý Marketing',3,13,'Môn học Nguyên lý Marketing','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(26,'MH026','Kỹ thuật xử lý nước thải',3,14,'Môn học Kỹ thuật xử lý nước thải','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(27,'MH027','Hóa học đại cương',3,15,'Môn học Hóa học đại cương','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(28,'MH028','Giải tích',4,16,'Môn học Giải tích','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(29,'MH029','Vật lý đại cương',3,17,'Môn học Vật lý đại cương','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(30,'MH030','Thiết kế đồ họa cơ bản',3,19,'Môn học Thiết kế đồ họa cơ bản','2026-10-01 08:00:00','2026-10-01 08:00:00');
+(1,'MH001','Programming Fundamentals',3,1,'Overview of the subject Programming Fundamentals.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(2,'MH002','Data Structures and Algorithms',4,1,'Overview of the subject Data Structures and Algorithms.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(3,'MH003','Database Systems',3,1,'Overview of the subject Database Systems.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(4,'MH004','Computer Networks',3,1,'Overview of the subject Computer Networks.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,'MH005','Web Programming',3,1,'Overview of the subject Web Programming.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(6,'MH006','Microeconomics',3,2,'Overview of the subject Microeconomics.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(7,'MH007','Macroeconomics',3,2,'Overview of the subject Macroeconomics.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(8,'MH008','English Communication',2,3,'Overview of the subject English Communication.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(9,'MH009','English for Specific Purposes',3,3,'Overview of the subject English for Specific Purposes.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(10,'MH010','Electric Circuits',3,4,'Overview of the subject Electric Circuits.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(11,'MH011','Digital Electronics',3,4,'Overview of the subject Digital Electronics.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(12,'MH012','Engineering Mechanics',3,5,'Overview of the subject Engineering Mechanics.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(13,'MH013','Technical Drawing',2,5,'Overview of the subject Technical Drawing.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(14,'MH014','Strength of Materials',3,6,'Overview of the subject Strength of Materials.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(15,'MH015','Structural Analysis',4,6,'Overview of the subject Structural Analysis.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(16,'MH016','Human Anatomy',4,7,'Overview of the subject Human Anatomy.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(17,'MH017','Pharmacology',3,7,'Overview of the subject Pharmacology.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,'MH018','Civil Law',3,8,'Overview of the subject Civil Law.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(19,'MH019','Criminal Law',3,8,'Overview of the subject Criminal Law.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(20,'MH020','Educational Psychology',2,9,'Overview of the subject Educational Psychology.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(21,'MH021','Introduction to Tourism',2,10,'Overview of the subject Introduction to Tourism.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(22,'MH022','Principles of Management',3,11,'Overview of the subject Principles of Management.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(23,'MH023','Principles of Accounting',3,12,'Overview of the subject Principles of Accounting.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(24,'MH024','Financial Accounting',4,12,'Overview of the subject Financial Accounting.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(25,'MH025','Principles of Marketing',3,13,'Overview of the subject Principles of Marketing.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(26,'MH026','Wastewater Treatment Engineering',3,14,'Overview of the subject Wastewater Treatment Engineering.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(27,'MH027','General Chemistry',3,15,'Overview of the subject General Chemistry.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(28,'MH028','Calculus',4,16,'Overview of the subject Calculus.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(29,'MH029','General Physics',3,17,'Overview of the subject General Physics.','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(30,'MH030','Basic Graphic Design',3,19,'Overview of the subject Basic Graphic Design.','2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `semesters` (`id`,`name`,`academic_year`,`term`,`start_date`,`end_date`,`is_current`,`created_at`,`updated_at`) VALUES
-(1,'Học kỳ 1 2017-2018','2017-2018',1,'2017-09-05','2018-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(2,'Học kỳ 2 2017-2018','2017-2018',2,'2018-02-10','2018-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(3,'Học kỳ 1 2018-2019','2018-2019',1,'2018-09-05','2019-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(4,'Học kỳ 2 2018-2019','2018-2019',2,'2019-02-10','2019-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,'Học kỳ 1 2019-2020','2019-2020',1,'2019-09-05','2020-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(6,'Học kỳ 2 2019-2020','2019-2020',2,'2020-02-10','2020-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(7,'Học kỳ 1 2020-2021','2020-2021',1,'2020-09-05','2021-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(8,'Học kỳ 2 2020-2021','2020-2021',2,'2021-02-10','2021-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(9,'Học kỳ 1 2021-2022','2021-2022',1,'2021-09-05','2022-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(10,'Học kỳ 2 2021-2022','2021-2022',2,'2022-02-10','2022-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(11,'Học kỳ 1 2022-2023','2022-2023',1,'2022-09-05','2023-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(12,'Học kỳ 2 2022-2023','2022-2023',2,'2023-02-10','2023-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(13,'Học kỳ 1 2023-2024','2023-2024',1,'2023-09-05','2024-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(14,'Học kỳ 2 2023-2024','2023-2024',2,'2024-02-10','2024-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(15,'Học kỳ 1 2024-2025','2024-2025',1,'2024-09-05','2025-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(16,'Học kỳ 2 2024-2025','2024-2025',2,'2025-02-10','2025-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(17,'Học kỳ 1 2025-2026','2025-2026',1,'2025-09-05','2026-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,'Học kỳ 2 2025-2026','2025-2026',2,'2026-02-10','2026-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(19,'Học kỳ 1 2026-2027','2026-2027',1,'2026-09-05','2027-01-15',1,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(20,'Học kỳ 2 2026-2027','2026-2027',2,'2027-02-10','2027-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00');
+(1,'Semester 1 2017-2018','2017-2018',1,'2017-09-05','2018-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(2,'Semester 2 2017-2018','2017-2018',2,'2018-02-10','2018-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(3,'Semester 1 2018-2019','2018-2019',1,'2018-09-05','2019-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(4,'Semester 2 2018-2019','2018-2019',2,'2019-02-10','2019-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,'Semester 1 2019-2020','2019-2020',1,'2019-09-05','2020-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(6,'Semester 2 2019-2020','2019-2020',2,'2020-02-10','2020-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(7,'Semester 1 2020-2021','2020-2021',1,'2020-09-05','2021-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(8,'Semester 2 2020-2021','2020-2021',2,'2021-02-10','2021-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(9,'Semester 1 2021-2022','2021-2022',1,'2021-09-05','2022-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(10,'Semester 2 2021-2022','2021-2022',2,'2022-02-10','2022-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(11,'Semester 1 2022-2023','2022-2023',1,'2022-09-05','2023-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(12,'Semester 2 2022-2023','2022-2023',2,'2023-02-10','2023-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(13,'Semester 1 2023-2024','2023-2024',1,'2023-09-05','2024-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(14,'Semester 2 2023-2024','2023-2024',2,'2024-02-10','2024-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(15,'Semester 1 2024-2025','2024-2025',1,'2024-09-05','2025-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(16,'Semester 2 2024-2025','2024-2025',2,'2025-02-10','2025-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(17,'Semester 1 2025-2026','2025-2026',1,'2025-09-05','2026-01-15',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,'Semester 2 2025-2026','2025-2026',2,'2026-02-10','2026-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(19,'Semester 1 2026-2027','2026-2027',1,'2026-09-05','2027-01-15',1,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(20,'Semester 2 2026-2027','2026-2027',2,'2027-02-10','2027-06-20',0,'2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `courses` (`id`,`code`,`subject_id`,`teacher_id`,`semester_id`,`room`,`day_of_week`,`start_period`,`end_period`,`max_students`,`created_at`,`updated_at`) VALUES
 (1,'LHP001',1,12,19,'D301',4,8,10,50,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -640,7 +640,7 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (2,14,54,'2024-12-08','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (3,6,43,'2026-09-22','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (4,10,19,'2026-10-07','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,15,52,'2025-05-19','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,15,52,'2025-05-19','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (6,14,14,'2025-01-04','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (7,16,44,'2025-11-27','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (8,21,38,'2025-11-28','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -653,7 +653,7 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (15,18,42,'2026-02-21','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (16,6,19,'2026-09-28','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (17,24,31,'2024-02-27','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,30,45,'2024-05-01','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,30,45,'2024-05-01','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (19,6,4,'2026-09-13','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (20,27,10,'2026-06-04','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (21,20,54,'2024-05-25','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -669,10 +669,10 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (31,25,19,'2026-03-12','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (32,21,38,'2026-01-10','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (33,25,25,'2026-03-21','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(34,4,19,'2026-09-16','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(34,4,19,'2026-09-16','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (35,23,33,'2024-05-07','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (36,27,9,'2026-05-13','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(37,21,16,'2025-11-11','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(37,21,16,'2025-11-11','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (38,13,32,'2025-04-15','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (39,23,33,'2024-04-22','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (40,24,8,'2024-06-05','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -689,13 +689,13 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (51,4,34,'2026-09-12','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (52,30,45,'2024-05-20','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (53,6,54,'2026-09-26','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(54,4,16,'2026-10-04','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(54,4,16,'2026-10-04','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (55,27,20,'2026-05-26','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (56,17,59,'2025-03-25','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (57,26,14,'2023-09-25','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (58,26,23,'2023-09-12','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (59,30,45,'2024-05-14','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(60,8,32,'2026-09-27','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(60,8,32,'2026-09-27','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (61,6,43,'2026-09-19','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (62,5,16,'2026-09-14','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (63,27,9,'2026-06-15','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -704,7 +704,7 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (66,21,57,'2025-11-20','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (67,12,35,'2024-11-04','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (68,16,28,'2025-10-02','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(69,8,29,'2026-09-09','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(69,8,29,'2026-09-09','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (70,24,37,'2024-05-12','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (71,21,31,'2025-12-21','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (72,30,45,'2024-02-28','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -714,7 +714,7 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (76,24,10,'2024-05-04','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (77,25,19,'2026-05-27','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (78,5,5,'2026-09-09','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(79,16,12,'2025-10-10','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(79,16,12,'2025-10-10','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (80,1,58,'2026-09-13','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (81,11,18,'2026-04-25','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (82,25,25,'2026-06-06','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -725,8 +725,8 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (87,20,20,'2024-04-28','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (88,25,19,'2026-06-05','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (89,17,60,'2025-04-23','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(90,2,3,'2026-10-01','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(91,21,1,'2026-01-11','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(90,2,3,'2026-10-01','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(91,21,1,'2026-01-11','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (92,26,5,'2024-01-10','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (93,15,52,'2025-02-14','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (94,25,29,'2026-06-08','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -743,27 +743,27 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (105,13,13,'2025-06-06','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (106,21,1,'2026-01-05','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (107,25,8,'2026-02-26','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(108,18,49,'2026-03-10','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(108,18,49,'2026-03-10','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (109,5,5,'2026-10-04','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (110,17,2,'2025-05-25','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (111,28,16,'2023-10-30','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (112,26,5,'2024-01-04','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (113,18,56,'2026-06-06','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (114,4,25,'2026-09-15','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(115,26,39,'2023-09-23','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(115,26,39,'2023-09-23','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (116,5,47,'2026-10-08','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (117,26,23,'2023-12-04','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(118,24,10,'2024-05-03','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(118,24,10,'2024-05-03','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (119,5,41,'2026-09-06','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (120,16,12,'2025-12-16','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (121,18,42,'2026-03-18','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (122,6,4,'2026-09-21','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(123,24,16,'2024-04-18','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(123,24,16,'2024-04-18','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (124,24,10,'2024-05-29','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(125,15,48,'2025-05-10','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(125,15,48,'2025-05-10','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (126,22,53,'2024-02-16','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (127,12,6,'2025-01-08','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(128,5,16,'2026-09-12','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(128,5,16,'2026-09-12','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (129,19,43,'2026-04-18','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (130,3,31,'2026-10-04','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (131,26,47,'2024-01-06','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -773,22 +773,22 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (135,25,8,'2026-04-01','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (136,30,32,'2024-03-06','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (137,9,35,'2026-10-09','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(138,20,19,'2024-03-23','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(138,20,19,'2024-03-23','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (139,18,42,'2026-03-08','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (140,21,38,'2025-11-24','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (141,3,36,'2026-09-09','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (142,25,29,'2026-02-27','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (143,27,10,'2026-03-20','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(144,6,54,'2026-09-28','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(144,6,54,'2026-09-28','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (145,4,41,'2026-09-12','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (146,16,32,'2025-11-10','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (147,30,24,'2024-03-29','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(148,27,9,'2026-04-05','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(148,27,9,'2026-04-05','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (149,5,17,'2026-09-16','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (150,30,24,'2024-05-25','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (151,25,25,'2026-04-24','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (152,30,45,'2024-02-22','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(153,17,23,'2025-06-02','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(153,17,23,'2025-06-02','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (154,2,39,'2026-09-10','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (155,24,10,'2024-02-11','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (156,8,51,'2026-09-18','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -804,16 +804,16 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (166,25,19,'2026-05-23','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (167,28,16,'2023-10-14','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (168,17,59,'2025-03-01','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(169,4,41,'2026-09-30','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(169,4,41,'2026-09-30','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (170,16,37,'2025-11-10','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(171,21,48,'2026-01-06','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(171,21,48,'2026-01-06','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (172,20,23,'2024-05-03','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (173,20,45,'2024-03-17','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (174,21,16,'2025-11-21','absent',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (175,24,8,'2024-04-06','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (176,26,23,'2023-11-21','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (177,26,39,'2023-10-01','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(178,21,31,'2025-11-18','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(178,21,31,'2025-11-18','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (179,20,54,'2024-05-15','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (180,21,2,'2025-10-15','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (181,30,32,'2024-04-10','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
@@ -835,284 +835,284 @@ INSERT INTO `attendances` (`id`,`course_id`,`student_id`,`date`,`status`,`note`,
 (197,17,59,'2025-05-27','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (198,3,51,'2026-10-10','present',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
 (199,14,24,'2025-01-02','late',NULL,'2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(200,16,13,'2025-10-25','excused','Có đơn xin phép','2026-10-01 08:00:00','2026-10-01 08:00:00');
+(200,16,13,'2025-10-25','excused','Leave request submitted','2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `announcements` (`id`,`title`,`content`,`author_id`,`target_role`,`created_at`,`updated_at`) VALUES
-(1,'Lịch thi giữa kỳ','Nội dung chi tiết của thông báo: Lịch thi giữa kỳ. Vui lòng theo dõi và thực hiện đúng thời hạn.',1,'all','2026-09-01 00:00:00','2026-10-01 08:00:00'),
-(2,'Đăng ký học phần học kỳ mới','Nội dung chi tiết của thông báo: Đăng ký học phần học kỳ mới. Vui lòng theo dõi và thực hiện đúng thời hạn.',4,'all','2026-09-02 00:00:00','2026-10-01 08:00:00'),
-(3,'Thông báo nghỉ lễ Quốc khánh','Nội dung chi tiết của thông báo: Thông báo nghỉ lễ Quốc khánh. Vui lòng theo dõi và thực hiện đúng thời hạn.',2,'student','2026-09-03 00:00:00','2026-10-01 08:00:00'),
-(4,'Học bổng khuyến khích học tập','Nội dung chi tiết của thông báo: Học bổng khuyến khích học tập. Vui lòng theo dõi và thực hiện đúng thời hạn.',1,'teacher','2026-09-04 00:00:00','2026-10-01 08:00:00'),
-(5,'Họp giáo viên chủ nhiệm','Nội dung chi tiết của thông báo: Họp giáo viên chủ nhiệm. Vui lòng theo dõi và thực hiện đúng thời hạn.',3,'student','2026-09-05 00:00:00','2026-10-01 08:00:00'),
-(6,'Nộp học phí học kỳ 1','Nội dung chi tiết của thông báo: Nộp học phí học kỳ 1. Vui lòng theo dõi và thực hiện đúng thời hạn.',4,'all','2026-09-06 00:00:00','2026-10-01 08:00:00'),
-(7,'Khảo sát chất lượng giảng dạy','Nội dung chi tiết của thông báo: Khảo sát chất lượng giảng dạy. Vui lòng theo dõi và thực hiện đúng thời hạn.',3,'all','2026-09-07 00:00:00','2026-10-01 08:00:00'),
-(8,'Hội thảo việc làm CNTT','Nội dung chi tiết của thông báo: Hội thảo việc làm CNTT. Vui lòng theo dõi và thực hiện đúng thời hạn.',5,'student','2026-09-08 00:00:00','2026-10-01 08:00:00'),
-(9,'Cập nhật quy chế đào tạo','Nội dung chi tiết của thông báo: Cập nhật quy chế đào tạo. Vui lòng theo dõi và thực hiện đúng thời hạn.',3,'teacher','2026-09-09 00:00:00','2026-10-01 08:00:00'),
-(10,'Lịch bảo trì hệ thống','Nội dung chi tiết của thông báo: Lịch bảo trì hệ thống. Vui lòng theo dõi và thực hiện đúng thời hạn.',4,'student','2026-09-10 00:00:00','2026-10-01 08:00:00'),
-(11,'Cuộc thi nghiên cứu khoa học','Nội dung chi tiết của thông báo: Cuộc thi nghiên cứu khoa học. Vui lòng theo dõi và thực hiện đúng thời hạn.',2,'all','2026-09-11 00:00:00','2026-10-01 08:00:00'),
-(12,'Thông báo thay đổi phòng học','Nội dung chi tiết của thông báo: Thông báo thay đổi phòng học. Vui lòng theo dõi và thực hiện đúng thời hạn.',4,'all','2026-09-12 00:00:00','2026-10-01 08:00:00'),
-(13,'Kế hoạch tốt nghiệp đợt 2','Nội dung chi tiết của thông báo: Kế hoạch tốt nghiệp đợt 2. Vui lòng theo dõi và thực hiện đúng thời hạn.',3,'student','2026-09-13 00:00:00','2026-10-01 08:00:00'),
-(14,'Tuyển cộng tác viên','Nội dung chi tiết của thông báo: Tuyển cộng tác viên. Vui lòng theo dõi và thực hiện đúng thời hạn.',4,'teacher','2026-09-14 00:00:00','2026-10-01 08:00:00'),
-(15,'Lịch tiêm chủng','Nội dung chi tiết của thông báo: Lịch tiêm chủng. Vui lòng theo dõi và thực hiện đúng thời hạn.',5,'student','2026-09-15 00:00:00','2026-10-01 08:00:00'),
-(16,'Hướng dẫn nhập điểm','Nội dung chi tiết của thông báo: Hướng dẫn nhập điểm. Vui lòng theo dõi và thực hiện đúng thời hạn.',5,'all','2026-09-16 00:00:00','2026-10-01 08:00:00'),
-(17,'Chương trình trao đổi sinh viên','Nội dung chi tiết của thông báo: Chương trình trao đổi sinh viên. Vui lòng theo dõi và thực hiện đúng thời hạn.',3,'all','2026-09-17 00:00:00','2026-10-01 08:00:00'),
-(18,'Lịch thi lại','Nội dung chi tiết của thông báo: Lịch thi lại. Vui lòng theo dõi và thực hiện đúng thời hạn.',2,'student','2026-09-18 00:00:00','2026-10-01 08:00:00'),
-(19,'Thông báo khai giảng','Nội dung chi tiết của thông báo: Thông báo khai giảng. Vui lòng theo dõi và thực hiện đúng thời hạn.',5,'teacher','2026-09-19 00:00:00','2026-10-01 08:00:00'),
-(20,'Tổng kết học kỳ','Nội dung chi tiết của thông báo: Tổng kết học kỳ. Vui lòng theo dõi và thực hiện đúng thời hạn.',1,'student','2026-09-20 00:00:00','2026-10-01 08:00:00');
+(1,'Midterm exam schedule','Details of the announcement: Midterm exam schedule. Please follow it and meet the deadlines.',1,'all','2026-09-01 00:00:00','2026-10-01 08:00:00'),
+(2,'New semester course registration','Details of the announcement: New semester course registration. Please follow it and meet the deadlines.',4,'all','2026-09-02 00:00:00','2026-10-01 08:00:00'),
+(3,'National Day holiday notice','Details of the announcement: National Day holiday notice. Please follow it and meet the deadlines.',2,'student','2026-09-03 00:00:00','2026-10-01 08:00:00'),
+(4,'Study encouragement scholarships','Details of the announcement: Study encouragement scholarships. Please follow it and meet the deadlines.',1,'teacher','2026-09-04 00:00:00','2026-10-01 08:00:00'),
+(5,'Homeroom teachers meeting','Details of the announcement: Homeroom teachers meeting. Please follow it and meet the deadlines.',3,'student','2026-09-05 00:00:00','2026-10-01 08:00:00'),
+(6,'Semester 1 tuition payment','Details of the announcement: Semester 1 tuition payment. Please follow it and meet the deadlines.',4,'all','2026-09-06 00:00:00','2026-10-01 08:00:00'),
+(7,'Teaching quality survey','Details of the announcement: Teaching quality survey. Please follow it and meet the deadlines.',3,'all','2026-09-07 00:00:00','2026-10-01 08:00:00'),
+(8,'IT career workshop','Details of the announcement: IT career workshop. Please follow it and meet the deadlines.',5,'student','2026-09-08 00:00:00','2026-10-01 08:00:00'),
+(9,'Training regulations update','Details of the announcement: Training regulations update. Please follow it and meet the deadlines.',3,'teacher','2026-09-09 00:00:00','2026-10-01 08:00:00'),
+(10,'System maintenance schedule','Details of the announcement: System maintenance schedule. Please follow it and meet the deadlines.',4,'student','2026-09-10 00:00:00','2026-10-01 08:00:00'),
+(11,'Student research competition','Details of the announcement: Student research competition. Please follow it and meet the deadlines.',2,'all','2026-09-11 00:00:00','2026-10-01 08:00:00'),
+(12,'Classroom change notice','Details of the announcement: Classroom change notice. Please follow it and meet the deadlines.',4,'all','2026-09-12 00:00:00','2026-10-01 08:00:00'),
+(13,'Graduation plan, round 2','Details of the announcement: Graduation plan, round 2. Please follow it and meet the deadlines.',3,'student','2026-09-13 00:00:00','2026-10-01 08:00:00'),
+(14,'Collaborator recruitment','Details of the announcement: Collaborator recruitment. Please follow it and meet the deadlines.',4,'teacher','2026-09-14 00:00:00','2026-10-01 08:00:00'),
+(15,'Vaccination schedule','Details of the announcement: Vaccination schedule. Please follow it and meet the deadlines.',5,'student','2026-09-15 00:00:00','2026-10-01 08:00:00'),
+(16,'Grade entry guide','Details of the announcement: Grade entry guide. Please follow it and meet the deadlines.',5,'all','2026-09-16 00:00:00','2026-10-01 08:00:00'),
+(17,'Student exchange program','Details of the announcement: Student exchange program. Please follow it and meet the deadlines.',3,'all','2026-09-17 00:00:00','2026-10-01 08:00:00'),
+(18,'Retake exam schedule','Details of the announcement: Retake exam schedule. Please follow it and meet the deadlines.',2,'student','2026-09-18 00:00:00','2026-10-01 08:00:00'),
+(19,'Opening ceremony notice','Details of the announcement: Opening ceremony notice. Please follow it and meet the deadlines.',5,'teacher','2026-09-19 00:00:00','2026-10-01 08:00:00'),
+(20,'Semester wrap-up','Details of the announcement: Semester wrap-up. Please follow it and meet the deadlines.',1,'student','2026-09-20 00:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `categories` (`id`,`name`,`slug`,`description`,`created_at`,`updated_at`) VALUES
-(1,'Thông báo','thong-bao','Thông báo chính thức của nhà trường','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(2,'Tuyển sinh','tuyen-sinh','Thông tin tuyển sinh các hệ đào tạo','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(3,'Học bổng','hoc-bong','Học bổng và hỗ trợ tài chính','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(4,'Nghiên cứu khoa học','nghien-cuu','Hoạt động nghiên cứu khoa học','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(5,'Hoạt động sinh viên','hoat-dong','Phong trào và câu lạc bộ','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(6,'Việc làm','viec-lam','Cơ hội thực tập và việc làm','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(7,'Góc học tập','hoc-tap','Kinh nghiệm và mẹo học tập','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(8,'Sự kiện','su-kien','Sự kiện nổi bật trong trường','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(9,'Hợp tác quốc tế','quoc-te','Trao đổi và hợp tác quốc tế','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(10,'Thư viện','thu-vien','Tài nguyên và dịch vụ thư viện','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(11,'Đào tạo','dao-tao','Chương trình và quy chế đào tạo','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(12,'Khoa học công nghệ','khoa-hoc-cong-nghe','Công nghệ và đổi mới sáng tạo','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(13,'Thể thao','the-thao','Giải đấu và hoạt động thể thao','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(14,'Văn hóa nghệ thuật','van-hoa','Văn nghệ và hoạt động văn hóa','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(15,'Tình nguyện','tinh-nguyen','Chương trình tình nguyện cộng đồng','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(16,'Cựu sinh viên','cuu-sinh-vien','Kết nối cựu sinh viên','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(17,'Kỹ năng mềm','ky-nang','Phát triển kỹ năng cho sinh viên','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(18,'Doanh nghiệp','doanh-nghiep','Hợp tác doanh nghiệp','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(19,'Công nghệ thông tin','cong-nghe-thong-tin','Tin tức ngành CNTT','2026-10-01 08:00:00','2026-10-01 08:00:00'),
-(20,'Góc giáo viên','goc-giao-vien','Chia sẻ từ giảng viên','2026-10-01 08:00:00','2026-10-01 08:00:00');
+(1,'Announcements','announcements','Official announcements from the school','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(2,'Admissions','admissions','Admission information for all programs','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(3,'Scholarships','scholarships','Scholarships and financial support','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(4,'Scientific research','research','Research activities','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(5,'Student life','student-life','Movements and clubs','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(6,'Careers','careers','Internship and job opportunities','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(7,'Study tips','study-tips','Study experience and tips','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(8,'Events','events','Highlight events at the school','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(9,'International cooperation','international','Exchange and international cooperation','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(10,'Library','library','Library resources and services','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(11,'Training','training','Programs and training regulations','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(12,'Science and technology','technology','Technology and innovation','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(13,'Sports','sports','Tournaments and sports activities','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(14,'Arts and culture','arts-culture','Performances and cultural activities','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(15,'Volunteering','volunteering','Community volunteer programs','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(16,'Alumni','alumni','Alumni connections','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(17,'Soft skills','soft-skills','Skills development for students','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(18,'Industry partners','industry','Partnerships with employers','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(19,'IT news','it-news','News from the IT field','2026-10-01 08:00:00','2026-10-01 08:00:00'),
+(20,'Teachers'' corner','teacher-corner','Sharing from teachers','2026-10-01 08:00:00','2026-10-01 08:00:00');
 
 INSERT INTO `posts` (`id`,`title`,`description`,`content`,`image`,`author_id`,`category_id`,`likes_count`,`views_count`,`created_at`,`updated_at`) VALUES
-(1,'Thông báo lịch thi giữa kỳ học kỳ 1','Cập nhật mới nhất: Thông báo lịch thi giữa kỳ học kỳ 1. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Thông báo lịch thi giữa kỳ học kỳ 1
+(1,'Midterm exam schedule for semester 1','Latest update: Midterm exam schedule for semester 1. Information for all students and teachers at the school.','Midterm exam schedule for semester 1
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Thông báo lịch thi giữa kỳ học kỳ 1". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Midterm exam schedule for semester 1" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-1.svg',5,1,44,386,'2026-09-23 03:22:42','2026-09-23 03:22:42'),
-(2,'Hướng dẫn đăng ký học phần trực tuyến','Cập nhật mới nhất: Hướng dẫn đăng ký học phần trực tuyến. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Hướng dẫn đăng ký học phần trực tuyến
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-1.svg',5,1,44,386,'2026-09-23 03:22:42','2026-09-23 03:22:42'),
+(2,'Guide to online course registration','Latest update: Guide to online course registration. Information for all students and teachers at the school.','Guide to online course registration
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Hướng dẫn đăng ký học phần trực tuyến". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Guide to online course registration" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-2.svg',2,2,21,2493,'2026-09-16 02:00:19','2026-09-16 02:00:19'),
-(3,'Học bổng khuyến khích học tập năm 2026','Cập nhật mới nhất: Học bổng khuyến khích học tập năm 2026. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Học bổng khuyến khích học tập năm 2026
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-2.svg',2,2,21,2493,'2026-09-16 02:00:19','2026-09-16 02:00:19'),
+(3,'Study encouragement scholarships for 2026','Latest update: Study encouragement scholarships for 2026. Information for all students and teachers at the school.','Study encouragement scholarships for 2026
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Học bổng khuyến khích học tập năm 2026". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Study encouragement scholarships for 2026" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-3.svg',5,3,53,1475,'2026-08-31 08:13:08','2026-08-31 08:13:08'),
-(4,'Hội thảo việc làm ngành Công nghệ thông tin','Cập nhật mới nhất: Hội thảo việc làm ngành Công nghệ thông tin. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Hội thảo việc làm ngành Công nghệ thông tin
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-3.svg',5,3,53,1475,'2026-08-31 08:13:08','2026-08-31 08:13:08'),
+(4,'Career workshop for Information Technology','Latest update: Career workshop for Information Technology. Information for all students and teachers at the school.','Career workshop for Information Technology
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Hội thảo việc làm ngành Công nghệ thông tin". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Career workshop for Information Technology" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-4.svg',5,4,60,2063,'2026-09-28 07:16:45','2026-09-28 07:16:45'),
-(5,'Cuộc thi nghiên cứu khoa học sinh viên','Cập nhật mới nhất: Cuộc thi nghiên cứu khoa học sinh viên. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Cuộc thi nghiên cứu khoa học sinh viên
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-4.svg',5,4,60,2063,'2026-09-28 07:16:45','2026-09-28 07:16:45'),
+(5,'Student scientific research competition','Latest update: Student scientific research competition. Information for all students and teachers at the school.','Student scientific research competition
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Cuộc thi nghiên cứu khoa học sinh viên". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Student scientific research competition" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-5.svg',2,5,147,2656,'2026-09-08 22:36:46','2026-09-08 22:36:46'),
-(6,'Chương trình trao đổi sinh viên quốc tế','Cập nhật mới nhất: Chương trình trao đổi sinh viên quốc tế. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Chương trình trao đổi sinh viên quốc tế
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-5.svg',2,5,147,2656,'2026-09-08 22:36:46','2026-09-08 22:36:46'),
+(6,'International student exchange program','Latest update: International student exchange program. Information for all students and teachers at the school.','International student exchange program
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Chương trình trao đổi sinh viên quốc tế". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "International student exchange program" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-6.svg',5,6,9,1600,'2026-10-03 10:20:48','2026-10-03 10:20:48'),
-(7,'Ngày hội tuyển dụng doanh nghiệp','Cập nhật mới nhất: Ngày hội tuyển dụng doanh nghiệp. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Ngày hội tuyển dụng doanh nghiệp
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-6.svg',5,6,9,1600,'2026-10-03 10:20:48','2026-10-03 10:20:48'),
+(7,'Employer recruitment fair','Latest update: Employer recruitment fair. Information for all students and teachers at the school.','Employer recruitment fair
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Ngày hội tuyển dụng doanh nghiệp". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Employer recruitment fair" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-7.svg',5,1,7,2347,'2026-08-25 06:00:53','2026-08-25 06:00:53'),
-(8,'Mẹo học tốt môn Cấu trúc dữ liệu','Cập nhật mới nhất: Mẹo học tốt môn Cấu trúc dữ liệu. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Mẹo học tốt môn Cấu trúc dữ liệu
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-7.svg',5,1,7,2347,'2026-08-25 06:00:53','2026-08-25 06:00:53'),
+(8,'Tips for mastering Data Structures','Latest update: Tips for mastering Data Structures. Information for all students and teachers at the school.','Tips for mastering Data Structures
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Mẹo học tốt môn Cấu trúc dữ liệu". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Tips for mastering Data Structures" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-8.svg',5,2,10,1883,'2026-09-30 02:38:14','2026-09-30 02:38:14'),
-(9,'Kỹ năng quản lý thời gian cho sinh viên','Cập nhật mới nhất: Kỹ năng quản lý thời gian cho sinh viên. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Kỹ năng quản lý thời gian cho sinh viên
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-8.svg',5,2,10,1883,'2026-09-30 02:38:14','2026-09-30 02:38:14'),
+(9,'Time management skills for students','Latest update: Time management skills for students. Information for all students and teachers at the school.','Time management skills for students
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Kỹ năng quản lý thời gian cho sinh viên". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Time management skills for students" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-9.svg',1,3,5,1812,'2026-09-19 10:10:38','2026-09-19 10:10:38'),
-(10,'Câu lạc bộ lập trình tuyển thành viên mới','Cập nhật mới nhất: Câu lạc bộ lập trình tuyển thành viên mới. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Câu lạc bộ lập trình tuyển thành viên mới
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-9.svg',1,3,5,1812,'2026-09-19 10:10:38','2026-09-19 10:10:38'),
+(10,'Programming club is recruiting new members','Latest update: Programming club is recruiting new members. Information for all students and teachers at the school.','Programming club is recruiting new members
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Câu lạc bộ lập trình tuyển thành viên mới". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Programming club is recruiting new members" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-10.svg',1,4,46,4456,'2026-09-23 10:47:35','2026-09-23 10:47:35'),
-(11,'Lễ khai giảng năm học 2026-2027','Cập nhật mới nhất: Lễ khai giảng năm học 2026-2027. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Lễ khai giảng năm học 2026-2027
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-10.svg',1,4,46,4456,'2026-09-23 10:47:35','2026-09-23 10:47:35'),
+(11,'Opening ceremony of the 2026-2027 academic year','Latest update: Opening ceremony of the 2026-2027 academic year. Information for all students and teachers at the school.','Opening ceremony of the 2026-2027 academic year
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Lễ khai giảng năm học 2026-2027". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Opening ceremony of the 2026-2027 academic year" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-11.svg',5,5,39,1867,'2026-09-21 18:43:52','2026-09-21 18:43:52'),
-(12,'Cách viết CV ấn tượng khi đi thực tập','Cập nhật mới nhất: Cách viết CV ấn tượng khi đi thực tập. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Cách viết CV ấn tượng khi đi thực tập
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-11.svg',5,5,39,1867,'2026-09-21 18:43:52','2026-09-21 18:43:52'),
+(12,'How to write a standout CV for internships','Latest update: How to write a standout CV for internships. Information for all students and teachers at the school.','How to write a standout CV for internships
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Cách viết CV ấn tượng khi đi thực tập". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "How to write a standout CV for internships" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-12.svg',5,6,19,4445,'2026-09-10 18:36:51','2026-09-10 18:36:51'),
-(13,'Hướng dẫn tra cứu điểm và bảng điểm','Cập nhật mới nhất: Hướng dẫn tra cứu điểm và bảng điểm. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Hướng dẫn tra cứu điểm và bảng điểm
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-12.svg',5,6,19,4445,'2026-09-10 18:36:51','2026-09-10 18:36:51'),
+(13,'How to look up your grades and transcript','Latest update: How to look up your grades and transcript. Information for all students and teachers at the school.','How to look up your grades and transcript
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Hướng dẫn tra cứu điểm và bảng điểm". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "How to look up your grades and transcript" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-13.svg',4,1,43,1281,'2026-08-25 01:19:14','2026-08-25 01:19:14'),
-(14,'Giải bóng đá sinh viên toàn trường','Cập nhật mới nhất: Giải bóng đá sinh viên toàn trường. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Giải bóng đá sinh viên toàn trường
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-13.svg',4,1,43,1281,'2026-08-25 01:19:14','2026-08-25 01:19:14'),
+(14,'University-wide student football tournament','Latest update: University-wide student football tournament. Information for all students and teachers at the school.','University-wide student football tournament
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Giải bóng đá sinh viên toàn trường". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "University-wide student football tournament" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-14.svg',5,2,52,4315,'2026-09-14 15:09:45','2026-09-14 15:09:45'),
-(15,'Workshop thiết kế đồ họa cơ bản','Cập nhật mới nhất: Workshop thiết kế đồ họa cơ bản. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Workshop thiết kế đồ họa cơ bản
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-14.svg',5,2,52,4315,'2026-09-14 15:09:45','2026-09-14 15:09:45'),
+(15,'Basic graphic design workshop','Latest update: Basic graphic design workshop. Information for all students and teachers at the school.','Basic graphic design workshop
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Workshop thiết kế đồ họa cơ bản". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Basic graphic design workshop" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-15.svg',5,3,88,4020,'2026-10-08 10:31:40','2026-10-08 10:31:40'),
-(16,'Chính sách miễn giảm học phí','Cập nhật mới nhất: Chính sách miễn giảm học phí. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Chính sách miễn giảm học phí
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-15.svg',5,3,88,4020,'2026-10-08 10:31:40','2026-10-08 10:31:40'),
+(16,'Tuition waiver and reduction policy','Latest update: Tuition waiver and reduction policy. Information for all students and teachers at the school.','Tuition waiver and reduction policy
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Chính sách miễn giảm học phí". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Tuition waiver and reduction policy" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-16.svg',3,4,46,4078,'2026-08-12 09:01:35','2026-08-12 09:01:35'),
-(17,'Bí quyết ôn thi hiệu quả trước kỳ thi','Cập nhật mới nhất: Bí quyết ôn thi hiệu quả trước kỳ thi. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Bí quyết ôn thi hiệu quả trước kỳ thi
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-16.svg',3,4,46,4078,'2026-08-12 09:01:35','2026-08-12 09:01:35'),
+(17,'Effective exam revision strategies','Latest update: Effective exam revision strategies. Information for all students and teachers at the school.','Effective exam revision strategies
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Bí quyết ôn thi hiệu quả trước kỳ thi". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Effective exam revision strategies" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-17.svg',2,5,171,3869,'2026-09-17 01:06:12','2026-09-17 01:06:12'),
-(18,'Thư viện mở cửa phục vụ mùa thi','Cập nhật mới nhất: Thư viện mở cửa phục vụ mùa thi. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Thư viện mở cửa phục vụ mùa thi
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-17.svg',2,5,171,3869,'2026-09-17 01:06:12','2026-09-17 01:06:12'),
+(18,'Library open late during exam season','Latest update: Library open late during exam season. Information for all students and teachers at the school.','Library open late during exam season
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Thư viện mở cửa phục vụ mùa thi". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Library open late during exam season" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-18.svg',1,6,140,1343,'2026-08-01 15:51:55','2026-08-01 15:51:55'),
-(19,'Chương trình tình nguyện Mùa hè xanh','Cập nhật mới nhất: Chương trình tình nguyện Mùa hè xanh. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Chương trình tình nguyện Mùa hè xanh
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-18.svg',1,6,140,1343,'2026-08-01 15:51:55','2026-08-01 15:51:55'),
+(19,'Green Summer volunteer campaign','Latest update: Green Summer volunteer campaign. Information for all students and teachers at the school.','Green Summer volunteer campaign
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Chương trình tình nguyện Mùa hè xanh". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Green Summer volunteer campaign" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-19.svg',4,10,161,4975,'2026-09-27 02:28:20','2026-09-27 02:28:20'),
-(20,'Hướng dẫn nhập điểm dành cho giáo viên','Cập nhật mới nhất: Hướng dẫn nhập điểm dành cho giáo viên. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Hướng dẫn nhập điểm dành cho giáo viên
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-19.svg',4,10,161,4975,'2026-09-27 02:28:20','2026-09-27 02:28:20'),
+(20,'Grade entry guide for teachers','Latest update: Grade entry guide for teachers. Information for all students and teachers at the school.','Grade entry guide for teachers
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Hướng dẫn nhập điểm dành cho giáo viên". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Grade entry guide for teachers" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-20.svg',2,16,92,2866,'2026-10-01 19:48:42','2026-10-01 19:48:42'),
-(21,'Thông báo nghỉ lễ Quốc khánh 2/9','Cập nhật mới nhất: Thông báo nghỉ lễ Quốc khánh 2/9. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Thông báo nghỉ lễ Quốc khánh 2/9
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-20.svg',2,16,92,2866,'2026-10-01 19:48:42','2026-10-01 19:48:42'),
+(21,'National Day holiday (September 2) notice','Latest update: National Day holiday (September 2) notice. Information for all students and teachers at the school.','National Day holiday (September 2) notice
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Thông báo nghỉ lễ Quốc khánh 2/9". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "National Day holiday (September 2) notice" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-21.svg',3,15,129,2778,'2026-09-18 09:22:02','2026-09-18 09:22:02'),
-(22,'Tuyển cộng tác viên truyền thông','Cập nhật mới nhất: Tuyển cộng tác viên truyền thông. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Tuyển cộng tác viên truyền thông
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-21.svg',3,15,129,2778,'2026-09-18 09:22:02','2026-09-18 09:22:02'),
+(22,'Recruiting media collaborators','Latest update: Recruiting media collaborators. Information for all students and teachers at the school.','Recruiting media collaborators
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Tuyển cộng tác viên truyền thông". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Recruiting media collaborators" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-22.svg',3,8,74,3754,'2026-09-13 23:09:32','2026-09-13 23:09:32'),
-(23,'Ngôn ngữ lập trình nên học năm 2026','Cập nhật mới nhất: Ngôn ngữ lập trình nên học năm 2026. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Ngôn ngữ lập trình nên học năm 2026
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-22.svg',3,8,74,3754,'2026-09-13 23:09:32','2026-09-13 23:09:32'),
+(23,'Programming languages worth learning in 2026','Latest update: Programming languages worth learning in 2026. Information for all students and teachers at the school.','Programming languages worth learning in 2026
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Ngôn ngữ lập trình nên học năm 2026". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Programming languages worth learning in 2026" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-23.svg',3,13,67,1516,'2026-09-16 14:24:51','2026-09-16 14:24:51'),
-(24,'Lịch bảo trì hệ thống quản lý sinh viên','Cập nhật mới nhất: Lịch bảo trì hệ thống quản lý sinh viên. Thông tin dành cho toàn thể sinh viên và giáo viên trong nhà trường.','Lịch bảo trì hệ thống quản lý sinh viên
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-23.svg',3,13,67,1516,'2026-09-16 14:24:51','2026-09-16 14:24:51'),
+(24,'Student management system maintenance schedule','Latest update: Student management system maintenance schedule. Information for all students and teachers at the school.','Student management system maintenance schedule
 
-Đây là nội dung chi tiết của bài viết. Nhà trường trân trọng gửi đến toàn thể sinh viên và giáo viên thông tin liên quan đến "Lịch bảo trì hệ thống quản lý sinh viên". Mọi người vui lòng theo dõi để nắm bắt kịp thời.
+This is the full content of the post. The school is pleased to share information about "Student management system maintenance schedule" with all students and teachers. Please follow along to stay up to date.
 
-Các bạn sinh viên cần lưu ý thời gian, địa điểm và các yêu cầu đi kèm. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ phòng Đào tạo hoặc giáo viên chủ nhiệm để được hướng dẫn.
+Students should pay attention to the time, place and any accompanying requirements. If you have any questions, please contact the Academic Affairs office or your homeroom teacher for guidance.
 
-Trân trọng cảm ơn và chúc các bạn học tập, làm việc hiệu quả.','uploads/posts/illus-24.svg',4,20,52,4499,'2026-09-29 17:01:11','2026-09-29 17:01:11');
+Thank you, and we wish you success in your studies and work.','uploads/posts/illus-24.svg',4,20,52,4499,'2026-09-29 17:01:11','2026-09-29 17:01:11');
 
 INSERT INTO `comments` (`id`,`post_id`,`name`,`content`,`created_at`,`updated_at`) VALUES
-(1,6,'Hoàng Đức Thắng','Mong nhà trường tổ chức thêm nhiều hoạt động tương tự.','2026-09-25 14:24:51','2026-09-25 14:24:51'),
-(2,18,'Hoàng Đức Thắng','Bài viết hay, cảm ơn tác giả.','2026-09-30 11:41:34','2026-09-30 11:41:34'),
-(3,21,'Bùi Ngọc Mai','Hy vọng sẽ có thêm nhiều bài viết như thế này.','2026-09-30 23:55:20','2026-09-30 23:55:20'),
-(4,19,'Đặng Hoàng Nam','Thông tin cập nhật rất kịp thời.','2026-09-30 05:26:38','2026-09-30 05:26:38'),
-(5,14,'Hoàng Đức Thắng','Bài viết hay, cảm ơn tác giả.','2026-09-17 22:23:01','2026-09-17 22:23:01'),
-(6,12,'Phạm Gia Huy','Mình đã đọc kỹ, thông tin rõ ràng và dễ hiểu.','2026-09-18 03:15:11','2026-09-18 03:15:11'),
-(7,7,'Nguyễn Minh Anh','Cho mình hỏi thêm thông tin chi tiết ở đâu ạ?','2026-10-11 02:49:40','2026-10-11 02:49:40'),
-(8,23,'Lê Thu Hà','Thông tin cập nhật rất kịp thời.','2026-09-11 14:05:19','2026-09-11 14:05:19'),
-(9,8,'Lê Thu Hà','Cho mình hỏi thêm thông tin chi tiết ở đâu ạ?','2026-09-16 01:54:44','2026-09-16 01:54:44'),
-(10,10,'Phạm Gia Huy','Thông tin cập nhật rất kịp thời.','2026-10-11 03:42:42','2026-10-11 03:42:42'),
-(11,20,'Đặng Hoàng Nam','Mong nhà trường tổ chức thêm nhiều hoạt động tương tự.','2026-10-02 03:38:16','2026-10-02 03:38:16'),
-(12,20,'Nguyễn Minh Anh','Mong nhà trường tổ chức thêm nhiều hoạt động tương tự.','2026-10-03 05:03:20','2026-10-03 05:03:20'),
-(13,13,'Bùi Ngọc Mai','Cho mình hỏi thêm thông tin chi tiết ở đâu ạ?','2026-09-12 06:30:52','2026-09-12 06:30:52'),
-(14,23,'Đặng Hoàng Nam','Cho mình hỏi thêm thông tin chi tiết ở đâu ạ?','2026-09-09 05:02:37','2026-09-09 05:02:37'),
-(15,6,'Võ Khánh Linh','Bài viết rất hữu ích, cảm ơn nhà trường!','2026-09-29 04:15:57','2026-09-29 04:15:57'),
-(16,13,'Đặng Hoàng Nam','Bài viết rất hữu ích, cảm ơn nhà trường!','2026-09-09 01:07:41','2026-09-09 01:07:41'),
-(17,16,'Trần Quốc Bảo','Hy vọng sẽ có thêm nhiều bài viết như thế này.','2026-09-10 10:54:41','2026-09-10 10:54:41'),
-(18,7,'Hoàng Đức Thắng','Cho mình hỏi thêm thông tin chi tiết ở đâu ạ?','2026-09-14 17:57:44','2026-09-14 17:57:44'),
-(19,6,'Đặng Hoàng Nam','Mong nhà trường tổ chức thêm nhiều hoạt động tương tự.','2026-09-22 23:17:04','2026-09-22 23:17:04'),
-(20,3,'Đặng Hoàng Nam','Chia sẻ cho các bạn cùng lớp luôn nhé.','2026-09-18 22:10:56','2026-09-18 22:10:56'),
-(21,22,'Trần Quốc Bảo','Hy vọng sẽ có thêm nhiều bài viết như thế này.','2026-09-24 04:28:43','2026-09-24 04:28:43'),
-(22,7,'Phạm Gia Huy','Thông tin cập nhật rất kịp thời.','2026-10-06 04:53:47','2026-10-06 04:53:47'),
-(23,21,'Phạm Gia Huy','Bài viết rất hữu ích, cảm ơn nhà trường!','2026-09-09 23:12:45','2026-09-09 23:12:45'),
-(24,8,'Lê Thu Hà','Chia sẻ cho các bạn cùng lớp luôn nhé.','2026-10-02 18:42:04','2026-10-02 18:42:04'),
-(25,4,'Hoàng Đức Thắng','Bài viết hay, cảm ơn tác giả.','2026-09-16 14:34:01','2026-09-16 14:34:01'),
-(26,10,'Bùi Ngọc Mai','Bài viết rất hữu ích, cảm ơn nhà trường!','2026-10-05 18:37:09','2026-10-05 18:37:09'),
-(27,21,'Nguyễn Minh Anh','Bài viết rất hữu ích, cảm ơn nhà trường!','2026-10-05 11:30:11','2026-10-05 11:30:11'),
-(28,15,'Trần Quốc Bảo','Hy vọng sẽ có thêm nhiều bài viết như thế này.','2026-09-03 21:02:41','2026-09-03 21:02:41'),
-(29,12,'Bùi Ngọc Mai','Mình đã đọc kỹ, thông tin rõ ràng và dễ hiểu.','2026-09-08 01:41:51','2026-09-08 01:41:51'),
-(30,4,'Võ Khánh Linh','Thông tin cập nhật rất kịp thời.','2026-10-09 15:16:39','2026-10-09 15:16:39'),
-(31,9,'Hoàng Đức Thắng','Chia sẻ cho các bạn cùng lớp luôn nhé.','2026-09-10 21:49:47','2026-09-10 21:49:47'),
-(32,13,'Hoàng Đức Thắng','Thông tin cập nhật rất kịp thời.','2026-09-24 17:52:37','2026-09-24 17:52:37'),
-(33,3,'Võ Khánh Linh','Bài viết rất hữu ích, cảm ơn nhà trường!','2026-09-03 19:08:37','2026-09-03 19:08:37'),
-(34,20,'Bùi Ngọc Mai','Chia sẻ cho các bạn cùng lớp luôn nhé.','2026-09-03 02:40:41','2026-09-03 02:40:41'),
-(35,2,'Trần Quốc Bảo','Bài viết rất hữu ích, cảm ơn nhà trường!','2026-09-27 20:37:33','2026-09-27 20:37:33'),
-(36,6,'Bùi Ngọc Mai','Cho mình hỏi thêm thông tin chi tiết ở đâu ạ?','2026-10-04 11:09:17','2026-10-04 11:09:17'),
-(37,1,'Bùi Ngọc Mai','Mong nhà trường tổ chức thêm nhiều hoạt động tương tự.','2026-09-23 11:04:37','2026-09-23 11:04:37'),
-(38,6,'Võ Khánh Linh','Thông tin cập nhật rất kịp thời.','2026-10-06 03:47:09','2026-10-06 03:47:09'),
-(39,7,'Nguyễn Minh Anh','Cho mình hỏi thêm thông tin chi tiết ở đâu ạ?','2026-09-21 11:17:01','2026-09-21 11:17:01'),
-(40,4,'Hoàng Đức Thắng','Hy vọng sẽ có thêm nhiều bài viết như thế này.','2026-09-25 08:52:25','2026-09-25 08:52:25');
+(1,6,'Hoang Duc Thang','I hope the school organizes more activities like this.','2026-09-25 14:24:51','2026-09-25 14:24:51'),
+(2,18,'Hoang Duc Thang','Great post, thanks to the author.','2026-09-30 11:41:34','2026-09-30 11:41:34'),
+(3,21,'Bui Ngoc Mai','I hope to see more posts like this.','2026-09-30 23:55:20','2026-09-30 23:55:20'),
+(4,19,'Dang Hoang Nam','The information is very timely.','2026-09-30 05:26:38','2026-09-30 05:26:38'),
+(5,14,'Hoang Duc Thang','Great post, thanks to the author.','2026-09-17 22:23:01','2026-09-17 22:23:01'),
+(6,12,'Pham Gia Huy','I read it carefully; the information is clear and easy to understand.','2026-09-18 03:15:11','2026-09-18 03:15:11'),
+(7,7,'Nguyen Minh Anh','Where can I find more detailed information?','2026-10-11 02:49:40','2026-10-11 02:49:40'),
+(8,23,'Le Thu Ha','The information is very timely.','2026-09-11 14:05:19','2026-09-11 14:05:19'),
+(9,8,'Le Thu Ha','Where can I find more detailed information?','2026-09-16 01:54:44','2026-09-16 01:54:44'),
+(10,10,'Pham Gia Huy','The information is very timely.','2026-10-11 03:42:42','2026-10-11 03:42:42'),
+(11,20,'Dang Hoang Nam','I hope the school organizes more activities like this.','2026-10-02 03:38:16','2026-10-02 03:38:16'),
+(12,20,'Nguyen Minh Anh','I hope the school organizes more activities like this.','2026-10-03 05:03:20','2026-10-03 05:03:20'),
+(13,13,'Bui Ngoc Mai','Where can I find more detailed information?','2026-09-12 06:30:52','2026-09-12 06:30:52'),
+(14,23,'Dang Hoang Nam','Where can I find more detailed information?','2026-09-09 05:02:37','2026-09-09 05:02:37'),
+(15,6,'Vo Khanh Linh','This post is very helpful, thank you!','2026-09-29 04:15:57','2026-09-29 04:15:57'),
+(16,13,'Dang Hoang Nam','This post is very helpful, thank you!','2026-09-09 01:07:41','2026-09-09 01:07:41'),
+(17,16,'Tran Quoc Bao','I hope to see more posts like this.','2026-09-10 10:54:41','2026-09-10 10:54:41'),
+(18,7,'Hoang Duc Thang','Where can I find more detailed information?','2026-09-14 17:57:44','2026-09-14 17:57:44'),
+(19,6,'Dang Hoang Nam','I hope the school organizes more activities like this.','2026-09-22 23:17:04','2026-09-22 23:17:04'),
+(20,3,'Dang Hoang Nam','Sharing this with my classmates.','2026-09-18 22:10:56','2026-09-18 22:10:56'),
+(21,22,'Tran Quoc Bao','I hope to see more posts like this.','2026-09-24 04:28:43','2026-09-24 04:28:43'),
+(22,7,'Pham Gia Huy','The information is very timely.','2026-10-06 04:53:47','2026-10-06 04:53:47'),
+(23,21,'Pham Gia Huy','This post is very helpful, thank you!','2026-09-09 23:12:45','2026-09-09 23:12:45'),
+(24,8,'Le Thu Ha','Sharing this with my classmates.','2026-10-02 18:42:04','2026-10-02 18:42:04'),
+(25,4,'Hoang Duc Thang','Great post, thanks to the author.','2026-09-16 14:34:01','2026-09-16 14:34:01'),
+(26,10,'Bui Ngoc Mai','This post is very helpful, thank you!','2026-10-05 18:37:09','2026-10-05 18:37:09'),
+(27,21,'Nguyen Minh Anh','This post is very helpful, thank you!','2026-10-05 11:30:11','2026-10-05 11:30:11'),
+(28,15,'Tran Quoc Bao','I hope to see more posts like this.','2026-09-03 21:02:41','2026-09-03 21:02:41'),
+(29,12,'Bui Ngoc Mai','I read it carefully; the information is clear and easy to understand.','2026-09-08 01:41:51','2026-09-08 01:41:51'),
+(30,4,'Vo Khanh Linh','The information is very timely.','2026-10-09 15:16:39','2026-10-09 15:16:39'),
+(31,9,'Hoang Duc Thang','Sharing this with my classmates.','2026-09-10 21:49:47','2026-09-10 21:49:47'),
+(32,13,'Hoang Duc Thang','The information is very timely.','2026-09-24 17:52:37','2026-09-24 17:52:37'),
+(33,3,'Vo Khanh Linh','This post is very helpful, thank you!','2026-09-03 19:08:37','2026-09-03 19:08:37'),
+(34,20,'Bui Ngoc Mai','Sharing this with my classmates.','2026-09-03 02:40:41','2026-09-03 02:40:41'),
+(35,2,'Tran Quoc Bao','This post is very helpful, thank you!','2026-09-27 20:37:33','2026-09-27 20:37:33'),
+(36,6,'Bui Ngoc Mai','Where can I find more detailed information?','2026-10-04 11:09:17','2026-10-04 11:09:17'),
+(37,1,'Bui Ngoc Mai','I hope the school organizes more activities like this.','2026-09-23 11:04:37','2026-09-23 11:04:37'),
+(38,6,'Vo Khanh Linh','The information is very timely.','2026-10-06 03:47:09','2026-10-06 03:47:09'),
+(39,7,'Nguyen Minh Anh','Where can I find more detailed information?','2026-09-21 11:17:01','2026-09-21 11:17:01'),
+(40,4,'Hoang Duc Thang','I hope to see more posts like this.','2026-09-25 08:52:25','2026-09-25 08:52:25');
 
 INSERT INTO `contact_messages` (`id`,`name`,`email`,`phone`,`subject`,`message`,`is_read`,`created_at`,`updated_at`) VALUES
-(1,'Bùi Ngọc Mai','lienhe01@mail.test','0976272504','Hỏi về học phí','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-09-25 07:42:25','2026-09-25 07:42:25'),
-(2,'Đặng Hoàng Nam','lienhe02@mail.test','0940081244','Xin cấp bảng điểm','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-09-18 14:42:12','2026-09-18 14:42:12'),
-(3,'Phạm Gia Huy','lienhe03@mail.test','0940494019','Xin xác nhận sinh viên','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',1,'2026-09-12 09:24:31','2026-09-12 09:24:31'),
-(4,'Phạm Gia Huy','lienhe04@mail.test','0940286804','Thông tin tuyển sinh','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-10-02 15:45:26','2026-10-02 15:45:26'),
-(5,'Trần Quốc Bảo','lienhe05@mail.test','0916232264','Xin cấp bảng điểm','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-09-10 08:11:25','2026-09-10 08:11:25'),
-(6,'Hoàng Đức Thắng','lienhe06@mail.test','0984009950','Xin xác nhận sinh viên','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',1,'2026-09-26 19:15:41','2026-09-26 19:15:41'),
-(7,'Đặng Hoàng Nam','lienhe07@mail.test','0986060779','Hỏi về học phí','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-10-03 21:12:09','2026-10-03 21:12:09'),
-(8,'Bùi Ngọc Mai','lienhe08@mail.test','0995532756','Hỏi về học bổng','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-09-28 12:22:23','2026-09-28 12:22:23'),
-(9,'Võ Khánh Linh','lienhe09@mail.test','0928934260','Hỏi về học phí','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',1,'2026-09-15 23:39:39','2026-09-15 23:39:39'),
-(10,'Trần Quốc Bảo','lienhe10@mail.test','0928931522','Thông tin tuyển sinh','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-09-30 08:04:30','2026-09-30 08:04:30'),
-(11,'Phạm Gia Huy','lienhe11@mail.test','0952522253','Đăng ký học phần','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-09-13 11:43:24','2026-09-13 11:43:24'),
-(12,'Phạm Gia Huy','lienhe12@mail.test','0958917908','Hỏi về học bổng','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',1,'2026-09-18 18:51:29','2026-09-18 18:51:29'),
-(13,'Trần Quốc Bảo','lienhe13@mail.test','0931505882','Xin cấp bảng điểm','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-10-06 08:24:05','2026-10-06 08:24:05'),
-(14,'Bùi Ngọc Mai','lienhe14@mail.test','0992866779','Hợp tác doanh nghiệp','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-10-01 03:18:04','2026-10-01 03:18:04'),
-(15,'Đặng Hoàng Nam','lienhe15@mail.test','0965618831','Thông tin tuyển sinh','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',1,'2026-09-28 00:35:41','2026-09-28 00:35:41'),
-(16,'Hoàng Đức Thắng','lienhe16@mail.test','0981646167','Xin cấp bảng điểm','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-09-17 18:04:25','2026-09-17 18:04:25'),
-(17,'Bùi Ngọc Mai','lienhe17@mail.test','0972888594','Thông tin tuyển sinh','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-10-02 04:29:58','2026-10-02 04:29:58'),
-(18,'Phạm Gia Huy','lienhe18@mail.test','0982662971','Thông tin tuyển sinh','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',1,'2026-09-12 12:11:45','2026-09-12 12:11:45'),
-(19,'Võ Khánh Linh','lienhe19@mail.test','0945076463','Hỏi về học phí','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-09-20 16:58:40','2026-09-20 16:58:40'),
-(20,'Trần Quốc Bảo','lienhe20@mail.test','0911149690','Hỏi về học phí','Xin chào nhà trường, tôi muốn được hỗ trợ thêm thông tin về vấn đề trên. Xin cảm ơn.',0,'2026-10-05 19:49:27','2026-10-05 19:49:27');
+(1,'Bui Ngoc Mai','lienhe01@mail.test','0976272504','Question about tuition','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-09-25 07:42:25','2026-09-25 07:42:25'),
+(2,'Dang Hoang Nam','lienhe02@mail.test','0940081244','Request for a transcript','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-09-18 14:42:12','2026-09-18 14:42:12'),
+(3,'Pham Gia Huy','lienhe03@mail.test','0940494019','Student certificate request','Hello, I would like some additional information about the matter above. Thank you.',1,'2026-09-12 09:24:31','2026-09-12 09:24:31'),
+(4,'Pham Gia Huy','lienhe04@mail.test','0940286804','Admissions information','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-10-02 15:45:26','2026-10-02 15:45:26'),
+(5,'Tran Quoc Bao','lienhe05@mail.test','0916232264','Request for a transcript','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-09-10 08:11:25','2026-09-10 08:11:25'),
+(6,'Hoang Duc Thang','lienhe06@mail.test','0984009950','Student certificate request','Hello, I would like some additional information about the matter above. Thank you.',1,'2026-09-26 19:15:41','2026-09-26 19:15:41'),
+(7,'Dang Hoang Nam','lienhe07@mail.test','0986060779','Question about tuition','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-10-03 21:12:09','2026-10-03 21:12:09'),
+(8,'Bui Ngoc Mai','lienhe08@mail.test','0995532756','Question about scholarships','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-09-28 12:22:23','2026-09-28 12:22:23'),
+(9,'Vo Khanh Linh','lienhe09@mail.test','0928934260','Question about tuition','Hello, I would like some additional information about the matter above. Thank you.',1,'2026-09-15 23:39:39','2026-09-15 23:39:39'),
+(10,'Tran Quoc Bao','lienhe10@mail.test','0928931522','Admissions information','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-09-30 08:04:30','2026-09-30 08:04:30'),
+(11,'Pham Gia Huy','lienhe11@mail.test','0952522253','Course registration','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-09-13 11:43:24','2026-09-13 11:43:24'),
+(12,'Pham Gia Huy','lienhe12@mail.test','0958917908','Question about scholarships','Hello, I would like some additional information about the matter above. Thank you.',1,'2026-09-18 18:51:29','2026-09-18 18:51:29'),
+(13,'Tran Quoc Bao','lienhe13@mail.test','0931505882','Request for a transcript','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-10-06 08:24:05','2026-10-06 08:24:05'),
+(14,'Bui Ngoc Mai','lienhe14@mail.test','0992866779','Business partnership','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-10-01 03:18:04','2026-10-01 03:18:04'),
+(15,'Dang Hoang Nam','lienhe15@mail.test','0965618831','Admissions information','Hello, I would like some additional information about the matter above. Thank you.',1,'2026-09-28 00:35:41','2026-09-28 00:35:41'),
+(16,'Hoang Duc Thang','lienhe16@mail.test','0981646167','Request for a transcript','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-09-17 18:04:25','2026-09-17 18:04:25'),
+(17,'Bui Ngoc Mai','lienhe17@mail.test','0972888594','Admissions information','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-10-02 04:29:58','2026-10-02 04:29:58'),
+(18,'Pham Gia Huy','lienhe18@mail.test','0982662971','Admissions information','Hello, I would like some additional information about the matter above. Thank you.',1,'2026-09-12 12:11:45','2026-09-12 12:11:45'),
+(19,'Vo Khanh Linh','lienhe19@mail.test','0945076463','Question about tuition','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-09-20 16:58:40','2026-09-20 16:58:40'),
+(20,'Tran Quoc Bao','lienhe20@mail.test','0911149690','Question about tuition','Hello, I would like some additional information about the matter above. Thank you.',0,'2026-10-05 19:49:27','2026-10-05 19:49:27');
 
 SET FOREIGN_KEY_CHECKS = 1;

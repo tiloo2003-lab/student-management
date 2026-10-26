@@ -134,7 +134,7 @@ CREATE TABLE courses (
   teacher_id   BIGINT UNSIGNED NOT NULL,
   semester_id  BIGINT UNSIGNED NOT NULL,
   room         VARCHAR(30)     NULL,
-  day_of_week  TINYINT UNSIGNED NULL COMMENT '2=Thứ 2 ... 7=Thứ 7, 8=Chủ nhật',
+  day_of_week  TINYINT UNSIGNED NULL COMMENT '2=Monday ... 7=Saturday, 8=Sunday',
   start_period TINYINT UNSIGNED NULL,
   end_period   TINYINT UNSIGNED NULL,
   max_students SMALLINT UNSIGNED NOT NULL DEFAULT 50,

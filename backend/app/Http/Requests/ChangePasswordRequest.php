@@ -15,9 +15,9 @@ class ChangePasswordRequest extends ApiFormRequest
     public function messages(): array
     {
         return [
-            'password.min' => 'Mật khẩu mới phải có ít nhất 8 ký tự.',
-            'password.regex' => 'Mật khẩu mới phải gồm cả chữ và số.',
-            'password.confirmed' => 'Xác nhận mật khẩu không khớp.',
+            'password.min' => 'The new password must be at least 8 characters.',
+            'password.regex' => 'The new password must contain both letters and numbers.',
+            'password.confirmed' => 'The password confirmation does not match.',
         ];
     }
 }

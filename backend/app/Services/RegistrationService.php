@@ -66,7 +66,7 @@ class RegistrationService implements RegistrationServiceInterface
         $course = $this->courses->findOrFail($course->id);
 
         if (! $course->semester?->is_current) {
-            throw new UnprocessableEntityHttpException('Chỉ được đăng ký lớp học phần thuộc học kỳ hiện tại.');
+            throw new UnprocessableEntityHttpException('You can only register for course sections in the current semester.');
         }
 
         $this->enrollmentService->enroll($student->id, $course);
@@ -78,15 +78,15 @@ class RegistrationService implements RegistrationServiceInterface
         $enrollment = $this->enrollments->findForStudentAndCourse($student->id, $course->id);
 
         if (! $enrollment) {
-            throw new NotFoundHttpException('Bạn chưa đăng ký lớp học phần này.');
+            throw new NotFoundHttpException('You are not registered for this course section.');
         }
 
         if (! $this->courses->findOrFail($course->id)->semester?->is_current) {
-            throw new UnprocessableEntityHttpException('Không thể hủy đăng ký lớp của học kỳ đã kết thúc.');
+            throw new UnprocessableEntityHttpException('Registration cannot be cancelled for a semester that has ended.');
         }
 
         if ($enrollment->grade?->midterm !== null || $enrollment->grade?->final !== null) {
-            throw new UnprocessableEntityHttpException('Lớp học phần đã có điểm, không thể hủy đăng ký.');
+            throw new UnprocessableEntityHttpException('This course section already has grades, so registration cannot be cancelled.');
         }
 
         $this->enrollments->delete($enrollment);
@@ -95,6 +95,6 @@ class RegistrationService implements RegistrationServiceInterface
     private function studentOf(User $user): Student
     {
         return $this->students->findByUserId($user->id)
-            ?? throw new NotFoundHttpException('Không tìm thấy hồ sơ sinh viên.');
+            ?? throw new NotFoundHttpException('Student profile not found.');
     }
 }

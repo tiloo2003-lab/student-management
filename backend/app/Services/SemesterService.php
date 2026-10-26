@@ -37,10 +37,10 @@ class SemesterService extends CrudService implements SemesterServiceInterface
         $semester = $this->semesters->findOrFail($id);
 
         if ($semester->is_current) {
-            throw new ConflictHttpException('Không thể xóa học kỳ hiện tại.');
+            throw new ConflictHttpException('The current semester cannot be deleted.');
         }
         if ($this->courses->countInSemester($semester->id) > 0) {
-            throw new ConflictHttpException('Học kỳ đã có lớp học phần, không thể xóa.');
+            throw new ConflictHttpException('This semester has course sections and cannot be deleted.');
         }
 
         parent::delete($id);
@@ -51,7 +51,7 @@ class SemesterService extends CrudService implements SemesterServiceInterface
         $overlap = $this->semesters->overlapping($data['start_date'], $data['end_date'], $exceptId)->first();
 
         if ($overlap) {
-            throw new UnprocessableEntityHttpException("Thời gian học kỳ bị trùng với \"{$overlap->name}\".");
+            throw new UnprocessableEntityHttpException("The semester dates overlap with \"{$overlap->name}\".");
         }
     }
 

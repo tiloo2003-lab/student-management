@@ -12,23 +12,23 @@ export function TeacherCourses() {
 
   return (
     <>
-      <div className="page-head"><h1>Lớp giảng dạy</h1></div>
+      <div className="page-head"><h1>My course sections</h1></div>
       <div className="card">
         <div className="table-wrap">
           <table>
-            <thead><tr><th>Mã LHP</th><th>Môn học</th><th>Học kỳ</th><th>Lịch học</th><th>Phòng</th><th>Sĩ số</th><th /></tr></thead>
+            <thead><tr><th>Section</th><th>Subject</th><th>Semester</th><th>Schedule</th><th>Room</th><th>Enrolled</th><th /></tr></thead>
             <tbody>
               {courses === null ? <tr><td colSpan={7}><Loading /></td></tr>
-                : courses.length === 0 ? <tr><td colSpan={7} className="empty">Chưa có lớp được phân công</td></tr>
+                : courses.length === 0 ? <tr><td colSpan={7} className="empty">No course sections assigned</td></tr>
                 : courses.map((c) => (
                   <tr key={c.id}>
                     <td>{c.code}</td>
                     <td>{c.subject.name} <span className="sub">({c.subject.credits} TC)</span></td>
-                    <td>{c.semester.name} {c.semester.is_current && <Badge color="green">Hiện tại</Badge>}</td>
+                    <td>{c.semester.name} {c.semester.is_current && <Badge color="green">Current</Badge>}</td>
                     <td>{scheduleLabel(c)}</td>
                     <td>{c.room || '—'}</td>
                     <td>{c.enrollments_count}/{c.max_students}</td>
-                    <td className="actions"><Link className="btn sm primary" to={`/teacher/courses/${c.id}`}>Quản lý</Link></td>
+                    <td className="actions"><Link className="btn sm primary" to={`/teacher/courses/${c.id}`}>Manage</Link></td>
                   </tr>
                 ))}
             </tbody>
@@ -74,7 +74,7 @@ export function TeacherCourseDetail() {
 
   const saveAll = async () => {
     if (!changed) return;
-    const ok = await confirmDialog({ title: 'Lưu điểm cả lớp?', text: `Sẽ cập nhật điểm của ${changed} sinh viên trong lớp này.`, confirmText: 'Lưu điểm' });
+    const ok = await confirmDialog({ title: 'Save grades for the whole class?', text: `Scores for ${changed} students in this section will be updated.`, confirmText: 'Save grades' });
     if (!ok) return;
     const grades = data.students
       .filter((e) => edits[e.id])
@@ -94,11 +94,11 @@ export function TeacherCourseDetail() {
       setRowErrors(failed);
 
       if (res.errors.length === 0) {
-        toast(`Đã lưu điểm cho ${res.saved} sinh viên`);
+        toast(`Saved grades for ${res.saved} students`);
       } else {
         await infoDialog({
           icon: res.saved ? 'warning' : 'error',
-          title: res.saved ? `Đã lưu ${res.saved}, còn ${res.errors.length} dòng lỗi` : 'Không lưu được điểm',
+          title: res.saved ? `Saved ${res.saved}, ${res.errors.length} rows have errors` : 'Grades could not be saved',
           html: errorList(res.errors),
         });
       }
@@ -110,25 +110,25 @@ export function TeacherCourseDetail() {
   };
 
   const discard = async () => {
-    if (!(await confirmDialog({ title: 'Hủy các thay đổi?', text: `${changed} dòng chưa lưu sẽ bị bỏ.`, confirmText: 'Hủy thay đổi', danger: true }))) return;
+    if (!(await confirmDialog({ title: 'Discard changes?', text: `${changed} unsaved rows will be discarded.`, confirmText: 'Discard changes', danger: true }))) return;
     setEdits({});
     setRowErrors({});
   };
 
   const exportSheet = async () => {
     setExporting(true);
-    await exportPdf(`/teacher/courses/${id}/export`, {}, 'bang-diem-lop.pdf');
+    await exportPdf(`/teacher/courses/${id}/export`, {}, 'grade-sheet.pdf');
     setExporting(false);
   };
 
   const saveAttendance = async () => {
-    const ok = await confirmDialog({ title: 'Lưu điểm danh?', text: `Điểm danh ngày ${date} sẽ được ghi nhận cho cả lớp.`, confirmText: 'Lưu điểm danh' });
+    const ok = await confirmDialog({ title: 'Save attendance?', text: `Attendance for ${date} will be recorded for the whole class.`, confirmText: 'Save attendance' });
     if (!ok) return;
     try {
       await api.post(`/teacher/courses/${id}/attendance`, {
         date, records: att.map(({ student_id, status, note }) => ({ student_id, status, note })),
       });
-      toast('Đã lưu điểm danh');
+      toast('Attendance saved');
       load();
     } catch (err) { toast(errMsg(err), 'bad'); }
   };
@@ -143,43 +143,43 @@ export function TeacherCourseDetail() {
     <>
       <div className="page-head">
         <div>
-          <Link to="/teacher/courses" className="sub">← Quay lại danh sách lớp</Link>
+          <Link to="/teacher/courses" className="sub">← Back to my course sections</Link>
           <h1>{course.code} · {course.subject.name}</h1>
-          <div className="sub">{course.semester.name} · {scheduleLabel(course)} · Phòng {course.room || '—'} · {students.length} sinh viên</div>
+          <div className="sub">{course.semester.name} · {scheduleLabel(course)} · Room {course.room || '—'} · {students.length} students</div>
         </div>
-        <button className="btn" disabled={exporting} onClick={exportSheet}>{exporting ? 'Đang xuất...' : 'Xuất bảng điểm PDF'}</button>
+        <button className="btn" disabled={exporting} onClick={exportSheet}>{exporting ? 'Exporting...' : 'Export grade sheet (PDF)'}</button>
       </div>
 
       {locked && (
         <div className="alert">
-          Học kỳ đã kết thúc quá {rules.grade_lock_days} ngày nên điểm và điểm danh đã bị khóa. Liên hệ quản trị viên nếu cần chỉnh sửa.
+          The semester ended more than {rules.grade_lock_days} days ago, so grades and attendance are locked. Contact an administrator if changes are needed.
         </div>
       )}
 
       <div className="tabs">
-        <button className={`tab ${tab === 'grades' ? 'active' : ''}`} onClick={() => setTab('grades')}>Nhập điểm cả lớp</button>
-        <button className={`tab ${tab === 'attendance' ? 'active' : ''}`} onClick={() => setTab('attendance')}>Điểm danh</button>
+        <button className={`tab ${tab === 'grades' ? 'active' : ''}`} onClick={() => setTab('grades')}>Grade the whole class</button>
+        <button className={`tab ${tab === 'attendance' ? 'active' : ''}`} onClick={() => setTab('attendance')}>Attendance</button>
       </div>
 
       {tab === 'grades' && (
         <div className="card">
           <div className="grade-bar">
             <div className="sub">
-              Nhập điểm cho nhiều sinh viên rồi bấm lưu một lần. Tổng kết = Giữa kỳ × 40% + Cuối kỳ × 60%.
-              Cần có giữa kỳ mới nhập được cuối kỳ; vắng quá {limit}% số buổi (từ {rules.min_sessions_for_ban} buổi) bị cấm thi.
+              Enter scores for several students, then save once. Total = Midterm × 40% + Final × 60%.
+              A midterm score is required before a final score; students absent for more than {limit}% of sessions (from {rules.min_sessions_for_ban} sessions) are banned from the exam.
             </div>
             <div className="grade-actions">
-              {changed > 0 && <button className="btn" disabled={saving} onClick={discard}>Hủy thay đổi</button>}
+              {changed > 0 && <button className="btn" disabled={saving} onClick={discard}>Discard changes</button>}
               <button className="btn primary" disabled={locked || !changed || saving} onClick={saveAll}>
-                {saving ? 'Đang lưu...' : changed ? `Lưu điểm cả lớp (${changed})` : 'Lưu điểm cả lớp'}
+                {saving ? 'Saving...' : changed ? `Save class grades (${changed})` : 'Save class grades'}
               </button>
             </div>
           </div>
           <div className="table-wrap">
             <table>
-              <thead><tr><th>MSSV</th><th>Họ tên</th><th>Lớp</th><th>Chuyên cần</th><th>Giữa kỳ</th><th>Cuối kỳ</th><th>Tổng kết</th></tr></thead>
+              <thead><tr><th>Student ID</th><th>Full name</th><th>Class</th><th>Attendance</th><th>Midterm</th><th>Final</th><th>Total</th></tr></thead>
               <tbody>
-                {students.length === 0 ? <tr><td colSpan={7} className="empty">Lớp chưa có sinh viên</td></tr>
+                {students.length === 0 ? <tr><td colSpan={7} className="empty">This section has no students yet</td></tr>
                   : students.map((e) => {
                     const a = e.attendance;
                     return (
@@ -191,10 +191,10 @@ export function TeacherCourseDetail() {
                         </td>
                         <td>{e.student.school_class?.code}</td>
                         <td>
-                          {a.sessions === 0 ? <span className="sub">Chưa điểm danh</span> : (
+                          {a.sessions === 0 ? <span className="sub">No attendance yet</span> : (
                             <>
-                              <span>Vắng {a.absent}/{a.sessions}</span>{' '}
-                              {a.banned && <Badge color="red">Cấm thi</Badge>}
+                              <span>Absent {a.absent}/{a.sessions}</span>{' '}
+                              {a.banned && <Badge color="red">Exam ban</Badge>}
                             </>
                           )}
                         </td>
@@ -204,7 +204,7 @@ export function TeacherCourseDetail() {
                         </td>
                         <td>
                           <input className="grade-input" type="number" min="0" max="10" step="0.1" disabled={locked || a.banned}
-                            title={a.banned ? 'Sinh viên bị cấm thi' : ''}
+                            title={a.banned ? 'Student is banned from the exam' : ''}
                             value={cell(e, 'final')} onChange={(ev) => setCell(e, 'final', ev.target.value)} />
                         </td>
                         <td>{e.grade?.total != null ? <>{e.grade.total} <Badge color={letterColor(e.grade.letter)}>{e.grade.letter}</Badge></> : '—'}</td>
@@ -221,15 +221,15 @@ export function TeacherCourseDetail() {
         <div className="card">
           <div className="toolbar">
             <input type="date" style={{ width: 'auto' }} value={date} max={today()} onChange={(e) => setDate(e.target.value)} />
-            <button className="btn" disabled={locked} onClick={() => att && setAtt(att.map((a) => ({ ...a, status: 'present' })))}>Tất cả có mặt</button>
-            <button className="btn primary" onClick={saveAttendance} disabled={locked || !att || att.length === 0}>Lưu điểm danh</button>
+            <button className="btn" disabled={locked} onClick={() => att && setAtt(att.map((a) => ({ ...a, status: 'present' })))}>Mark all present</button>
+            <button className="btn primary" onClick={saveAttendance} disabled={locked || !att || att.length === 0}>Save attendance</button>
           </div>
           <div className="table-wrap">
             <table>
-              <thead><tr><th>MSSV</th><th>Họ tên</th><th>Trạng thái</th><th>Ghi chú</th></tr></thead>
+              <thead><tr><th>Student ID</th><th>Full name</th><th>Status</th><th>Note</th></tr></thead>
               <tbody>
                 {att === null ? <tr><td colSpan={4}><Loading /></td></tr>
-                  : att.length === 0 ? <tr><td colSpan={4} className="empty">Lớp chưa có sinh viên</td></tr>
+                  : att.length === 0 ? <tr><td colSpan={4} className="empty">This section has no students yet</td></tr>
                   : att.map((a) => (
                     <tr key={a.student_id}>
                       <td>{a.student_code}</td>
@@ -239,7 +239,7 @@ export function TeacherCourseDetail() {
                           {Object.entries(attendanceLabel).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                         </select>
                       </td>
-                      <td><input disabled={locked} value={a.note || ''} onChange={(e) => setAttRow(a.student_id, { note: e.target.value })} placeholder="Ghi chú" /></td>
+                      <td><input disabled={locked} value={a.note || ''} onChange={(e) => setAttRow(a.student_id, { note: e.target.value })} placeholder="Note" /></td>
                     </tr>
                   ))}
               </tbody>

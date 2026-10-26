@@ -23,13 +23,13 @@ class RegistrationController extends Controller
     {
         $this->registration->register($request->user(), $course);
 
-        return response()->json(['message' => 'Đăng ký học phần thành công.'], 201);
+        return response()->json(['message' => 'Course registration successful.'], 201);
     }
 
     public function destroy(Request $request, Course $course): JsonResponse
     {
         $this->registration->cancel($request->user(), $course);
 
-        return response()->json(['message' => 'Đã hủy đăng ký học phần.']);
+        return response()->json(['message' => 'Course registration cancelled.']);
     }
 }

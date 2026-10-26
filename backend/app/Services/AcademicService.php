@@ -104,12 +104,12 @@ class AcademicService implements AcademicServiceInterface
         $minCredits = (int) config('school.scholarship_min_credits');
 
         $warning = $last['gpa'] < $warningGpa
-            ? "Cảnh báo học vụ: điểm trung bình {$name} là {$last['gpa']}, dưới ngưỡng {$warningGpa}."
+            ? "Academic warning: the average score for {$name} is {$last['gpa']}, below the threshold of {$warningGpa}."
             : null;
 
         $eligible = $last['gpa'] >= $minGpa && $last['credits_failed'] === 0 && $last['graded_credits'] >= $minCredits;
         $scholarship = $eligible
-            ? "Đủ điều kiện xét học bổng khuyến khích học tập ({$name}): điểm trung bình {$last['gpa']}, không có môn không đạt."
+            ? "Eligible for the study-encouragement scholarship ({$name}): average score {$last['gpa']}, no failed subjects."
             : null;
 
         return ['warning' => $warning, 'scholarship' => $scholarship];

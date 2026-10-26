@@ -1,30 +1,33 @@
-# Hệ thống quản lý sinh viên
+# Student Management System
 
 ```
 tung_aptech/
-├── backend/    Laravel 13 (REST API + Sanctum token)
-├── frontend/   React 19 + Vite (gọi API bằng axios)
+├── backend/    Laravel 13 (REST API + Sanctum tokens)
+├── frontend/   React 19 + Vite (talks to the API with axios)
 └── database/
-    ├── schema.sql   tạo database + 13 bảng
-    └── seed.sql     dữ liệu mẫu (mỗi bảng ≥ 20 bản ghi)
+    ├── schema.sql   creates the database and 17 tables
+    └── seed.sql     sample data (at least 20 records per table)
 ```
 
-## Chạy dự án
+## Running the project
 
 ### 1. Database (MySQL 8+)
 ```bash
-mysql -uroot --default-character-set=utf8mb4 -e "source database/schema.sql"
-mysql -uroot --default-character-set=utf8mb4 -e "source database/seed.sql"
+mysql -uroot -p --default-character-set=utf8mb4 -e "source database/schema.sql"
+mysql -uroot -p --default-character-set=utf8mb4 -e "source database/seed.sql"
 ```
-Cấu hình kết nối ở `backend/.env` (`DB_DATABASE=student_management`, `DB_USERNAME=root`, `DB_PASSWORD=` mật khẩu MySQL của bạn). Sao chép `backend/.env.example` thành `backend/.env` rồi chỉnh các giá trị này.
+Connection settings live in `backend/.env` (`DB_DATABASE=student_management`, `DB_USERNAME=root`, `DB_PASSWORD=` your MySQL password). Copy `backend/.env.example` to `backend/.env` and adjust these values.
+
+Re-run only `seed.sql` to reset the sample data without recreating the tables.
 
 ### 2. Backend
 ```bash
 cd backend
 composer install
+php artisan key:generate
 php artisan serve --port=8001   # http://127.0.0.1:8001
 ```
-> Không dùng `php artisan migrate`: cấu trúc bảng nằm trong `database/schema.sql`.
+> Do not run `php artisan migrate`: the table structure lives in `database/schema.sql`.
 
 ### 3. Frontend
 ```bash
@@ -32,85 +35,85 @@ cd frontend
 npm install
 npm run dev              # http://127.0.0.1:5173
 ```
-Đổi địa chỉ API bằng biến `VITE_API_URL` (xem `frontend/.env.example`).
+Change the API address with the `VITE_API_URL` variable (see `frontend/.env.example`).
 
-## Tài khoản demo (mật khẩu: `password`)
-| Vai trò | Email |
+## Demo accounts (password: `password`)
+| Role | Email |
 |---|---|
 | Admin | `admin1@school.test` … `admin5@school.test` |
-| Giáo viên | `gv001@school.test` … `gv025@school.test` |
-| Sinh viên | `sv0001@school.test` … `sv0060@school.test` |
+| Teacher | `gv001@school.test` … `gv025@school.test` |
+| Student | `sv0001@school.test` … `sv0060@school.test` |
 
-## Số bản ghi seed
+Tip: the teacher `gv016@school.test` has a section in the current semester, so grading and attendance can be tried right away. Sections from past semesters are locked for teachers.
+
+## Seed data
 users 90 · departments 20 · teachers 25 · classes 20 · students 60 · subjects 30 · semesters 20 · courses 30 · enrollments 150 · grades 150 · attendances 200 · announcements 20 · posts 24 · categories 20 · comments 40 · contact_messages 20
 
-## Kiến trúc backend
+## Backend architecture
 
 ```
 Request → Route → Controller → FormRequest → Service → Repository → Model
 ```
 
-| Thư mục `backend/app` | Vai trò |
+| Folder in `backend/app` | Role |
 |---|---|
-| `Http/Controllers/Api` | Mỏng: nhận request, gọi service, trả JSON. `ResourceController` dùng chung cho CRUD |
-| `Http/Requests` | FormRequest: validate dữ liệu đầu vào |
-| `Contracts/Services`, `Services` | Interface và logic nghiệp vụ (transaction, quy tắc, phân quyền theo dữ liệu) |
-| `Contracts/Repositories`, `Repositories` | Interface và truy vấn Eloquent. `BaseRepository` xử lý tìm kiếm, lọc, phân trang |
-| `Contracts/Support`, `Support` | Tiện ích: lưu ảnh (`ImageStorageInterface`), transaction (`TransactionInterface`), tính điểm (`GradeCalculator`) |
-| `Providers/DomainServiceProvider` | Gắn interface với implementation (một chỗ duy nhất) |
-| `Models` | Eloquent model và quan hệ |
+| `Http/Controllers/Api` | Thin: receive the request, call a service, return JSON. `ResourceController` is shared by the CRUD controllers |
+| `Http/Requests` | FormRequests: validate incoming data |
+| `Contracts/Services`, `Services` | Interfaces and business logic (transactions, rules, data-level authorization) |
+| `Contracts/Repositories`, `Repositories` | Interfaces and Eloquent queries. `BaseRepository` handles search, filters and pagination |
+| `Contracts/Support`, `Support` | Utilities: image storage (`ImageStorageInterface`), transactions (`TransactionInterface`), grading (`GradeCalculator`) |
+| `Providers/DomainServiceProvider` | Binds interfaces to implementations in one place |
+| `Models` | Eloquent models and relations |
 
-Quy tắc phân lớp: Controller không chứa nghiệp vụ; Service không gọi `DB`/query/quan hệ lười của model, mọi truy cập dữ liệu đi qua Repository (interface); chỉ Repository làm việc với Eloquent.
+Layering rules: controllers contain no business logic; services never call `DB`, run queries or touch lazy relations, all data access goes through repository interfaces; only repositories work with Eloquent.
 
-Thêm một thực thể mới: tạo Model, `XRepositoryInterface` + `XRepository`, (service nếu có nghiệp vụ riêng), `XRequest`, `XController`, rồi khai báo trong `DomainServiceProvider`.
+To add a new entity: create the Model, `XRepositoryInterface` + `XRepository`, a service if it has its own rules, `XRequest` and `XController`, then register them in `DomainServiceProvider`.
 
-## Xuất PDF, bộ lọc, nhập điểm cả lớp
+## PDF export, filters and class-wide grading
 
-- **Xuất PDF** (dompdf, font DejaVu hỗ trợ tiếng Việt):
-  - Sinh viên: `Bảng điểm` lọc theo năm học, học kỳ, môn học rồi bấm **Xuất PDF**.
-  - Giáo viên/Admin: nút **Xuất bảng điểm PDF** trong trang lớp học phần.
-  - Admin: nút **PDF** ở danh sách sinh viên (chọn học kỳ), và **Xuất PDF** ở Báo cáo học vụ.
-- **Bộ lọc**: sinh viên (niên khóa, khoa, lớp, giới tính, trạng thái), lớp (khoa, niên khóa), lớp học phần (năm học, học kỳ, khoa, giáo viên), học kỳ (năm học), giáo viên (khoa, học vị), báo cáo (năm học, học kỳ, lớp).
-- **Nhập điểm theo cả lớp**: sửa điểm nhiều sinh viên rồi bấm **Lưu điểm cả lớp** một lần; dòng lỗi (cấm thi, thiếu giữa kỳ...) được báo riêng, các dòng hợp lệ vẫn lưu.
-- **Bình luận** yêu cầu đăng nhập; người dùng xóa được bình luận của mình, admin xóa được tất cả.
-- **Popup** dùng SweetAlert2 (xác nhận xóa, thông báo, chọn học kỳ khi xuất PDF).
-## Quy tắc nghiệp vụ (cấu hình ở `backend/config/school.php`)
+- **PDF export** (dompdf with the DejaVu font):
+  - Students: on the Grades page, filter by academic year, semester and subject, then press **Export PDF**.
+  - Teachers and admins: **Export grade sheet (PDF)** on the course section page.
+  - Admins: the **PDF** button in the student list (choose a semester) and **Export PDF** on the Academic reports page.
+- **Filters**: students (cohort, department, class, gender, status), classes (department, cohort), course sections (academic year, semester, department, teacher), semesters (academic year), teachers (department, degree), reports (academic year, semester, class).
+- **Class-wide grading**: edit scores for several students and press **Save class grades** once. Rows with errors (exam ban, missing midterm, ...) are reported individually while valid rows are still saved.
+- **Comments** require a login; users can delete their own comments and admins can delete any.
+- **Dialogs** use SweetAlert2 (delete confirmations, notifications, semester picker for PDF export). Every action that changes data asks for confirmation first.
 
-| Nhóm | Quy tắc | Nơi xử lý |
+## Business rules (configurable in `backend/config/school.php`)
+
+| Area | Rules | Handled in |
 |---|---|---|
-| Đăng ký học phần | Tối đa 24 tín chỉ/kỳ; không trùng lịch; không đăng ký trùng môn trong kỳ; không học lại môn đã đạt (điểm ≥ 4.0); kiểm tra sĩ số; chỉ đăng ký lớp của học kỳ hiện tại; chỉ hủy được khi chưa có điểm | `EnrollmentService`, `RegistrationService` |
-| Mở lớp học phần | Giáo viên và phòng không trùng lịch; giáo viên dạy tối đa 6 lớp/kỳ; không đổi môn/học kỳ khi đã có sinh viên; không giảm sĩ số dưới số đã đăng ký; không xóa lớp đã có điểm | `CourseService` |
-| Nhập điểm | Phải có giữa kỳ mới nhập được cuối kỳ; vắng quá 20% số buổi (từ 5 buổi) bị cấm thi; giáo viên bị khóa điểm sau 14 ngày kể từ khi hết kỳ (admin vẫn sửa được) | `TeacherPortalService` |
-| Điểm danh | Không điểm danh ngày tương lai hoặc ngoài học kỳ | `TeacherPortalService` |
-| Học vụ | GPA hệ 10 và hệ 4, xếp loại học lực, tín chỉ đạt/chưa đạt, cảnh báo học vụ (ĐTB kỳ < 4.0), đủ điều kiện học bổng (ĐTB ≥ 8.0, không môn rớt, ≥ 15 tín chỉ) | `AcademicService`, `GradeCalculator` |
-| Báo cáo | Thống kê theo học kỳ: tỉ lệ đạt, ĐTB theo lớp học phần và lớp, top sinh viên, danh sách cảnh báo/học bổng | `ReportService` |
-| Lớp, giáo viên, sinh viên | Sĩ số lớp tối đa 60; GVCN phải cùng khoa, tối đa 2 lớp; không xóa lớp còn sinh viên; không xóa sinh viên đã có điểm; không khóa giáo viên đang dạy kỳ hiện tại | `SchoolClassService`, `StudentService`, `TeacherService` |
-| Học kỳ | Không trùng thời gian; không xóa học kỳ hiện tại hoặc đã có lớp | `SemesterService` |
-| Bảo mật | Khóa đăng nhập 15 phút sau 5 lần sai; mật khẩu mới ≥ 8 ký tự gồm chữ và số, khác mật khẩu cũ | `AuthService` |
-| Bình luận | Chặn từ cấm, quá nhiều liên kết, gửi trùng trong 60 giây; loại bỏ HTML | `CommentService` |
+| Course registration | Max 24 credits per semester; no schedule conflicts; no duplicate subject in a semester; no retaking a passed subject (score ≥ 4.0); capacity check; only sections of the current semester; cancel only while there are no grades | `EnrollmentService`, `RegistrationService` |
+| Opening sections | No teacher or room conflicts; max 6 sections per teacher per semester; subject and semester cannot change once students enrolled; capacity cannot drop below enrolled students; sections with grades cannot be deleted | `CourseService` |
+| Grading | A midterm is required before a final; more than 20% absences (from 5 sessions) means an exam ban; teachers are locked out 14 days after the semester ends (admins can still edit) | `TeacherPortalService` |
+| Attendance | No attendance for future dates or dates outside the semester | `TeacherPortalService` |
+| Academic standing | 10-point and 4.0 GPA, classification, credits passed/failed, academic warning (semester average < 4.0), scholarship eligibility (average ≥ 8.0, no failed subject, ≥ 15 credits) | `AcademicService`, `GradeCalculator` |
+| Reports | Per-semester statistics: pass rate, averages by course section and class, top students, warning and scholarship lists | `ReportService` |
+| Classes, teachers, students | Max 60 students per class; homeroom teacher must be in the same department, max 2 classes; classes with students cannot be deleted; students with grades cannot be deleted; teachers teaching in the current semester cannot be locked | `SchoolClassService`, `StudentService`, `TeacherService` |
+| Semesters | Dates cannot overlap; the current semester or one with sections cannot be deleted | `SemesterService` |
+| Security | Login lock for 15 minutes after 5 failed attempts; new password ≥ 8 characters with letters and numbers, different from the old one | `AuthService` |
+| Comments | Blocks banned words, too many links and duplicates within 60 seconds; strips HTML | `CommentService` |
 
-## Cổng thông tin công khai
-| Route | Nội dung |
+## Public portal
+| Route | Content |
 |---|---|
-| `/` | Trang chủ: slider, thống kê, tin mới nhất, đọc nhiều, thông báo, theo danh mục |
-| `/tin-tuc` | Tất cả bài viết (sắp xếp Mới nhất / Hot / Đọc nhiều, phân trang) |
-| `/danh-muc/:slug` | Bài viết theo danh mục |
-| `/tim-kiem?q=` | Kết quả tìm kiếm |
-| `/posts/:id` | Chi tiết: lượt xem, thích, chia sẻ, bình luận, bài liên quan |
-| `/gioi-thieu`, `/lien-he` | Giới thiệu, form liên hệ |
-| `/admin/login`, `/admin` | Đăng nhập, trang quản trị |
+| `/` | Home: slider, statistics, latest news, most read, announcements, categories |
+| `/news` | All posts (sort by Latest / Hot / Most read, pagination) |
+| `/category/:slug` | Posts in a category |
+| `/search?q=` | Search results |
+| `/posts/:id` | Post detail: views, likes, sharing, comments, related posts |
+| `/about`, `/contact` | About page and contact form |
+| `/admin/login`, `/admin` | Sign in and the management area |
 
-Admin quản lý thêm: danh mục, bình luận, tin nhắn liên hệ (`/admin/categories`, `/admin/comments`, `/admin/messages`).
+Admins also manage categories, comments and contact messages (`/admin/categories`, `/admin/comments`, `/admin/messages`) and posts at `/admin/posts` (image upload, description, content). Post images are stored in `backend/public/uploads/posts`. Likes work without an account and the page only shows the like count.
 
-## Trang bài viết công khai
-`/posts` (không cần đăng nhập): lưới bài viết tông cam sáng, bấm vào xem chi tiết, thích/bỏ thích (chỉ hiển thị số lượt thích). Admin quản lý tại `/admin/posts` (upload ảnh, mô tả, nội dung). Ảnh lưu ở `backend/public/uploads/posts`.
+## Features by role
 
-## Tính năng theo vai trò
+**Everyone**: sign in/out (token), role-based dashboard, announcements by audience, profile editing, password change.
 
-**Chung**: đăng nhập/đăng xuất (token), dashboard theo vai trò, xem thông báo theo đối tượng, sửa hồ sơ, đổi mật khẩu.
+**Admin**: CRUD for students, teachers (created together with an account), departments, classes (homeroom teacher), subjects, semesters (set the current semester), course sections (teacher, schedule, room, capacity); add or remove students from a section (duplicate and capacity checks); announcements; lock/unlock accounts; search, filters, pagination, statistics and academic reports.
 
-**Admin**: CRUD sinh viên, giáo viên (tạo kèm tài khoản), khoa, lớp (gán GV chủ nhiệm), môn học, học kỳ (đặt học kỳ hiện tại), lớp học phần (phân công GV, lịch, phòng, sĩ số), thêm/xóa sinh viên khỏi lớp học phần (kiểm tra trùng + sĩ số), đăng/sửa/xóa thông báo, khóa/mở tài khoản, tìm kiếm, lọc, phân trang, thống kê.
+**Teacher**: view assigned sections, enter midterm and final scores for the whole class (total is computed at 40/60 with an A–F grade), take attendance by date, access only their own sections.
 
-**Giáo viên**: xem lớp được phân công, nhập điểm giữa kỳ/cuối kỳ (tự tính tổng kết 40/60 + xếp loại A–F), điểm danh theo ngày, chỉ truy cập được lớp của mình.
-
-**Sinh viên**: xem lớp học phần/lịch học, bảng điểm + GPA theo tín chỉ, lịch sử điểm danh, tỉ lệ chuyên cần.
+**Student**: course registration, schedule and sections, grades with GPA by credits, attendance history and attendance rate, PDF transcript.

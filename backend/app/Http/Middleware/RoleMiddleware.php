@@ -11,7 +11,7 @@ class RoleMiddleware
     {
         $user = $request->user();
         if (! $user || ! in_array($user->role, $roles, true)) {
-            return response()->json(['message' => 'Bạn không có quyền truy cập chức năng này.'], 403);
+            return response()->json(['message' => 'You do not have permission to access this feature.'], 403);
         }
         return $next($request);
     }

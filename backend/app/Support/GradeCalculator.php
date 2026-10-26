@@ -55,12 +55,12 @@ class GradeCalculator
         }
 
         return match (true) {
-            $gpa >= 9.0 => 'Xuất sắc',
-            $gpa >= 8.0 => 'Giỏi',
-            $gpa >= 7.0 => 'Khá',
-            $gpa >= 5.5 => 'Trung bình',
-            $gpa >= 4.0 => 'Yếu',
-            default => 'Kém',
+            $gpa >= 9.0 => 'Excellent',
+            $gpa >= 8.0 => 'Very good',
+            $gpa >= 7.0 => 'Good',
+            $gpa >= 5.5 => 'Average',
+            $gpa >= 4.0 => 'Weak',
+            default => 'Poor',
         };
     }
 

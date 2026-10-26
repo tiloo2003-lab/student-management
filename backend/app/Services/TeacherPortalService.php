@@ -77,7 +77,7 @@ class TeacherPortalService implements TeacherPortalServiceInterface
                 $enrollment = $enrollments->get($row['enrollment_id']);
 
                 if (! $enrollment) {
-                    $errors[] = ['enrollment_id' => $row['enrollment_id'], 'message' => 'Sinh viên không thuộc lớp học phần này.'];
+                    $errors[] = ['enrollment_id' => $row['enrollment_id'], 'message' => 'This student does not belong to this course section.'];
                     continue;
                 }
 
@@ -101,7 +101,7 @@ class TeacherPortalService implements TeacherPortalServiceInterface
     private function applyGrade(Enrollment $enrollment, array $summary, ?float $midterm, ?float $final): Grade
     {
         if ($final !== null && $midterm === null) {
-            throw new UnprocessableEntityHttpException('Phải nhập điểm giữa kỳ trước khi nhập điểm cuối kỳ.');
+            throw new UnprocessableEntityHttpException('The midterm score must be entered before the final score.');
         }
 
         if ($final !== null) {
@@ -109,7 +109,7 @@ class TeacherPortalService implements TeacherPortalServiceInterface
             if ($info['banned']) {
                 $limit = (int) round((float) config('school.absence_ratio_limit') * 100);
                 throw new UnprocessableEntityHttpException(
-                    "Vắng {$info['absent']}/{$info['sessions']} buổi (quá {$limit}%), bị cấm thi nên không nhập được điểm cuối kỳ."
+                    "Absent {$info['absent']}/{$info['sessions']} sessions (over {$limit}%): banned from the exam, so no final score can be entered."
                 );
             }
         }
@@ -185,10 +185,10 @@ class TeacherPortalService implements TeacherPortalServiceInterface
         $day = Carbon::parse($date)->startOfDay();
 
         if ($day->greaterThan(now()->endOfDay())) {
-            throw new UnprocessableEntityHttpException('Không thể điểm danh cho ngày trong tương lai.');
+            throw new UnprocessableEntityHttpException('Attendance cannot be taken for a future date.');
         }
         if ($day->lessThan($semester->start_date->copy()->startOfDay()) || $day->greaterThan($semester->end_date->copy()->endOfDay())) {
-            throw new UnprocessableEntityHttpException('Ngày điểm danh nằm ngoài thời gian của học kỳ.');
+            throw new UnprocessableEntityHttpException('The attendance date is outside the semester.');
         }
     }
 
@@ -208,7 +208,7 @@ class TeacherPortalService implements TeacherPortalServiceInterface
     {
         if ($this->isLockedFor($user, $course)) {
             $days = (int) config('school.grade_lock_days');
-            throw new AccessDeniedHttpException("Dữ liệu đã bị khóa vì học kỳ kết thúc quá {$days} ngày. Vui lòng liên hệ quản trị viên.");
+            throw new AccessDeniedHttpException("Data is locked because the semester ended more than {$days} days ago. Please contact an administrator.");
         }
     }
 
@@ -224,7 +224,7 @@ class TeacherPortalService implements TeacherPortalServiceInterface
         }
 
         if ($course->teacher_id !== $this->teacherIdOf($user)) {
-            throw new AccessDeniedHttpException('Bạn không phụ trách lớp học phần này.');
+            throw new AccessDeniedHttpException('You are not in charge of this course section.');
         }
     }
 }

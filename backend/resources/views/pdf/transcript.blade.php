@@ -1,33 +1,33 @@
 @extends('pdf.layout')
 
-@section('title', 'KẾT QUẢ HỌC TẬP')
+@section('title', 'ACADEMIC TRANSCRIPT')
 
 @section('content')
     <div class="sub">{{ $filterText }}</div>
 
     <table class="info">
         <tr>
-            <td width="16%">Họ và tên:</td><td width="34%"><strong>{{ $student->user->name }}</strong></td>
-            <td width="16%">Mã sinh viên:</td><td>{{ $student->student_code }}</td>
+            <td width="16%">Full name:</td><td width="34%"><strong>{{ $student->user->name }}</strong></td>
+            <td width="16%">Student ID:</td><td>{{ $student->student_code }}</td>
         </tr>
         <tr>
-            <td>Lớp:</td><td>{{ $student->schoolClass?->name }}</td>
-            <td>Niên khóa:</td><td>{{ $student->schoolClass?->academic_year }}</td>
+            <td>Class:</td><td>{{ $student->schoolClass?->name }}</td>
+            <td>Academic years:</td><td>{{ $student->schoolClass?->academic_year }}</td>
         </tr>
         <tr>
-            <td>Giới tính:</td><td>{{ ['male' => 'Nam', 'female' => 'Nữ', 'other' => 'Khác'][$student->gender] ?? '' }}</td>
-            <td>Ngày sinh:</td><td>{{ $student->date_of_birth?->format('d/m/Y') }}</td>
+            <td>Gender:</td><td>{{ ['male' => 'Male', 'female' => 'Female', 'other' => 'Other'][$student->gender] ?? '' }}</td>
+            <td>Date of birth:</td><td>{{ $student->date_of_birth?->format('d/m/Y') }}</td>
         </tr>
     </table>
 
     @forelse ($transcript['semesters'] as $s)
-        <h2>{{ $s['semester']['name'] }}@if ($s['semester']['is_current']) (đang diễn ra)@endif</h2>
+        <h2>{{ $s['semester']['name'] }}@if ($s['semester']['is_current']) (in progress)@endif</h2>
         <table>
             <thead>
                 <tr>
-                    <th width="11%">Mã LHP</th><th>Môn học</th><th class="c" width="6%">TC</th>
-                    <th class="c" width="9%">Giữa kỳ</th><th class="c" width="9%">Cuối kỳ</th>
-                    <th class="c" width="10%">Tổng kết</th><th class="c" width="9%">Xếp loại</th><th class="c" width="11%">Kết quả</th>
+                    <th width="11%">Section</th><th>Subject</th><th class="c" width="6%">Cr.</th>
+                    <th class="c" width="9%">Midterm</th><th class="c" width="9%">Final</th>
+                    <th class="c" width="10%">Total</th><th class="c" width="9%">Grade</th><th class="c" width="11%">Result</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,8 +42,8 @@
                         <td class="c">{{ $c['letter'] ?? '—' }}</td>
                         <td class="c">
                             @if ($c['passed'] === null) —
-                            @elseif ($c['passed']) <span class="ok">Đạt</span>
-                            @else <span class="bad">Không đạt</span>
+                            @elseif ($c['passed']) <span class="ok">Passed</span>
+                            @else <span class="bad">Failed</span>
                             @endif
                         </td>
                     </tr>
@@ -52,28 +52,28 @@
         </table>
         <table class="summary">
             <tr>
-                <td>Tín chỉ đăng ký: <strong>{{ $s['registered_credits'] }}</strong></td>
-                <td>ĐTB học kỳ: <strong>{{ $s['gpa'] ?? '—' }}</strong></td>
-                <td>Hệ 4: <strong>{{ $s['gpa4'] ?? '—' }}</strong></td>
-                <td>Xếp loại: <strong>{{ $s['classification'] ?? '—' }}</strong></td>
+                <td>Credits registered: <strong>{{ $s['registered_credits'] }}</strong></td>
+                <td>Semester average: <strong>{{ $s['gpa'] ?? '—' }}</strong></td>
+                <td>4.0 scale: <strong>{{ $s['gpa4'] ?? '—' }}</strong></td>
+                <td>Classification: <strong>{{ $s['classification'] ?? '—' }}</strong></td>
             </tr>
         </table>
     @empty
-        <p class="muted">Không có dữ liệu phù hợp với bộ lọc đã chọn.</p>
+        <p class="muted">No data matches the selected filters.</p>
     @endforelse
 
-    <h2>Tổng hợp</h2>
+    <h2>Summary</h2>
     <div class="box">
         <table class="summary">
             <tr>
-                <td>Điểm TB (hệ 10): <strong>{{ $transcript['cumulative']['gpa'] ?? '—' }}</strong></td>
-                <td>Điểm TB (hệ 4): <strong>{{ $transcript['cumulative']['gpa4'] ?? '—' }}</strong></td>
-                <td>Xếp loại học lực: <strong>{{ $transcript['cumulative']['classification'] ?? '—' }}</strong></td>
+                <td>Average (10 scale): <strong>{{ $transcript['cumulative']['gpa'] ?? '—' }}</strong></td>
+                <td>Average (4.0 scale): <strong>{{ $transcript['cumulative']['gpa4'] ?? '—' }}</strong></td>
+                <td>Classification: <strong>{{ $transcript['cumulative']['classification'] ?? '—' }}</strong></td>
             </tr>
             <tr>
-                <td>Tín chỉ có điểm: <strong>{{ $transcript['cumulative']['graded_credits'] }}</strong></td>
-                <td>Tín chỉ đạt: <strong class="ok">{{ $transcript['cumulative']['credits_earned'] }}</strong></td>
-                <td>Tín chỉ chưa đạt: <strong class="bad">{{ $transcript['cumulative']['credits_failed'] }}</strong></td>
+                <td>Graded credits: <strong>{{ $transcript['cumulative']['graded_credits'] }}</strong></td>
+                <td>Credits passed: <strong class="ok">{{ $transcript['cumulative']['credits_earned'] }}</strong></td>
+                <td>Credits failed: <strong class="bad">{{ $transcript['cumulative']['credits_failed'] }}</strong></td>
             </tr>
         </table>
         @if ($transcript['standing']['warning'])<div class="bad">{{ $transcript['standing']['warning'] }}</div>@endif
@@ -81,6 +81,6 @@
     </div>
 
     <table class="sign">
-        <tr><td width="50%"></td><td>Người lập bảng<br><span class="muted">(Ký, ghi rõ họ tên)</span></td></tr>
+        <tr><td width="50%"></td><td>Prepared by<br><span class="muted">(Signature and full name)</span></td></tr>
     </table>
 @endsection

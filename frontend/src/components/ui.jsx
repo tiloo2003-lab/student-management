@@ -10,7 +10,7 @@ export function Modal({ title, onClose, children, footer }) {
       <div className="modal">
         <div className="modal-head">
           <h3>{title}</h3>
-          <button className="x" onClick={onClose} aria-label="Đóng">×</button>
+          <button className="x" onClick={onClose} aria-label="Close">×</button>
         </div>
         <div className="modal-body">{children}</div>
         {footer && <div className="modal-foot">{footer}</div>}
@@ -23,11 +23,11 @@ export function Pager({ meta, onPage }) {
   if (!meta || meta.total === 0) return null;
   return (
     <div className="pager">
-      <span>Hiển thị {meta.from}–{meta.to} / {meta.total} bản ghi</span>
+      <span>Showing {meta.from}–{meta.to} of {meta.total} records</span>
       <div className="btns">
-        <button className="btn sm" disabled={meta.current_page <= 1} onClick={() => onPage(meta.current_page - 1)}>‹ Trước</button>
-        <span>Trang {meta.current_page}/{meta.last_page}</span>
-        <button className="btn sm" disabled={meta.current_page >= meta.last_page} onClick={() => onPage(meta.current_page + 1)}>Sau ›</button>
+        <button className="btn sm" disabled={meta.current_page <= 1} onClick={() => onPage(meta.current_page - 1)}>‹ Previous</button>
+        <span>Page {meta.current_page}/{meta.last_page}</span>
+        <button className="btn sm" disabled={meta.current_page >= meta.last_page} onClick={() => onPage(meta.current_page + 1)}>Next ›</button>
       </div>
     </div>
   );
@@ -35,4 +35,4 @@ export function Pager({ meta, onPage }) {
 
 export const Badge = ({ color = 'gray', children }) => <span className={`badge ${color}`}>{children}</span>;
 
-export const Loading = () => <div className="empty">Đang tải...</div>;
+export const Loading = () => <div className="empty">Loading...</div>;

@@ -37,7 +37,7 @@ class SchoolClassService extends CrudService implements SchoolClassServiceInterf
         $class = $this->classes->findOrFail($id);
 
         if ($class->students_count > 0) {
-            throw new ConflictHttpException('Lớp còn sinh viên, hãy chuyển sinh viên sang lớp khác trước khi xóa.');
+            throw new ConflictHttpException('This class still has students. Move them to another class before deleting.');
         }
 
         parent::delete($id);
@@ -53,12 +53,12 @@ class SchoolClassService extends CrudService implements SchoolClassServiceInterf
         $teacher = $this->teachers->findOrFail($teacherId);
 
         if ((int) $teacher->department_id !== (int) $data['department_id']) {
-            throw new UnprocessableEntityHttpException('Giáo viên chủ nhiệm phải thuộc cùng khoa với lớp.');
+            throw new UnprocessableEntityHttpException('The homeroom teacher must belong to the same department as the class.');
         }
 
         $limit = (int) config('school.max_homeroom_classes');
         if ($this->classes->countByHomeroomTeacher((int) $teacherId, $classId) >= $limit) {
-            throw new UnprocessableEntityHttpException("Mỗi giáo viên chỉ được chủ nhiệm tối đa {$limit} lớp.");
+            throw new UnprocessableEntityHttpException("A teacher can be homeroom teacher of at most {$limit} classes.");
         }
     }
 }
