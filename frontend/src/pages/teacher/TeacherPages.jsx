@@ -4,7 +4,7 @@ import api, { errMsg } from '../../api';
 import { Badge, Loading, useToast } from '../../components/ui';
 import { exportPdf } from '../../download';
 import { confirmDialog, infoDialog } from '../../notify';
-import { attendanceLabel, letterColor, scheduleLabel } from '../../utils';
+import { attendanceLabel, fmtDate, genderLabel, letterColor, scheduleLabel } from '../../utils';
 
 export function TeacherCourses() {
   const [courses, setCourses] = useState(null);
@@ -39,7 +39,45 @@ export function TeacherCourses() {
   );
 }
 
-const today = () => new Date().toISOString().slice(0, 10);
+export function TeacherClasses() {
+  const [classes, setClasses] = useState(null);
+  useEffect(() => { api.get('/teacher/classes').then((r) => setClasses(r.data)); }, []);
+
+  return (
+    <>
+      <div className="page-head"><h1>My homeroom classes</h1></div>
+      {classes === null ? <div className="card"><Loading /></div>
+        : classes.length === 0 ? <div className="card"><div className="empty">No homeroom classes assigned</div></div>
+        : classes.map((c) => (
+          <div className="card" key={c.id}>
+            <h3>{c.code} - {c.name}</h3>
+            <div className="sub">{c.department?.name} · Cohort {c.academic_year || '—'} · {c.students_count} students</div>
+            <div className="table-wrap">
+              <table>
+                <thead><tr><th>Student ID</th><th>Full name</th><th>Email</th><th>Phone</th><th>Gender</th><th>Date of birth</th><th>Status</th></tr></thead>
+                <tbody>
+                  {c.students.length === 0 ? <tr><td colSpan={7} className="empty">This class has no students yet</td></tr>
+                    : c.students.map((s) => (
+                      <tr key={s.id}>
+                        <td>{s.student_code}</td>
+                        <td>{s.name}</td>
+                        <td>{s.email}</td>
+                        <td>{s.phone || '—'}</td>
+                        <td>{genderLabel[s.gender]}</td>
+                        <td>{fmtDate(s.date_of_birth)}</td>
+                        <td><Badge color={s.status === 'active' ? 'green' : 'red'}>{s.status === 'active' ? 'Active' : 'Locked'}</Badge></td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+    </>
+  );
+}
+
+const today =() => new Date().toISOString().slice(0, 10);
 
 const errorList = (errors) =>
   `<ul class="swal-errors">${errors.map((e) => `<li><b>${e.student_code || ''} ${e.name || ''}</b> ${e.message}</li>`).join('')}</ul>`;

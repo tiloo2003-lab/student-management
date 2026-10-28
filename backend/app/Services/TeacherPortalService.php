@@ -6,6 +6,7 @@ use App\Contracts\Repositories\AttendanceRepositoryInterface;
 use App\Contracts\Repositories\CourseRepositoryInterface;
 use App\Contracts\Repositories\EnrollmentRepositoryInterface;
 use App\Contracts\Repositories\GradeRepositoryInterface;
+use App\Contracts\Repositories\SchoolClassRepositoryInterface;
 use App\Contracts\Repositories\SemesterRepositoryInterface;
 use App\Contracts\Repositories\TeacherRepositoryInterface;
 use App\Contracts\Services\TeacherPortalServiceInterface;
@@ -29,15 +30,27 @@ class TeacherPortalService implements TeacherPortalServiceInterface
         private AttendanceRepositoryInterface $attendances,
         private TeacherRepositoryInterface $teachers,
         private SemesterRepositoryInterface $semesters,
+        private SchoolClassRepositoryInterface $classes,
         private TransactionInterface $transaction,
     ) {
     }
 
     public function courses(User $user, ?int $semesterId): Collection
     {
-        $teacherId = $user->role === 'teacher' ? $this->teacherIdOf($user) : null;
+        if ($user->role !== 'teacher') {
+            return $this->courses->forPortal(null, $semesterId);
+        }
 
-        return $this->courses->forPortal($teacherId, $semesterId);
+        $teacherId = $this->teacherIdOf($user);
+
+        return $teacherId ? $this->courses->forPortal($teacherId, $semesterId) : collect();
+    }
+
+    public function homeroomClasses(User $user): Collection
+    {
+        $teacherId = $this->teacherIdOf($user);
+
+        return $teacherId ? $this->classes->forHomeroomTeacher($teacherId) : collect();
     }
 
     public function course(User $user, Course $course): array

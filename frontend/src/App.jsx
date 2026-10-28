@@ -20,7 +20,7 @@ import Listing from './pages/public/Listing';
 import PostDetail from './pages/public/PostDetail';
 import About from './pages/public/About';
 import Contact from './pages/public/Contact';
-import { TeacherCourseDetail, TeacherCourses } from './pages/teacher/TeacherPages';
+import { TeacherClasses, TeacherCourseDetail, TeacherCourses } from './pages/teacher/TeacherPages';
 import { StudentAttendance, StudentCourses, StudentGrades } from './pages/student/StudentPages';
 
 function Protected() {
@@ -76,6 +76,7 @@ export default function App() {
         <Route path="teacher" element={<RoleOnly role="teacher" />}>
           <Route path="courses" element={<TeacherCourses />} />
           <Route path="courses/:id" element={<TeacherCourseDetail />} />
+          <Route path="classes" element={<TeacherClasses />} />
         </Route>
 
         <Route path="student" element={<RoleOnly role="student" />}>

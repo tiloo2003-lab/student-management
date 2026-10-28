@@ -10,6 +10,8 @@ interface TeacherPortalServiceInterface
 {
     public function courses(User $user, ?int $semesterId): Collection;
 
+    public function homeroomClasses(User $user): Collection;
+
     public function course(User $user, Course $course): array;
 
     public function saveGrades(User $user, Course $course, array $rows): array;

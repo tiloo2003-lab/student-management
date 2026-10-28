@@ -23,6 +23,11 @@ class TeacherPortalController extends Controller
         return $this->portal->courses($request->user(), $semesterId);
     }
 
+    public function classes(Request $request)
+    {
+        return $this->portal->homeroomClasses($request->user());
+    }
+
     public function show(Request $request, Course $course)
     {
         return $this->portal->course($request->user(), $course);

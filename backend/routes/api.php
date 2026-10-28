@@ -79,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:teacher,admin')->prefix('teacher')->group(function () {
         Route::get('/courses', [TeacherPortalController::class, 'courses']);
+        Route::get('/classes', [TeacherPortalController::class, 'classes']);
         Route::get('/courses/{course}', [TeacherPortalController::class, 'show']);
         Route::put('/courses/{course}/grades', [TeacherPortalController::class, 'saveGrades']);
         Route::get('/courses/{course}/export', [ExportController::class, 'courseGradeSheet']);

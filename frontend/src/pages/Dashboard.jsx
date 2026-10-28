@@ -94,7 +94,7 @@ export default function Dashboard() {
             <Stat icon="🧾" num={c.courses} label="Total course sections" to="/teacher/courses" />
             <Stat icon="📖" num={c.current_courses} label="Sections this semester" to="/teacher/courses" />
             <Stat icon="🎓" num={c.students} label="Students taught" to="/teacher/courses" />
-            <Stat icon="🏫" num={c.homeroom_classes} label="Homeroom classes" />
+            <Stat icon="🏫" num={c.homeroom_classes} label="Homeroom classes" to="/teacher/classes" />
           </div>
           <div className="grid two">
             <div className="card">

@@ -19,7 +19,7 @@ const MENUS = {
   teacher: [
     {
       title: 'Teaching',
-      items: [['/admin', 'Dashboard'], ['/teacher/courses', 'My course sections'], ['/announcements', 'Announcements']],
+      items: [['/admin', 'Dashboard'], ['/teacher/courses', 'My course sections'], ['/teacher/classes', 'My homeroom classes'], ['/announcements', 'Announcements']],
     },
   ],
   student: [
