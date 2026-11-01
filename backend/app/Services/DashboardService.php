@@ -88,7 +88,9 @@ class DashboardService implements DashboardServiceInterface
 
     private function student(User $user): array
     {
-        $studentId = $this->students->findByUserId($user->id)->id;
+        $student = $this->students->findByUserId($user->id);
+        $studentId = $student->id;
+        $class = $this->classes->find($student->class_id);
         $enrollments = $this->enrollments->forStudent($studentId);
         $transcript = $this->academic->transcript($studentId);
         $cumulative = $transcript['cumulative'];
@@ -103,6 +105,13 @@ class DashboardService implements DashboardServiceInterface
                 'gpa' => $cumulative['gpa'],
                 'attendance_rate' => $attendances->count() ? round($attended * 100 / $attendances->count()) : null,
             ],
+            'school_class' => $class ? [
+                'code' => $class->code,
+                'name' => $class->name,
+                'department' => $class->department?->name,
+                'academic_year' => $class->academic_year,
+                'homeroom_teacher' => $class->homeroomTeacher?->user?->name,
+            ] : null,
             'classification' => $cumulative['classification'],
             'standing' => $transcript['standing'],
             'current_courses' => $enrollments->filter(fn ($e) => $e->course->semester?->is_current)->values(),

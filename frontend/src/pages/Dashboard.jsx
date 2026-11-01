@@ -116,6 +116,12 @@ export default function Dashboard() {
         <>
           {d.standing?.warning && <div className="alert">{d.standing.warning}</div>}
           {d.standing?.scholarship && <div className="alert ok">{d.standing.scholarship}</div>}
+          {d.school_class && (
+            <div className="card">
+              <h3>My class: {d.school_class.code} - {d.school_class.name}</h3>
+              <div className="sub">{d.school_class.department} · Cohort {d.school_class.academic_year || '—'} · Homeroom teacher {d.school_class.homeroom_teacher || '—'}</div>
+            </div>
+          )}
           <div className="grid stats">
             <Stat icon="📚" num={c.courses} label="Course sections" to="/student/courses" />
             <Stat icon="🎯" num={c.credits} label="Credits earned" to="/student/grades" />
