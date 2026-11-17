@@ -78,7 +78,7 @@ To add a new entity: create the Model, `XRepositoryInterface` + `XRepository`, a
 - **Filters**: students (cohort, department, class, gender, status), classes (department, cohort), course sections (academic year, semester, department, teacher), semesters (academic year), teachers (department, degree), reports (academic year, semester, class).
 - **Class-wide grading**: edit scores for several students and press **Save class grades** once. Rows with errors (exam ban, missing midterm, ...) are reported individually while valid rows are still saved.
 - **Comments** require a login; users can delete their own comments and admins can delete any.
-- **Dialogs** use SweetAlert2 (delete confirmations, notifications, semester picker for PDF export). Every action that changes data asks for confirmation first.
+- **Dialogs** use SweetAlert2 (delete confirmations, notifications, semester picker for PDF export). Destructive operations and bulk grading ask for confirmation; ordinary saves and comments use direct submission with feedback.
 
 ## Business rules (configurable in `backend/config/school.php`)
 
@@ -95,7 +95,7 @@ To add a new entity: create the Model, `XRepositoryInterface` + `XRepository`, a
 | Security | Login lock for 15 minutes after 5 failed attempts; new password ≥ 8 characters with letters and numbers, different from the old one | `AuthService` |
 | Comments | Blocks banned words, too many links and duplicates within 60 seconds; strips HTML | `CommentService` |
 
-## Public portal
+## Authenticated news portal
 | Route | Content |
 |---|---|
 | `/` | Home: slider, statistics, latest news, most read, announcements, categories |
@@ -104,9 +104,9 @@ To add a new entity: create the Model, `XRepositoryInterface` + `XRepository`, a
 | `/search?q=` | Search results |
 | `/posts/:id` | Post detail: views, likes, sharing, comments, related posts |
 | `/about`, `/contact` | About page and contact form |
-| `/admin/login`, `/admin` | Sign in and the management area |
+| `/login`, `/workspace` | Sign in and the role-based workspace (`/admin` redirects here) |
 
-Admins also manage categories, comments and contact messages (`/admin/categories`, `/admin/comments`, `/admin/messages`) and posts at `/admin/posts` (image upload, description, content). Post images are stored in `backend/public/uploads/posts`. Likes work without an account and the page only shows the like count.
+Admins also manage categories, comments and contact messages (`/admin/categories`, `/admin/comments`, `/admin/messages`) and posts at `/admin/posts` (image upload, description, content). Post images are stored in `backend/public/uploads/posts`. Likes require an account and are stored per user; repeated like/unlike requests are idempotent. Existing aggregate like counts are preserved as historical counts.
 
 ## Features by role
 
@@ -117,3 +117,50 @@ Admins also manage categories, comments and contact messages (`/admin/categories
 **Teacher**: view assigned sections, enter midterm and final scores for the whole class (total is computed at 40/60 with an A–F grade), take attendance by date, access only their own sections.
 
 **Student**: course registration, schedule and sections, grades with GPA by credits, attendance history and attendance rate, PDF transcript.
+
+## Portal workflow update
+
+- All news pages require sign-in. A shared article returns to that article after login; ordinary login opens News.
+- `/workspace` is the overview for every role. The same account menu is available in News and the workspace. `/admin` remains a compatibility redirect.
+- School news is a post category; Your notifications is the role-filtered announcement feed.
+- Failed reads display an error and retry control. A failed session check caused by network/server errors preserves the token; only a 401 expires the session.
+- Grade drafts are not cleared when saving attendance. Leaving an edited form or changing an attendance date asks before discarding. Reload/close uses the browser's unsaved-changes warning.
+
+### One-time additive database update
+
+From `backend`, run this against the configured MySQL database after deploying these changes:
+
+```powershell
+php artisan portal:upgrade
+```
+
+This command creates only `post_likes` if missing. It does not reseed, truncate or modify historical post counts. Run it before using likes with normal accounts. Fresh installs from `database/schema.sql` already include the table. Do not run a general migration or reload the schema to update an existing database.
+
+### Demo access and recovery
+
+To add interactive recruiter scenarios to an existing database, run from `backend`:
+
+```powershell
+php artisan demo:populate --preview
+php artisan demo:populate
+```
+
+This adds six sample students, three current-semester practice courses for `gv001`, sample grades and attendance, role notifications, an article with comments, and a contact message. `sv0001` is not automatically enrolled in the sample courses; all three are available for registration subject to the normal credit limit. Existing registrations are preserved when this command is rerun. Existing rows and passwords are preserved. Repeating the command skips existing records; it does not reset edits. The preview validates within a transaction and rolls back inserted rows (auto-increment numbers may still advance). An active current semester and the three demo accounts must already exist. If validation fails, all additions are rolled back.
+
+Recruiter walkthrough: Teacher → My course sections → codes starting `DEMO-` for grading/attendance; Student → Registration → Software testing workshop or Portfolio project lab; Admin → Posts, Notifications, Contact messages and academic management. Data added here lives in MySQL; export that database to preserve it when deploying.
+
+`DEMO_MODE=true` (default) labels `admin1@school.test`, `gv001@school.test`, and `sv0001@school.test` as demo accounts. They have the same permissions as normal accounts of their respective roles, including saving, deleting where allowed, liking, commenting and changing their own credentials. Changes are saved to the database. The demo label does not bypass role permissions or validation.
+
+A reset tool is provided but is never run automatically. `php artisan demo:reset` requires `DEMO_ALLOW_RESET=true`, a separately configured database whose name ends in `_demo`, and an interactive confirmation. It restores sample rows from `database/seed.sql` and clears likes and sessions in that demo database. It must never be used for a database holding real data. The reset does not remove uploaded files.
+
+### Verification
+
+```powershell
+# From backend; uses an isolated in-memory SQLite database, not MySQL:
+php tests/portal-smoke.php
+# From frontend:
+npm run build
+npm run lint
+```
+
+Manual acceptance: shared article login; Workspace for all three roles; save attendance while grade edits exist; cancel navigation with unsaved data; session-check network failure and retry; invalid URLs; demo writes within each role and rejection outside that role; two users liking the same article independently.

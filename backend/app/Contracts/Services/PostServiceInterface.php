@@ -13,9 +13,10 @@ interface PostServiceInterface
 
     public function show(Post $post): array;
 
-    public function like(Post $post): int;
+    public function likedIds(User $user): array;
+    public function like(Post $post, User $user): int;
 
-    public function unlike(Post $post): int;
+    public function unlike(Post $post, User $user): int;
 
     public function adminList(array $filters, int $perPage): LengthAwarePaginator;
 

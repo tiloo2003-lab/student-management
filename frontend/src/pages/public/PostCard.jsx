@@ -1,5 +1,6 @@
+import { categoryLabel } from '../../categoryLabel';
 import { Link, useNavigate } from 'react-router-dom';
-import { timeAgo } from './likes';
+import { timeAgo, useLikes } from './likes';
 
 export function Thumb({ post, className = '' }) {
   return (
@@ -11,11 +12,12 @@ export function Thumb({ post, className = '' }) {
 }
 
 export function PostMeta({ post }) {
+  const { counts } = useLikes();
   return (
     <div className="meta-row">
       <span>{timeAgo(post.created_at)}</span>
       <span>👁 {post.views_count}</span>
-      <span>♥ {post.likes_count}</span>
+      <span>♥ {counts[post.id] ?? post.likes_count}</span>
     </div>
   );
 }
@@ -26,7 +28,7 @@ export default function PostCard({ post, liked, onLike }) {
     <article className="pcard" onClick={() => nav(`/posts/${post.id}`)}>
       <Thumb post={post} />
       <div className="pcard-body">
-        {post.category && <Link className="chip" to={`/category/${post.category.slug}`} onClick={(e) => e.stopPropagation()}>{post.category.name}</Link>}
+        {post.category && <Link className="chip" to={`/category/${post.category.slug}`} onClick={(e) => e.stopPropagation()}>{categoryLabel(post.category)}</Link>}
         <h3>{post.title}</h3>
         <p>{post.description}</p>
         <PostMeta post={post} />

@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import api, { errMsg, fieldErrors } from '../api';
 import { get } from '../utils';
 import { Modal, Pager, useToast, Loading } from './ui';
-import { confirmDelete, confirmSave } from '../notify';
+import { confirmDelete, confirmDialog } from '../notify';
+import LoadError from './LoadError';
+import { useUnsavedChanges } from '../UnsavedChanges';
 
 const optionCache = new Map();
 
@@ -16,7 +18,7 @@ const loadOptions = (endpoint) => {
   return optionCache.get(endpoint);
 };
 
-export default function CrudPage({ title, entity, endpoint, columns, fields, filters = [], rowActions, defaults = {}, perPage = 10 }) {
+export default function CrudPage({ title, entity: _entity, endpoint, columns, fields, filters = [], rowActions, defaults = {}, perPage = 10 }) {
   const toast = useToast();
   const [rows, setRows] = useState([]);
   const [meta, setMeta] = useState(null);
@@ -31,6 +33,14 @@ export default function CrudPage({ title, entity, endpoint, columns, fields, fil
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
+  const [loadError, setLoadError] = useState('');
+  const [originalForm, setOriginalForm] = useState('');
+  const dirty = !!modal && JSON.stringify(form) !== originalForm;
+  useUnsavedChanges(dirty);
+  const closeForm = async () => {
+    if (saving) return;
+    if (!dirty || await confirmDialog({ title: 'Discard changes?', text: 'Your changes have not been saved.', confirmText: 'Discard', danger: true })) setModal(null);
+  };
   const reload = () => setReloadKey((k) => k + 1);
 
   useEffect(() => {
@@ -45,11 +55,13 @@ export default function CrudPage({ title, entity, endpoint, columns, fields, fil
   useEffect(() => {
     const ctrl = new AbortController();
     setLoading(true);
+    setLoadError('');
     api.get(`/${endpoint}`, { params: { page, search: query, per_page: perPage, ...filterVals }, signal: ctrl.signal })
       .then((r) => { setRows(r.data.data); setMeta(r.data); setLoading(false); })
       .catch((e) => {
         if (e.code === 'ERR_CANCELED') return;
         toast(errMsg(e), 'bad');
+        setLoadError(errMsg(e));
         setLoading(false);
       });
     return () => ctrl.abort();
@@ -70,13 +82,14 @@ export default function CrudPage({ title, entity, endpoint, columns, fields, fil
       init[f.name] = item ? (f.type === 'password' ? '' : item[f.name] ?? '') : defaults[f.name] ?? (f.type === 'checkbox' ? false : '');
     });
     setForm(init);
+    setOriginalForm(JSON.stringify(init));
     setErrors({});
     setModal({ item });
   };
 
   const save = async (e) => {
     e.preventDefault();
-    if (!(await confirmSave(!!modal.item, entity || title.toLowerCase()))) return;
+    if (saving) return;
     setSaving(true);
     setErrors({});
     const payload = { ...form };
@@ -119,6 +132,7 @@ export default function CrudPage({ title, entity, endpoint, columns, fields, fil
         <button className="btn primary" onClick={() => openForm(null)}>＋ Add new</button>
       </div>
 
+      {loadError && <LoadError message={loadError} onRetry={reload} />}
       <div className="card">
         <form className="toolbar" onSubmit={(e) => { e.preventDefault(); setPage(1); setQuery(search); }}>
           <input type="search" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -161,9 +175,9 @@ export default function CrudPage({ title, entity, endpoint, columns, fields, fil
       </div>
 
       {modal && (
-        <Modal title={`${modal.item ? 'Edit' : 'Add'} — ${title}`} onClose={() => setModal(null)}
+        <Modal title={`${modal.item ? 'Edit' : 'Add'} — ${title}`} onClose={closeForm}
           footer={<>
-            <button className="btn" onClick={() => setModal(null)}>Cancel</button>
+            <button className="btn" onClick={closeForm}>Cancel</button>
             <button className="btn primary" form="crud-form" disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
           </>}>
           <form id="crud-form" onSubmit={save} className="form-grid">

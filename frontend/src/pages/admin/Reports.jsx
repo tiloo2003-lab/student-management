@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
-import api, { errMsg } from '../../api';
-import { Badge, Loading, useToast } from '../../components/ui';
+import useResource from '../../useResource';
+import LoadError from '../../components/LoadError';
+import { useMemo, useState } from 'react';
+
+import { Badge, Loading } from '../../components/ui';
 import { exportPdf } from '../../download';
 import { letterColor } from '../../utils';
 
@@ -26,25 +28,19 @@ function Table({ title, rows, columns, empty }) {
 }
 
 export default function Reports() {
-  const toast = useToast();
+
   const [semesterId, setSemesterId] = useState('');
   const [classId, setClassId] = useState('');
   const [year, setYear] = useState('');
-  const [data, setData] = useState(null);
   const [exporting, setExporting] = useState(false);
 
-  useEffect(() => {
-    const params = {};
-    if (semesterId) params.semester_id = semesterId;
-    if (classId) params.class_id = classId;
-    api.get('/reports/overview', { params })
-      .then((r) => setData(r.data))
-      .catch((e) => toast(errMsg(e), 'bad'));
-  }, [semesterId, classId, toast]);
+  const params = new URLSearchParams({ ...(semesterId ? { semester_id: semesterId } : {}), ...(classId ? { class_id: classId } : {}) });
+  const { data, error, retry, loading } = useResource('/reports/overview?' + params);
 
   const years = useMemo(() => [...new Set((data?.semesters || []).map((s) => s.academic_year))], [data?.semesters]);
 
-  if (!data) return <Loading />;
+  if (error) return <LoadError message={error} onRetry={retry} />;
+  if (loading || !data) return <Loading />;
 
   const activeYear = year || data.semester?.academic_year || '';
   const semesterOptions = data.semesters.filter((s) => !activeYear || s.academic_year === activeYear);

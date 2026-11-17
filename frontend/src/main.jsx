@@ -1,17 +1,23 @@
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { UnsavedChangesProvider } from './UnsavedChanges';
+import { PortalDataProvider } from './PortalData';
 import App from './App';
 import { AuthProvider } from './auth';
 import { ToastProvider } from './components/ui';
 import './index.css';
 import './public.css';
+import './theme.css';
 
-createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
+const router = createBrowserRouter([{ path: '*', element:
     <AuthProvider>
+      <UnsavedChangesProvider>
+      <PortalDataProvider>
       <ToastProvider>
         <App />
       </ToastProvider>
+      </PortalDataProvider>
+      </UnsavedChangesProvider>
     </AuthProvider>
-  </BrowserRouter>
-);
+}]);
+createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);

@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import useResource from '../useResource';
+import LoadError from '../components/LoadError';
+import Icon from '../components/Icon';
+
 import { Link } from 'react-router-dom';
-import api from '../api';
+
 import { useAuth } from '../auth';
 import { Badge, Loading } from '../components/ui';
 import { fmtDate, scheduleLabel, targetLabel } from '../utils';
@@ -8,7 +11,7 @@ import { fmtDate, scheduleLabel, targetLabel } from '../utils';
 const Stat = ({ icon, num, label, to }) => {
   const body = (
     <>
-      <div className="ico">{icon}</div>
+      <div className="ico"><Icon name={icon} width="28" height="28" /></div>
       <div><div className="num">{num ?? '—'}</div><div className="lbl">{label}</div></div>
     </>
   );
@@ -36,8 +39,8 @@ function Bars({ title, data, map = (x) => x }) {
 
 const Announcements = ({ items }) => (
   <div className="card">
-    <h3>Latest announcements <Link to="/announcements" style={{ float: 'right', fontSize: 15 }}>View all</Link></h3>
-    {items.length === 0 && <div className="sub">No announcements</div>}
+    <h3>Your notifications <Link to="/announcements" style={{ float: 'right', fontSize: 15 }}>View all</Link></h3>
+    {items.length === 0 && <div className="sub">No notifications</div>}
     {items.map((a) => (
       <div className="ann" key={a.id}>
         <h4>{a.title}</h4>
@@ -49,9 +52,9 @@ const Announcements = ({ items }) => (
 
 export default function Dashboard() {
   const { user } = useAuth();
-  const [d, setD] = useState(null);
-  useEffect(() => { api.get('/dashboard').then((r) => setD(r.data)); }, []);
-  if (!d) return <Loading />;
+  const { data: d, error, loading, retry } = useResource('/dashboard');
+  if (error) return <LoadError message={error} onRetry={retry} />;
+  if (loading || !d) return <Loading />;
   const c = d.counts;
   const genderMap = { male: 'Male', female: 'Female', other: 'Other' };
 
@@ -66,16 +69,21 @@ export default function Dashboard() {
         </div>
       </div>
 
+      <div className="workspace-actions">
+        <Link className="btn primary" to={user.role === 'admin' ? '/admin/students' : user.role === 'teacher' ? '/teacher/courses' : '/student/registration'}>{user.role === 'admin' ? 'Manage students' : user.role === 'teacher' ? 'Attendance & grades' : 'Register for courses'}</Link>
+        <Link className="btn" to={user.role === 'admin' ? '/admin/posts' : user.role === 'teacher' ? '/teacher/classes' : '/student/grades'}>{user.role === 'admin' ? 'Manage news' : user.role === 'teacher' ? 'My classes' : 'My grades'}</Link>
+        <Link className="btn" to="/announcements">Your notifications</Link>
+      </div>
       {d.role === 'admin' && (
         <>
           <div className="grid stats">
-            <Stat icon="🎓" num={c.students} label="Students" to="/admin/students" />
-            <Stat icon="👩‍🏫" num={c.teachers} label="Teachers" to="/admin/teachers" />
-            <Stat icon="🏫" num={c.classes} label="Classes" to="/admin/classes" />
-            <Stat icon="🏛️" num={c.departments} label="Departments" to="/admin/departments" />
-            <Stat icon="📚" num={c.subjects} label="Subjects" to="/admin/subjects" />
-            <Stat icon="🧾" num={c.courses} label="Course sections" to="/admin/courses" />
-            <Stat icon="📰" num={c.posts} label="Posts" to="/admin/posts" />
+            <Stat icon="chart" num={c.students} label="Students" to="/admin/students" />
+            <Stat icon="chart" num={c.teachers} label="Teachers" to="/admin/teachers" />
+            <Stat icon="chart" num={c.classes} label="Classes" to="/admin/classes" />
+            <Stat icon="chart" num={c.departments} label="Departments" to="/admin/departments" />
+            <Stat icon="chart" num={c.subjects} label="Subjects" to="/admin/subjects" />
+            <Stat icon="chart" num={c.courses} label="Course sections" to="/admin/courses" />
+            <Stat icon="chart" num={c.posts} label="Posts" to="/admin/posts" />
           </div>
           <div className="grid two">
             <Bars title="Students by department" data={d.students_by_department} />
@@ -91,10 +99,10 @@ export default function Dashboard() {
       {d.role === 'teacher' && (
         <>
           <div className="grid stats">
-            <Stat icon="🧾" num={c.courses} label="Total course sections" to="/teacher/courses" />
-            <Stat icon="📖" num={c.current_courses} label="Sections this semester" to="/teacher/courses" />
-            <Stat icon="🎓" num={c.students} label="Students taught" to="/teacher/courses" />
-            <Stat icon="🏫" num={c.homeroom_classes} label="Homeroom classes" to="/teacher/classes" />
+            <Stat icon="chart" num={c.courses} label="Total course sections" to="/teacher/courses" />
+            <Stat icon="chart" num={c.current_courses} label="Sections this semester" to="/teacher/courses" />
+            <Stat icon="chart" num={c.students} label="Students taught" to="/teacher/courses" />
+            <Stat icon="chart" num={c.homeroom_classes} label="Homeroom classes" to="/teacher/classes" />
           </div>
           <div className="grid two">
             <div className="card">
@@ -123,10 +131,10 @@ export default function Dashboard() {
             </div>
           )}
           <div className="grid stats">
-            <Stat icon="📚" num={c.courses} label="Course sections" to="/student/courses" />
-            <Stat icon="🎯" num={c.credits} label="Credits earned" to="/student/grades" />
-            <Stat icon="⭐" num={c.gpa} label="Average score" to="/student/grades" />
-            <Stat icon="✅" num={c.attendance_rate != null ? `${c.attendance_rate}%` : null} label="Attendance" to="/student/attendance" />
+            <Stat icon="chart" num={c.courses} label="Course sections" to="/student/courses" />
+            <Stat icon="chart" num={c.credits} label="Credits earned" to="/student/grades" />
+            <Stat icon="chart" num={c.gpa} label="Average score" to="/student/grades" />
+            <Stat icon="chart" num={c.attendance_rate != null ? `${c.attendance_rate}%` : null} label="Attendance" to="/student/attendance" />
           </div>
           <div className="grid two">
             <div className="card">

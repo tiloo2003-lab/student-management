@@ -4,6 +4,7 @@ import { useAuth } from '../auth';
 import { useToast } from '../components/ui';
 import { confirmDialog } from '../notify';
 import { roleLabel } from '../utils';
+import { useUnsavedChanges } from '../UnsavedChanges';
 
 export default function Profile() {
   const { user, setUser } = useAuth();
@@ -11,26 +12,32 @@ export default function Profile() {
   const [info, setInfo] = useState({ name: user.name, phone: user.phone || '' });
   const [pw, setPw] = useState({ current_password: '', password: '', password_confirmation: '' });
   const [pwErr, setPwErr] = useState({});
+  const [savingInfo, setSavingInfo] = useState(false);
+  const [savingPw, setSavingPw] = useState(false);
+  useUnsavedChanges(info.name !== user.name || info.phone !== (user.phone || '') || Object.values(pw).some(Boolean));
 
   const saveInfo = async (e) => {
     e.preventDefault();
-    if (!(await confirmDialog({ title: 'Update profile?', text: 'Your personal information will be changed.', confirmText: 'Update' }))) return;
+    if (savingInfo) return;
+    setSavingInfo(true);
     try {
       const { data } = await api.put('/profile', info);
       setUser(data);
       toast('Profile updated');
-    } catch (err) { toast(errMsg(err), 'bad'); }
+    } catch (err) { toast(errMsg(err), 'bad'); } finally { setSavingInfo(false); }
   };
 
   const savePw = async (e) => {
     e.preventDefault();
     if (!(await confirmDialog({ title: 'Change password?', text: 'You will use the new password the next time you sign in.', confirmText: 'Change password' }))) return;
+    if (savingPw) return;
+    setSavingPw(true);
     setPwErr({});
     try {
       await api.put('/password', pw);
       setPw({ current_password: '', password: '', password_confirmation: '' });
       toast('Password changed successfully');
-    } catch (err) { setPwErr(fieldErrors(err)); toast(errMsg(err), 'bad'); }
+    } catch (err) { setPwErr(fieldErrors(err)); toast(errMsg(err), 'bad'); } finally { setSavingPw(false); }
   };
 
   return (
@@ -45,7 +52,7 @@ export default function Profile() {
           {user.teacher && <label className="field"><span>Teacher ID / Department</span><input disabled value={`${user.teacher.teacher_code} — ${user.teacher.department?.name || ''}`} /></label>}
           <label className="field"><span>Full name</span><input value={info.name} onChange={(e) => setInfo({ ...info, name: e.target.value })} required /></label>
           <label className="field"><span>Phone number</span><input value={info.phone} onChange={(e) => setInfo({ ...info, phone: e.target.value })} /></label>
-          <button className="btn primary">Save changes</button>
+          <button className="btn primary" disabled={savingInfo}>{savingInfo ? 'Saving...' : 'Save changes'}</button>
         </form>
 
         <form className="card" onSubmit={savePw}>
@@ -61,7 +68,7 @@ export default function Profile() {
           <label className="field"><span>Confirm new password</span>
             <input type="password" value={pw.password_confirmation} onChange={(e) => setPw({ ...pw, password_confirmation: e.target.value })} required />
           </label>
-          <button className="btn primary">Change password</button>
+          <button className="btn primary" disabled={savingPw}>{savingPw ? 'Saving...' : 'Change password'}</button>
         </form>
       </div>
     </>

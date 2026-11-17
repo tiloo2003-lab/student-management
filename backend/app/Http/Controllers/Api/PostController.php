@@ -25,14 +25,19 @@ class PostController extends Controller
         return $this->posts->show($post);
     }
 
-    public function like(Post $post): array
+    public function likedIds(Request $request): array
     {
-        return ['likes_count' => $this->posts->like($post)];
+        return $this->posts->likedIds($request->user());
     }
 
-    public function unlike(Post $post): array
+    public function like(Request $request, Post $post): array
     {
-        return ['likes_count' => $this->posts->unlike($post)];
+        return ['likes_count' => $this->posts->like($post, $request->user())];
+    }
+
+    public function unlike(Request $request, Post $post): array
+    {
+        return ['likes_count' => $this->posts->unlike($post, $request->user())];
     }
 
     public function adminIndex(Request $request)

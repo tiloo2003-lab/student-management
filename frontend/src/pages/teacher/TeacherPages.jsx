@@ -5,10 +5,13 @@ import { Badge, Loading, useToast } from '../../components/ui';
 import { exportPdf } from '../../download';
 import { confirmDialog, infoDialog } from '../../notify';
 import { attendanceLabel, fmtDate, genderLabel, letterColor, scheduleLabel } from '../../utils';
+import useResource from '../../useResource';
+import LoadError from '../../components/LoadError';
+import { useUnsavedChanges } from '../../UnsavedChanges';
 
 export function TeacherCourses() {
-  const [courses, setCourses] = useState(null);
-  useEffect(() => { api.get('/teacher/courses').then((r) => setCourses(r.data)); }, []);
+  const { data: courses, error, retry } = useResource('/teacher/courses');
+  if (error) return <LoadError message={error} onRetry={retry} />;
 
   return (
     <>
@@ -40,8 +43,8 @@ export function TeacherCourses() {
 }
 
 export function TeacherClasses() {
-  const [classes, setClasses] = useState(null);
-  useEffect(() => { api.get('/teacher/classes').then((r) => setClasses(r.data)); }, []);
+  const { data: classes, error, retry } = useResource('/teacher/classes');
+  if (error) return <LoadError message={error} onRetry={retry} />;
 
   return (
     <>
@@ -77,7 +80,7 @@ export function TeacherClasses() {
   );
 }
 
-const today =() => new Date().toISOString().slice(0, 10);
+const today = () => { const d = new Date(); return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-'); };
 
 const errorList = (errors) =>
   `<ul class="swal-errors">${errors.map((e) => `<li><b>${e.student_code || ''} ${e.name || ''}</b> ${e.message}</li>`).join('')}</ul>`;
@@ -93,18 +96,28 @@ export function TeacherCourseDetail() {
   const [exporting, setExporting] = useState(false);
   const [date, setDate] = useState(today());
   const [att, setAtt] = useState(null);
+  const [attDirty, setAttDirty] = useState(false);
+  const [attSaving, setAttSaving] = useState(false);
+  const [loadError, setLoadError] = useState('');
+  const [attError, setAttError] = useState('');
+  useUnsavedChanges(Object.keys(edits).length > 0 || attDirty);
 
   const load = useCallback(() => {
-    api.get(`/teacher/courses/${id}`).then((r) => { setData(r.data); setEdits({}); setRowErrors({}); }).catch((e) => toast(errMsg(e), 'bad'));
-  }, [id, toast]);
-  useEffect(load, [load]);
+    setLoadError('');
+    api.get(`/teacher/courses/${id}`).then((r) => { setData(r.data); }).catch((e) => setLoadError(errMsg(e)));
+  }, [id]);
+  useEffect(() => { setData(null); setEdits({}); setRowErrors({}); load(); }, [load]);
 
   const loadAtt = useCallback(() => {
+    const ctrl = new AbortController();
     setAtt(null);
-    api.get(`/teacher/courses/${id}/attendance`, { params: { date } })
-      .then((r) => setAtt(r.data.map((x) => ({ ...x, status: x.status || 'present' }))));
+    setAttError('');
+    api.get(`/teacher/courses/${id}/attendance`, { params: { date }, signal: ctrl.signal })
+      .then((r) => { setAtt(r.data.map((x) => ({ ...x, status: x.status || 'present' }))); setAttDirty(false); })
+      .catch((e) => { if (!ctrl.signal.aborted) setAttError(errMsg(e)); });
+    return () => ctrl.abort();
   }, [id, date]);
-  useEffect(() => { if (tab === 'attendance') loadAtt(); }, [tab, loadAtt]);
+  useEffect(() => loadAtt(), [loadAtt]);
 
   const cell = (e, k) => edits[e.id]?.[k] ?? e.grade?.[k] ?? '';
   const setCell = (e, k, v) => setEdits({ ...edits, [e.id]: { ...edits[e.id], [k]: v } });
@@ -160,19 +173,23 @@ export function TeacherCourseDetail() {
   };
 
   const saveAttendance = async () => {
+    if (attSaving || !att) return;
     const ok = await confirmDialog({ title: 'Save attendance?', text: `Attendance for ${date} will be recorded for the whole class.`, confirmText: 'Save attendance' });
     if (!ok) return;
+    setAttSaving(true);
     try {
       await api.post(`/teacher/courses/${id}/attendance`, {
         date, records: att.map(({ student_id, status, note }) => ({ student_id, status, note })),
       });
       toast('Attendance saved');
+      setAttDirty(false);
       load();
-    } catch (err) { toast(errMsg(err), 'bad'); }
+    } catch (err) { toast(errMsg(err), 'bad'); } finally { setAttSaving(false); }
   };
 
-  const setAttRow = (sid, patch) => setAtt(att.map((a) => (a.student_id === sid ? { ...a, ...patch } : a)));
+  const setAttRow = (sid, patch) => { setAttDirty(true); setAtt((rows) => rows.map((a) => (a.student_id === sid ? { ...a, ...patch } : a))); };
 
+  if (loadError && !data) return <LoadError message={loadError} onRetry={load} />;
   if (!data) return <Loading />;
   const { course, students, locked, rules } = data;
   const limit = Math.round(rules.absence_ratio_limit * 100);
@@ -237,11 +254,11 @@ export function TeacherCourseDetail() {
                           )}
                         </td>
                         <td>
-                          <input className="grade-input" type="number" min="0" max="10" step="0.1" disabled={locked}
+                          <input className="grade-input" type="number" min="0" max="10" step="0.1" disabled={locked || saving || attSaving}
                             value={cell(e, 'midterm')} onChange={(ev) => setCell(e, 'midterm', ev.target.value)} />
                         </td>
                         <td>
-                          <input className="grade-input" type="number" min="0" max="10" step="0.1" disabled={locked || a.banned}
+                          <input className="grade-input" type="number" min="0" max="10" step="0.1" disabled={locked || saving || attSaving || a.banned}
                             title={a.banned ? 'Student is banned from the exam' : ''}
                             value={cell(e, 'final')} onChange={(ev) => setCell(e, 'final', ev.target.value)} />
                         </td>
@@ -258,26 +275,26 @@ export function TeacherCourseDetail() {
       {tab === 'attendance' && (
         <div className="card">
           <div className="toolbar">
-            <input type="date" style={{ width: 'auto' }} value={date} max={today()} onChange={(e) => setDate(e.target.value)} />
-            <button className="btn" disabled={locked} onClick={() => att && setAtt(att.map((a) => ({ ...a, status: 'present' })))}>Mark all present</button>
-            <button className="btn primary" onClick={saveAttendance} disabled={locked || !att || att.length === 0}>Save attendance</button>
+            <input type="date" style={{ width: 'auto' }} value={date} max={today()} disabled={attSaving} onChange={async (e) => { const next = e.target.value; if (!attDirty || await confirmDialog({ title: 'Discard unsaved attendance?', text: 'Changing the date will discard your unsaved attendance.', confirmText: 'Change date', danger: true })) setDate(next); }} />
+            <button className="btn" disabled={locked || saving || attSaving} onClick={() => { if (att) { setAttDirty(true); setAtt(att.map((a) => ({ ...a, status: 'present' }))); } }}>Mark all present</button>
+            <button className="btn primary" onClick={saveAttendance} disabled={locked || saving || attSaving || !att || att.length === 0}>{attSaving ? 'Saving...' : 'Save attendance'}</button>
           </div>
           <div className="table-wrap">
             <table>
               <thead><tr><th>Student ID</th><th>Full name</th><th>Status</th><th>Note</th></tr></thead>
               <tbody>
-                {att === null ? <tr><td colSpan={4}><Loading /></td></tr>
+                {attError ? <tr><td colSpan={4}><LoadError message={attError} onRetry={loadAtt} /></td></tr> : att === null ? <tr><td colSpan={4}><Loading /></td></tr>
                   : att.length === 0 ? <tr><td colSpan={4} className="empty">This section has no students yet</td></tr>
                   : att.map((a) => (
                     <tr key={a.student_id}>
                       <td>{a.student_code}</td>
                       <td>{a.name}</td>
                       <td>
-                        <select className="att-select" disabled={locked} value={a.status} onChange={(e) => setAttRow(a.student_id, { status: e.target.value })}>
+                        <select className="att-select" disabled={locked || saving || attSaving} value={a.status} onChange={(e) => setAttRow(a.student_id, { status: e.target.value })}>
                           {Object.entries(attendanceLabel).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                         </select>
                       </td>
-                      <td><input disabled={locked} value={a.note || ''} onChange={(e) => setAttRow(a.student_id, { note: e.target.value })} placeholder="Note" /></td>
+                      <td><input disabled={locked || saving || attSaving} value={a.note || ''} onChange={(e) => setAttRow(a.student_id, { note: e.target.value })} placeholder="Note" /></td>
                     </tr>
                   ))}
               </tbody>

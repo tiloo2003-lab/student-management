@@ -1,8 +1,13 @@
+import { categoryLabel } from '../../categoryLabel';
+import useResource from '../../useResource';
+import LoadError from '../../components/LoadError';
+import { usePortalData } from '../../PortalData';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useParams, useSearchParams } from 'react-router-dom';
-import api from '../../api';
+
 import PostCard from './PostCard';
 import { useLikes } from './likes';
+import { usePageTitle } from '../../components/PageTitle';
 
 const TABS = [['latest', 'Latest'], ['likes', 'Hot'], ['views', 'Most read']];
 
@@ -13,37 +18,28 @@ export default function Listing() {
   const { liked, toggle } = useLikes();
   const [sort, setSort] = useState('latest');
   const [page, setPage] = useState(1);
-  const [data, setData] = useState(null);
-  const [cats, setCats] = useState([]);
-
+  const { categories } = usePortalData();
+  const cats = categories.data || [];
   useEffect(() => { setPage(1); }, [slug, q, sort]);
-
-  useEffect(() => {
-    api.get('/categories').then((r) => setCats(r.data)).catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    const ctrl = new AbortController();
-    setData(null);
-    api.get('/posts', { params: { sort, page, search: q, category: slug, per_page: 12 }, signal: ctrl.signal })
-      .then((r) => setData(r.data))
-      .catch(() => {});
-    return () => ctrl.abort();
-  }, [sort, page, q, slug]);
+  const request = new URLSearchParams({ sort, page, search: q, category: slug || '', per_page: 12 });
+  const { data, setData, loading, error, retry } = useResource('/posts?' + request);
 
   const cat = cats.find((c) => c.slug === slug);
-  const title = q ? `Search results: "${q}"` : slug ? (cat?.name || 'Category') : 'All posts';
+  const title = q ? `Search results: "${q}"` : slug ? (categoryLabel(cat) || 'Category') : 'All posts';
+  usePageTitle(title);
 
   const onLike = async (p) => {
     const count = await toggle(p.id);
+    if (count === null) return;
     setData((d) => ({ ...d, data: d.data.map((x) => (x.id === p.id ? { ...x, likes_count: count } : x)) }));
   };
 
+  if (error) return <main className="pub-main"><LoadError message={error} onRetry={retry} /></main>;
   return (
     <main className="pub-main">
       <div className="crumbs">
         <Link to="/">Home</Link><span>›</span>
-        {slug ? <><Link to="/news">News</Link><span>›</span><b>{cat?.name}</b></> : <b>{q ? 'Search' : 'News'}</b>}
+        {slug ? <><Link to="/news">News</Link><span>›</span><b>{categoryLabel(cat)}</b></> : <b>{q ? 'Search' : 'News'}</b>}
       </div>
 
       <h1 className="page-title">{title}</h1>
@@ -60,7 +56,7 @@ export default function Listing() {
 
       <div className="list-layout">
         <div>
-          {!data ? <div className="pub-empty">Loading...</div> : data.data.length === 0 ? (
+          {loading || !data ? <div className="pub-empty">Loading...</div> : data.data.length === 0 ? (
             <div className="pub-empty">No posts found</div>
           ) : (
             <div className="grid-3">
@@ -85,7 +81,7 @@ export default function Listing() {
             <ul className="cat-list">
               <li><NavLink to="/news" end>All</NavLink></li>
               {cats.map((c) => (
-                <li key={c.id}><NavLink to={`/category/${c.slug}`}>{c.name}<small>{c.posts_count}</small></NavLink></li>
+                <li key={c.id}><NavLink to={`/category/${c.slug}`}>{categoryLabel(c)}<small>{c.posts_count}</small></NavLink></li>
               ))}
             </ul>
           </div>

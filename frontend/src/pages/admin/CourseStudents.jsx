@@ -1,3 +1,4 @@
+import LoadError from '../../components/LoadError';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api, { errMsg } from '../../api';
@@ -12,15 +13,17 @@ export default function CourseStudents() {
   const [rows, setRows] = useState(null);
   const [students, setStudents] = useState([]);
   const [pick, setPick] = useState('');
+  const [loadError, setLoadError] = useState('');
 
   const load = useCallback(() => {
-    api.get(`/courses/${id}`).then((r) => setCourse(r.data));
-    api.get(`/courses/${id}/students`).then((r) => setRows(r.data));
+    setLoadError('');
+    api.get(`/courses/${id}`).then((r) => setCourse(r.data)).catch((e) => setLoadError(errMsg(e)));
+    api.get(`/courses/${id}/students`).then((r) => setRows(r.data)).catch((e) => setLoadError(errMsg(e)));
   }, [id]);
 
   useEffect(() => {
     load();
-    api.get('/students', { params: { all: 1 } }).then((r) => setStudents(r.data.data));
+    api.get('/students', { params: { all: 1 } }).then((r) => setStudents(r.data.data)).catch((e) => setLoadError(errMsg(e)));
   }, [load]);
 
   const add = async () => {
@@ -45,6 +48,7 @@ export default function CourseStudents() {
     } catch (e) { toast(errMsg(e), 'bad'); }
   };
 
+  if (loadError) return <LoadError message={loadError} onRetry={() => window.location.reload()} />;
   const enrolled = new Set((rows || []).map((r) => r.student_id));
 
   return (

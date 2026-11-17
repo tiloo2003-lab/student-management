@@ -1,8 +1,10 @@
+import LoadError from '../components/LoadError';
+import { useUnsavedChanges } from '../UnsavedChanges';
 import { useCallback, useEffect, useState } from 'react';
 import api, { errMsg, fieldErrors } from '../api';
 import { useAuth } from '../auth';
 import { Badge, Loading, Modal, Pager, useToast } from '../components/ui';
-import { confirmDelete, confirmSave } from '../notify';
+import { confirmDelete, confirmDialog } from '../notify';
 import { fmtDate, targetLabel } from '../utils';
 
 export default function Announcements() {
@@ -14,13 +16,21 @@ export default function Announcements() {
   const [modal, setModal] = useState(null);
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const [loadError, setLoadError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [originalForm, setOriginalForm] = useState('');
+  const dirty = !!modal && JSON.stringify(form) !== originalForm;
+  useUnsavedChanges(dirty);
+  const closeForm = async () => { if (!saving && (!dirty || await confirmDialog({ title: 'Discard changes?', text: 'Your notification has not been saved.', confirmText: 'Discard', danger: true }))) setModal(null); };
 
   const load = useCallback(() => {
-    api.get('/announcements', { params: { page, per_page: 8 } }).then((r) => setData(r.data));
+    setLoadError('');
+    api.get('/announcements', { params: { page, per_page: 8 } }).then((r) => setData(r.data)).catch((e) => setLoadError(errMsg(e)));
   }, [page]);
   useEffect(load, [load]);
 
   const open = (item) => {
+    setOriginalForm(JSON.stringify(item ? { title: item.title, content: item.content, target_role: item.target_role } : { title: '', content: '', target_role: 'all' }));
     setForm(item ? { title: item.title, content: item.content, target_role: item.target_role } : { title: '', content: '', target_role: 'all' });
     setErrors({});
     setModal({ item });
@@ -28,7 +38,8 @@ export default function Announcements() {
 
   const save = async (e) => {
     e.preventDefault();
-    if (!(await confirmSave(!!modal.item, 'announcement'))) return;
+    if (saving) return;
+    setSaving(true);
     try {
       if (modal.item) await api.put(`/announcements/${modal.item.id}`, form);
       else await api.post('/announcements', form);
@@ -38,7 +49,7 @@ export default function Announcements() {
     } catch (err) {
       setErrors(fieldErrors(err));
       toast(errMsg(err), 'bad');
-    }
+    } finally { setSaving(false); }
   };
 
   const remove = async (a) => {
@@ -51,11 +62,11 @@ export default function Announcements() {
   return (
     <>
       <div className="page-head">
-        <h1>Announcements</h1>
-        {isAdmin && <button className="btn primary" onClick={() => open(null)}>＋ New announcement</button>}
+        <h1>Your notifications</h1>
+        {isAdmin && <button className="btn primary" onClick={() => open(null)}>＋ New notification</button>}
       </div>
       <div className="card">
-        {!data ? <Loading /> : data.data.length === 0 ? <div className="empty">No announcements yet</div> : data.data.map((a) => (
+        {loadError ? <LoadError message={loadError} onRetry={load} /> : !data ? <Loading /> : data.data.length === 0 ? <div className="empty">No notifications yet</div> : data.data.map((a) => (
           <div className="ann" key={a.id}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
               <h4>{a.title}</h4>
@@ -74,10 +85,10 @@ export default function Announcements() {
       </div>
 
       {modal && (
-        <Modal title={modal.item ? 'Edit announcement' : 'New announcement'} onClose={() => setModal(null)}
+        <Modal title={modal.item ? 'Edit notification' : 'New notification'} onClose={closeForm}
           footer={<>
-            <button className="btn" onClick={() => setModal(null)}>Cancel</button>
-            <button className="btn primary" form="ann-form">Save</button>
+            <button className="btn" onClick={closeForm}>Cancel</button>
+            <button className="btn primary" disabled={saving} form="ann-form">{saving ? 'Saving...' : 'Save'}</button>
           </>}>
           <form id="ann-form" onSubmit={save}>
             <label className="field"><span>Title *</span>

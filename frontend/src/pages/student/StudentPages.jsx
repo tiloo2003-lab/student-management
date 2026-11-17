@@ -1,12 +1,14 @@
+import useResource from '../../useResource';
+import LoadError from '../../components/LoadError';
 import { useEffect, useState } from 'react';
-import api from '../../api';
+
 import { Badge, Loading } from '../../components/ui';
 import { exportPdf } from '../../download';
 import { attendanceLabel, fmtDate, letterColor, scheduleLabel } from '../../utils';
 
 export function StudentCourses() {
-  const [rows, setRows] = useState(null);
-  useEffect(() => { api.get('/student/courses').then((r) => setRows(r.data)); }, []);
+  const { data: rows, error, retry } = useResource('/student/courses');
+  if (error) return <LoadError message={error} onRetry={retry} />;
 
   return (
     <>
@@ -43,13 +45,11 @@ export function StudentGrades() {
   const [options, setOptions] = useState(null);
   const [exporting, setExporting] = useState(false);
 
-  useEffect(() => {
-    const params = Object.fromEntries(Object.entries(filters).filter(([, v]) => v !== ''));
-    api.get('/student/grades', { params }).then((r) => {
-      setData(r.data);
-      setOptions((prev) => prev || r.data.options);
-    });
-  }, [filters]);
+  const params = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([, v]) => v !== '')));
+  const resource = useResource('/student/grades?' + params);
+  useEffect(() => { if (resource.data) { setData(resource.data); setOptions((prev) => prev || resource.data.options); } }, [resource.data]);
+  if (resource.error) return <LoadError message={resource.error} onRetry={resource.retry} />;
+  if (resource.loading) return <Loading />;
 
   if (!data || !options) return <Loading />;
 
@@ -140,8 +140,8 @@ export function StudentGrades() {
 const attColor = { present: 'green', late: 'amber', absent: 'red', excused: 'blue' };
 
 export function StudentAttendance() {
-  const [data, setData] = useState(null);
-  useEffect(() => { api.get('/student/attendance').then((r) => setData(r.data)); }, []);
+  const { data, error, retry } = useResource('/student/attendance');
+  if (error) return <LoadError message={error} onRetry={retry} />;
   if (!data) return <Loading />;
   const s = data.summary;
 

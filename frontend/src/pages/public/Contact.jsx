@@ -1,7 +1,8 @@
+import { useUnsavedChanges } from '../../UnsavedChanges';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { errMsg, fieldErrors } from '../../api';
-import { confirmDialog } from '../../notify';
+
 
 const empty = { name: '', email: '', phone: '', subject: '', message: '' };
 
@@ -12,11 +13,11 @@ export default function Contact() {
   const [done, setDone] = useState('');
   const [error, setError] = useState('');
 
+  useUnsavedChanges(Object.values(form).some(Boolean));
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!(await confirmDialog({ title: 'Send your message?', text: 'Your message will be sent to the school.', confirmText: 'Send message' }))) return;
     setSending(true);
     setErrors({});
     setError('');

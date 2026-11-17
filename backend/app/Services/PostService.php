@@ -33,14 +33,19 @@ class PostService implements PostServiceInterface
         return $post->toArray() + ['related' => $this->posts->related($post, 4)];
     }
 
-    public function like(Post $post): int
+    public function likedIds(User $user): array
     {
-        return $this->posts->incrementLikes($post);
+        return $this->posts->likedIds($user->id);
     }
 
-    public function unlike(Post $post): int
+    public function like(Post $post, User $user): int
     {
-        return $this->posts->decrementLikes($post);
+        return $this->posts->setLiked($post, $user->id, true);
+    }
+
+    public function unlike(Post $post, User $user): int
+    {
+        return $this->posts->setLiked($post, $user->id, false);
     }
 
     public function adminList(array $filters, int $perPage): LengthAwarePaginator

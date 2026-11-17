@@ -201,6 +201,12 @@
 .pub-totop { position: fixed; right: 22px; bottom: 24px; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--o); color: #fff; font-size: 22px; cursor: pointer; box-shadow: 0 8px 20px rgba(255, 140, 30, .45); z-index: 40; }
 
 .pub-nav a { white-space: nowrap; }
+.pub-account { background: #fff8ed; border-bottom: 1px solid var(--line); }
+.pub-account > .in { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-top: 10px; padding-bottom: 10px; font-size: 14px; }
+.pub-account-name { margin-right: auto; overflow-wrap: anywhere; font-weight: 600; }
+.pub-account a, .pub-account button { color: var(--ink); }
+.pub-account button { font: inherit; cursor: pointer; background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; }
+.pub-account a:hover, .pub-account button:hover { color: var(--o); }
 
 @media (max-width: 1024px) {
   .pub-top-right { display: none; }

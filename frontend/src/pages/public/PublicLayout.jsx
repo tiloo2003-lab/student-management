@@ -1,6 +1,12 @@
+import { categoryLabel } from '../../categoryLabel';
+import AccountMenu from '../../components/AccountMenu';
+import { usePortalData } from '../../PortalData';
+import LoadError from '../../components/LoadError';
+import Icon from '../../components/Icon';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import api from '../../api';
+
+import { useAuth } from '../../auth';
 
 const today = () => {
   const d = new Date();
@@ -9,16 +15,16 @@ const today = () => {
 };
 
 export default function PublicLayout() {
+  const { user } = useAuth();
   const nav = useNavigate();
   const { pathname } = useLocation();
-  const [cats, setCats] = useState([]);
+  const { categories } = usePortalData();
+  const cats = categories.data || [];
   const [q, setQ] = useState('');
   const [menu, setMenu] = useState(false);
   const [top, setTop] = useState(false);
 
-  useEffect(() => {
-    api.get('/categories').then((r) => setCats(r.data)).catch(() => {});
-  }, []);
+
 
   useEffect(() => {
     setMenu(false);
@@ -45,53 +51,61 @@ export default function PublicLayout() {
         </div>
       </div>
 
+      <div className="pub-account">
+        <div className="in">
+<AccountMenu />
+        </div>
+      </div>
+
       <header className="pub-head">
         <div className="in">
-          <Link to="/" className="pub-logo"><i>🎓</i><span>Student Management<small>School information portal</small></span></Link>
+          <Link to="/" className="pub-logo"><i><Icon name="school" /></i><span>Student Management<small>School information portal</small></span></Link>
 
           <nav className={`pub-nav ${menu ? 'open' : ''}`}>
             <NavLink to="/" end>Home</NavLink>
             <NavLink to="/news">News</NavLink>
-            <NavLink to="/category/announcements">Announcements</NavLink>
+            <NavLink to="/category/announcements">School news</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/contact">Contact</NavLink>
           </nav>
 
           <form className="pub-search" onSubmit={search}>
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search posts..." aria-label="Search" />
-            <button aria-label="Search">⌕</button>
+            <button aria-label="Search"><Icon name="search" /></button>
           </form>
-          <button className="pub-burger" onClick={() => setMenu((m) => !m)} aria-label="Menu">☰</button>
+          <button className="pub-burger" onClick={() => setMenu((m) => !m)} aria-label="Menu"><Icon name="menu" /></button>
         </div>
         {cats.length > 0 && (
           <div className="pub-cats">
             <div className="in">
               {cats.slice(0, 12).map((c) => (
-                <NavLink key={c.id} to={`/category/${c.slug}`}>{c.name}</NavLink>
+                <NavLink key={c.id} to={`/category/${c.slug}`}>{categoryLabel(c)}</NavLink>
               ))}
             </div>
           </div>
         )}
       </header>
 
+      {user.is_demo && <div className="demo-banner">Demo account: explore, like and comment. Changes are saved.</div>}
+      {categories.error && <LoadError message="Categories could not be loaded." onRetry={categories.retry} />}
       <Outlet />
 
       <footer className="pub-foot">
         <div className="in grid">
           <div>
-            <div className="pub-logo light"><i>🎓</i><span>Student Management</span></div>
+            <div className="pub-logo light"><i><Icon name="school" /></i><span>Student Management</span></div>
             <p>The official portal: news, announcements, activities and services for students and teachers.</p>
           </div>
           <div>
             <h4>Quick links</h4>
             <Link to="/news">All posts</Link>
-            <Link to="/category/announcements">Announcements</Link>
+            <Link to="/category/announcements">School news</Link>
             <Link to="/about">About</Link>
             <Link to="/contact">Contact</Link>
           </div>
           <div>
             <h4>Categories</h4>
-            {cats.slice(0, 5).map((c) => <Link key={c.id} to={`/category/${c.slug}`}>{c.name}</Link>)}
+            {cats.slice(0, 5).map((c) => <Link key={c.id} to={`/category/${c.slug}`}>{categoryLabel(c)}</Link>)}
           </div>
           <div>
             <h4>Contact</h4>

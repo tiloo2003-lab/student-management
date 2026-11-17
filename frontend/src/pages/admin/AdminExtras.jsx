@@ -1,9 +1,10 @@
+import LoadError from '../../components/LoadError';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { errMsg } from '../../api';
 import CrudPage from '../../components/CrudPage';
 import { Badge, Loading, Modal, Pager, useToast } from '../../components/ui';
-import { confirmDelete, confirmDialog } from '../../notify';
+import { confirmDelete } from '../../notify';
 import { fmtDate } from '../../utils';
 
 export const CategoriesPage = () => (
@@ -24,17 +25,20 @@ function useList(endpoint) {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
   const [tick, setTick] = useState(0);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const ctrl = new AbortController();
+    setError('');
+    setData(null);
     api.get(endpoint, { params: { page, search: query, per_page: 10 }, signal: ctrl.signal })
       .then((r) => setData(r.data))
-      .catch((e) => e.code !== 'ERR_CANCELED' && toast(errMsg(e), 'bad'));
+      .catch((e) => { if (e.code !== 'ERR_CANCELED') setError(errMsg(e)); });
     return () => ctrl.abort();
   }, [endpoint, page, query, tick, toast]);
 
   const reload = useCallback(() => setTick((t) => t + 1), []);
-  return { data, page, setPage, setQuery, reload, toast };
+  return { data, error, page, setPage, setQuery, reload, toast };
 }
 
 function SearchBar({ onSearch }) {
@@ -48,7 +52,7 @@ function SearchBar({ onSearch }) {
 }
 
 export function CommentsPage() {
-  const { data, setPage, setQuery, reload, toast } = useList('/manage/comments');
+  const { data, error, setPage, setQuery, reload, toast } = useList('/manage/comments');
 
   const remove = async (c) => {
     if (!(await confirmDelete('This comment will be removed from the post.'))) return;
@@ -62,13 +66,14 @@ export function CommentsPage() {
   return (
     <>
       <div className="page-head"><div><h1>Comments</h1><div className="sub">{data ? `${data.total} comments` : ''}</div></div></div>
+      {error && <LoadError message={error} onRetry={reload} />}
       <div className="card">
         <SearchBar onSearch={(s) => { setPage(1); setQuery(s); }} />
         <div className="table-wrap">
           <table>
             <thead><tr><th>Author</th><th>Content</th><th>Post</th><th>Date</th><th /></tr></thead>
             <tbody>
-              {!data ? <tr><td colSpan={5}><Loading /></td></tr>
+              {error ? <tr><td colSpan={6}>Could not load data. Use Try again above.</td></tr> : !data ? <tr><td colSpan={5}><Loading /></td></tr>
                 : data.data.length === 0 ? <tr><td colSpan={5} className="empty">No comments yet</td></tr>
                 : data.data.map((c) => (
                   <tr key={c.id}>
@@ -89,11 +94,10 @@ export function CommentsPage() {
 }
 
 export function MessagesPage() {
-  const { data, setPage, setQuery, reload, toast } = useList('/manage/messages');
+  const { data, error, setPage, setQuery, reload, toast } = useList('/manage/messages');
   const [view, setView] = useState(null);
 
   const markRead = async (m) => {
-    if (!(await confirmDialog({ title: 'Mark as read?', text: 'The message will be marked as read.', confirmText: 'Mark as read' }))) return;
     try {
       await api.put(`/manage/messages/${m.id}/read`);
       toast('Marked as read');
@@ -115,13 +119,14 @@ export function MessagesPage() {
   return (
     <>
       <div className="page-head"><div><h1>Contact messages</h1><div className="sub">{data ? `${data.total} messages` : ''}</div></div></div>
+      {error && <LoadError message={error} onRetry={reload} />}
       <div className="card">
         <SearchBar onSearch={(s) => { setPage(1); setQuery(s); }} />
         <div className="table-wrap">
           <table>
             <thead><tr><th>Sender</th><th>Email</th><th>Subject</th><th>Date</th><th>Status</th><th /></tr></thead>
             <tbody>
-              {!data ? <tr><td colSpan={6}><Loading /></td></tr>
+              {error ? <tr><td colSpan={6}>Could not load data. Use Try again above.</td></tr> : !data ? <tr><td colSpan={6}><Loading /></td></tr>
                 : data.data.length === 0 ? <tr><td colSpan={6} className="empty">No messages yet</td></tr>
                 : data.data.map((m) => (
                   <tr key={m.id}>

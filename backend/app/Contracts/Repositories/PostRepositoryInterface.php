@@ -27,4 +27,6 @@ interface PostRepositoryInterface extends BaseRepositoryInterface
     public function incrementLikes(Post $post): int;
 
     public function decrementLikes(Post $post): int;
+    public function likedIds(int $userId): array;
+    public function setLiked(Post $post, int $userId, bool $liked): int;
 }

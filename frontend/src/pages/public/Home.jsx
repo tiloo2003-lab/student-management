@@ -1,11 +1,17 @@
+import { categoryLabel } from '../../categoryLabel';
+import useResource from '../../useResource';
+import LoadError from '../../components/LoadError';
+import { usePortalData } from '../../PortalData';
+import Icon from '../../components/Icon';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../api';
+
 import { fmtDate } from '../../utils';
 import PostCard, { PostMeta, RankList, Thumb } from './PostCard';
 import { fmtNumber, useLikes } from './likes';
 
 function Hero({ slides }) {
+  const { counts } = useLikes();
   const nav = useNavigate();
   const [i, setI] = useState(0);
 
@@ -25,7 +31,7 @@ function Hero({ slides }) {
           <div className="hero-slide" key={p.id}>
             <div className="hero-in">
               <div className="hero-text">
-                <span className="hero-tag">{p.category?.name || 'Featured'} · {p.likes_count} likes</span>
+                <span className="hero-tag">{categoryLabel(p.category) || 'Featured'} · {counts[p.id] ?? p.likes_count} likes</span>
                 <h2>{p.title}</h2>
                 <p>{p.description}</p>
                 <button className="hero-btn" onClick={() => nav(`/posts/${p.id}`)}>Read more →</button>
@@ -65,23 +71,20 @@ function Counter({ value }) {
   return <>{fmtNumber(n)}</>;
 }
 
-const STATS = [['students', 'Students', '🎓'], ['teachers', 'Teachers', '👩‍🏫'], ['departments', 'Departments', '🏛️'], ['courses', 'Course sections', '📚'], ['posts', 'Posts', '📰']];
+const STATS = [['students', 'Students', 'school'], ['teachers', 'Teachers', 'teacher'], ['departments', 'Departments', 'admin'], ['courses', 'Course sections', 'calendar'], ['posts', 'Posts', 'book']];
 
 export default function Home() {
   const nav = useNavigate();
   const { liked, toggle } = useLikes();
-  const [data, setData] = useState(null);
-  const [slides, setSlides] = useState([]);
-  const [cats, setCats] = useState([]);
-
-  useEffect(() => {
-    api.get('/home').then((r) => setData(r.data)).catch(() => {});
-    api.get('/posts', { params: { sort: 'likes', per_page: 5 } }).then((r) => setSlides(r.data.data)).catch(() => {});
-    api.get('/categories').then((r) => setCats(r.data)).catch(() => {});
-  }, []);
+  const { data, setData, error, loading, retry } = useResource('/home');
+  const featured = useResource('/posts?sort=likes&per_page=5');
+  const slides = featured.data?.data || [];
+  const { categories } = usePortalData();
+  const cats = categories.data || [];
 
   const onLike = async (p) => {
     const count = await toggle(p.id);
+    if (count === null) return;
     const patch = (list) => list.map((x) => (x.id === p.id ? { ...x, likes_count: count } : x));
     setData((d) => ({
       ...d,
@@ -91,19 +94,20 @@ export default function Home() {
     }));
   };
 
-  if (!data) return <><Hero slides={slides} /><div className="pub-empty">Loading...</div></>;
+  if (error) return <main className="pub-main"><LoadError message={error} onRetry={retry} /></main>;
+  if (loading || !data) return <><Hero slides={slides} /><div className="pub-empty">Loading...</div></>;
 
   const [lead, ...rest] = data.latest;
 
   return (
     <>
-      <Hero slides={slides} />
+      {featured.error ? <LoadError message={featured.error} onRetry={featured.retry} /> : <Hero slides={slides} />}
 
       <section className="pub-stats">
         <div className="in">
           {STATS.map(([k, label, icon]) => (
             <div className="stat-item" key={k}>
-              <span className="stat-ico">{icon}</span>
+              <span className="stat-ico"><Icon name={icon} width="26" height="26" /></span>
               <div><b><Counter value={data.stats[k]} /></b><small>{label}</small></div>
             </div>
           ))}
@@ -118,7 +122,7 @@ export default function Home() {
               <article className="lead-card" onClick={() => nav(`/posts/${lead.id}`)}>
                 <Thumb post={lead} />
                 <div className="lead-body">
-                  {lead.category && <span className="chip">{lead.category.name}</span>}
+                  {lead.category && <span className="chip">{categoryLabel(lead.category)}</span>}
                   <h3>{lead.title}</h3>
                   <p>{lead.description}</p>
                   <PostMeta post={lead} />
@@ -135,11 +139,11 @@ export default function Home() {
           <aside>
             <RankList title="Most read" posts={data.popular} />
             <div className="side-box">
-              <h3 className="side-title">Announcements</h3>
+              <h3 className="side-title">School notices</h3>
               <ul className="notice">
                 {data.announcements.map((a) => (
                   <li key={a.id}>
-                    <b>{a.title}</b>
+                    <Link to="/announcements"><b>{a.title}</b></Link>
                     <small>{fmtDate(a.created_at)}</small>
                   </li>
                 ))}
@@ -150,7 +154,7 @@ export default function Home() {
 
         {data.sections.map((s) => (
           <section key={s.category.id} className="cat-section">
-            <h2 className="sec-title"><span>{s.category.name}</span><Link to={`/category/${s.category.slug}`}>See more →</Link></h2>
+            <h2 className="sec-title"><span>{categoryLabel(s.category)}</span><Link to={`/category/${s.category.slug}`}>See more →</Link></h2>
             <div className="grid-4">
               {s.posts.map((p) => <PostCard key={p.id} post={p} liked={liked.includes(p.id)} onLike={onLike} />)}
             </div>
@@ -162,7 +166,7 @@ export default function Home() {
           <div className="cat-cloud">
             {cats.map((c) => (
               <Link key={c.id} to={`/category/${c.slug}`} className="cat-tile">
-                <b>{c.name}</b>
+                <b>{categoryLabel(c)}</b>
                 <small>{c.posts_count} posts</small>
               </Link>
             ))}

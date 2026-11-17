@@ -1,3 +1,4 @@
+import LoadError from '../../components/LoadError';
 import { useCallback, useEffect, useState } from 'react';
 import api, { errMsg } from '../../api';
 import { Badge, Loading, useToast } from '../../components/ui';
@@ -8,10 +9,12 @@ export default function Registration() {
   const toast = useToast();
   const [data, setData] = useState(null);
   const [busy, setBusy] = useState(null);
+  const [loadError, setLoadError] = useState('');
 
   const load = useCallback(() => {
-    api.get('/student/registration').then((r) => setData(r.data)).catch((e) => toast(errMsg(e), 'bad'));
-  }, [toast]);
+    setLoadError('');
+    api.get('/student/registration').then((r) => setData(r.data)).catch((e) => setLoadError(errMsg(e)));
+  }, []);
 
   useEffect(load, [load]);
 
@@ -36,6 +39,7 @@ export default function Registration() {
     }
   };
 
+  if (loadError) return <LoadError message={loadError} onRetry={load} />;
   if (!data) return <Loading />;
   if (!data.semester) {
     return (
@@ -93,10 +97,10 @@ export default function Registration() {
                     </td>
                     <td className="actions">
                       {r.registered ? (
-                        <button className="btn sm danger" disabled={!c.can_cancel || busy === c.id} onClick={() => act(c, 'delete')}
+                        <button className="btn sm danger" disabled={!c.can_cancel || busy !== null} onClick={() => act(c, 'delete')}
                           title={c.can_cancel ? '' : 'This section already has grades'}>Cancel</button>
                       ) : (
-                        <button className="btn sm primary" disabled={!r.eligible || busy === c.id} onClick={() => act(c, 'post')}>Register</button>
+                        <button className="btn sm primary" disabled={!r.eligible || busy !== null} onClick={() => act(c, 'post')}>Register</button>
                       )}
                     </td>
                   </tr>

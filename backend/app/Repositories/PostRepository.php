@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Contracts\Repositories\PostRepositoryInterface;
 use App\Models\Post;
+use App\Models\PostLike;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -101,5 +103,26 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
         Post::whereKey($post->id)->where('likes_count', '>', 0)->decrement('likes_count');
 
         return (int) Post::whereKey($post->id)->value('likes_count');
+    }
+
+    public function likedIds(int $userId): array
+    {
+        return PostLike::where('user_id', $userId)->pluck('post_id')->map(fn ($id) => (int) $id)->all();
+    }
+
+    public function setLiked(Post $post, int $userId, bool $liked): int
+    {
+        return DB::transaction(function () use ($post, $userId, $liked) {
+            $locked = Post::whereKey($post->id)->lockForUpdate()->firstOrFail();
+            $query = PostLike::where('user_id', $userId)->where('post_id', $post->id);
+            if ($liked && ! $query->exists()) {
+                PostLike::create(['user_id' => $userId, 'post_id' => $post->id]);
+                $locked->increment('likes_count');
+            } elseif (! $liked && $query->delete()) {
+                if ($locked->likes_count > 0) $locked->decrement('likes_count');
+            }
+
+            return (int) $locked->likes_count;
+        });
     }
 }

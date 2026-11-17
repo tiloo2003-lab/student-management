@@ -5,6 +5,7 @@ USE student_management;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE IF EXISTS post_likes;
 DROP TABLE IF EXISTS personal_access_tokens;
 DROP TABLE IF EXISTS contact_messages;
 DROP TABLE IF EXISTS comments;
@@ -279,3 +280,13 @@ CREATE TABLE personal_access_tokens (
 ) ENGINE=InnoDB;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- Account-based likes. Historical aggregate counts on posts remain intact.
+CREATE TABLE IF NOT EXISTS post_likes (
+  user_id BIGINT UNSIGNED NOT NULL,
+  post_id BIGINT UNSIGNED NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (user_id, post_id),
+  CONSTRAINT post_likes_user_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  CONSTRAINT post_likes_post_fk FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

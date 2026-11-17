@@ -1,22 +1,6 @@
-import { useCallback, useState } from 'react';
-import api from '../../api';
+import { usePortalData } from '../../PortalData';
 
-const readLiked = () => {
-  try { return JSON.parse(localStorage.getItem('liked_posts') || '[]'); } catch { return []; }
-};
-
-export function useLikes() {
-  const [liked, setLiked] = useState(readLiked);
-  const toggle = useCallback(async (id) => {
-    const has = readLiked().includes(id);
-    const { data } = has ? await api.delete(`/posts/${id}/like`) : await api.post(`/posts/${id}/like`);
-    const next = has ? readLiked().filter((x) => x !== id) : [...readLiked(), id];
-    localStorage.setItem('liked_posts', JSON.stringify(next));
-    setLiked(next);
-    return data.likes_count;
-  }, []);
-  return { liked, toggle };
-}
+export const useLikes = () => usePortalData();
 
 export const readMinutes = (text) => Math.max(1, Math.round((text || '').split(/\s+/).length / 180));
 

@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import Icon from '../../components/Icon';
 import { Link } from 'react-router-dom';
-import api from '../../api';
+import useResource from '../../useResource';
+import LoadError from '../../components/LoadError';
 import { fmtNumber } from './likes';
 
 const VALUES = [
@@ -10,8 +11,8 @@ const VALUES = [
 ];
 
 export default function About() {
-  const [stats, setStats] = useState(null);
-  useEffect(() => { api.get('/home').then((r) => setStats(r.data.stats)).catch(() => {}); }, []);
+  const { data, error, retry } = useResource('/home');
+  const stats = data?.stats;
 
   return (
     <main className="pub-main">
@@ -23,15 +24,16 @@ export default function About() {
       </p>
 
       <div className="values">
-        {VALUES.map(([icon, t, d]) => (
+        {VALUES.map(([, t, d], i) => (
           <div className="value" key={t}>
-            <span>{icon}</span>
+            <span><Icon name={['school', 'eye', 'book'][i]} width="30" height="30" /></span>
             <h3>{t}</h3>
             <p>{d}</p>
           </div>
         ))}
       </div>
 
+      {error && <LoadError message={error} onRetry={retry} />}
       {stats && (
         <section className="cat-section">
           <h2 className="sec-title"><span>Our school in numbers</span></h2>

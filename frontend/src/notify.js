@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-const PRIMARY = '#2f9bff';
+const PRIMARY = '#3374e3';
 const DANGER = '#dc2626';
 
 const Toast = Swal.mixin({

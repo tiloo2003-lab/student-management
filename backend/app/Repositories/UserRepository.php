@@ -21,7 +21,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function issueToken(User $user, string $name): string
     {
-        return $user->createToken($name)->plainTextToken;
+        return $user->createToken($name, ['*'], now()->addHours(8))->plainTextToken;
     }
 
     public function revokeCurrentToken(User $user): void

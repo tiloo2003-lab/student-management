@@ -1,11 +1,15 @@
+import { categoryLabel } from '../../categoryLabel';
+import LoadError from '../../components/LoadError';
+import { useUnsavedChanges } from '../../UnsavedChanges';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api, { errMsg } from '../../api';
 import { useAuth } from '../../auth';
-import { confirmDelete, confirmDialog, notify } from '../../notify';
+import { confirmDelete, notify } from '../../notify';
 import PostCard, { RankList } from './PostCard';
 import { fmtDate } from '../../utils';
 import { fmtNumber, readMinutes, timeAgo, useLikes } from './likes';
+import { usePageTitle } from '../../components/PageTitle';
 
 export default function PostDetail() {
   const { id } = useParams();
@@ -13,34 +17,47 @@ export default function PostDetail() {
   const { liked, toggle } = useLikes();
   const [post, setPost] = useState(null);
   const [missing, setMissing] = useState(false);
+  const [loadError, setLoadError] = useState('');
+  const [retry, setRetry] = useState(0);
   const [popular, setPopular] = useState([]);
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState('');
   const [sending, setSending] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [commentsError, setCommentsError] = useState('');
+  useUnsavedChanges(content.trim().length > 0);
+  usePageTitle(missing ? 'Post not found' : post && String(post.id) === id ? post.title : 'Loading post');
 
   useEffect(() => {
+    const ctrl = new AbortController();
     setPost(null);
     setMissing(false);
-    api.get(`/posts/${id}`).then((r) => setPost(r.data)).catch(() => setMissing(true));
-    api.get(`/posts/${id}/comments`).then((r) => setComments(r.data)).catch(() => {});
-  }, [id]);
+    setLoadError('');
+    setCommentsError('');
+    setContent('');
+    setComments([]);
+    api.get(`/posts/${id}`, { signal: ctrl.signal }).then((r) => setPost(r.data)).catch((e) => { if (ctrl.signal.aborted) return; if (e.response?.status === 404) setMissing(true); else setLoadError(errMsg(e)); });
+    api.get(`/posts/${id}/comments`, { signal: ctrl.signal }).then((r) => setComments(r.data)).catch((e) => { if (!ctrl.signal.aborted) setCommentsError(errMsg(e)); });
+    return () => ctrl.abort();
+  }, [id, retry]);
 
   useEffect(() => {
     api.get('/posts', { params: { sort: 'views', per_page: 6 } }).then((r) => setPopular(r.data.data)).catch(() => {});
   }, []);
 
+  if (loadError) return <main className="pub-main"><LoadError message={loadError} onRetry={() => setRetry((n) => n + 1)} /></main>;
   if (missing) return <main className="pub-main"><div className="pub-empty">Post not found</div></main>;
   if (!post) return <main className="pub-main"><div className="pub-empty">Loading...</div></main>;
 
   const isLiked = liked.includes(post.id);
   const url = window.location.href;
-  const loginUrl = `/admin/login?redirect=${encodeURIComponent(`/posts/${post.id}`)}`;
+  const loginUrl = '/login';
 
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
+      notify('Link copied. The recipient needs to sign in to read this post.');
       setTimeout(() => setCopied(false), 1800);
     } catch {
       notify('Could not copy the link', 'bad');
@@ -49,7 +66,6 @@ export default function PostDetail() {
 
   const send = async (e) => {
     e.preventDefault();
-    if (!(await confirmDialog({ title: 'Post this comment?', text: 'The comment will be shown publicly under your name.', confirmText: 'Post comment' }))) return;
     setSending(true);
     try {
       const { data } = await api.post(`/posts/${post.id}/comments`, { content });
@@ -80,13 +96,13 @@ export default function PostDetail() {
     <main className="pub-main">
       <div className="crumbs">
         <Link to="/">Home</Link><span>›</span>
-        {post.category && <><Link to={`/danh-muc/${post.category.slug}`}>{post.category.name}</Link><span>›</span></>}
+        {post.category && <><Link to={`/category/${post.category.slug}`}>{categoryLabel(post.category)}</Link><span>›</span></>}
         <b>{post.title}</b>
       </div>
 
       <div className="list-layout">
         <article className="post-detail">
-          {post.category && <Link to={`/danh-muc/${post.category.slug}`} className="chip">{post.category.name}</Link>}
+          {post.category && <Link to={`/category/${post.category.slug}`} className="chip">{categoryLabel(post.category)}</Link>}
           <h1>{post.title}</h1>
           <div className="meta">
             <span>Posted by: <b>{post.author?.name}</b></span>
@@ -100,12 +116,11 @@ export default function PostDetail() {
 
           <div className="like-bar">
             <button className={`pub-btn ${isLiked ? 'liked' : ''}`}
-              onClick={async () => { const c = await toggle(post.id); setPost((p) => ({ ...p, likes_count: c })); }}>
+              onClick={async () => { const c = await toggle(post.id); if (c === null) return; setPost((p) => ({ ...p, likes_count: c })); }}>
               {isLiked ? '♥ Liked' : '♡ Like this post'}
             </button>
             <span className="likes">{fmtNumber(post.likes_count)} likes</span>
             <div className="share">
-              <a className="pub-btn" target="_blank" rel="noreferrer" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}>Share on Facebook</a>
               <button className="pub-btn" onClick={copy}>{copied ? 'Copied' : 'Copy link'}</button>
             </div>
           </div>
@@ -125,7 +140,8 @@ export default function PostDetail() {
               </div>
             )}
 
-            {comments.length === 0 && <div className="sub-muted">No comments yet.</div>}
+            {commentsError && <div role="alert">Comments could not be loaded. <button className="btn sm" onClick={async () => { try { const r = await api.get(`/posts/${id}/comments`); setComments(r.data); setCommentsError(''); } catch (e) { setCommentsError(errMsg(e)); } }}>Try again</button></div>}
+            {!commentsError && comments.length === 0 && <div className="sub-muted">No comments yet.</div>}
             {comments.map((c) => (
               <div className="cmt" key={c.id}>
                 <span className="cmt-ava">{c.name.trim()[0]?.toUpperCase()}</span>

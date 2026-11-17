@@ -1,8 +1,11 @@
+import { categoryLabel } from '../../categoryLabel';
+import LoadError from '../../components/LoadError';
+import { useUnsavedChanges } from '../../UnsavedChanges';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { errMsg, fieldErrors } from '../../api';
 import { Loading, Modal, Pager, useToast } from '../../components/ui';
-import { confirmDelete, confirmSave } from '../../notify';
+import { confirmDelete, confirmDialog } from '../../notify';
 import { fmtDate } from '../../utils';
 
 const empty = { title: '', description: '', content: '', category_id: '' };
@@ -22,6 +25,11 @@ export default function AdminPosts() {
   const [saving, setSaving] = useState(false);
   const [tick, setTick] = useState(0);
   const [cats, setCats] = useState([]);
+  const [loadError, setLoadError] = useState('');
+  const [originalForm, setOriginalForm] = useState('');
+  const dirty = !!modal && (JSON.stringify(form) !== originalForm || !!file || removeImage);
+  useUnsavedChanges(dirty);
+  const closeForm = async () => { if (!saving && (!dirty || await confirmDialog({ title: 'Discard changes?', text: 'Your post has not been saved.', confirmText: 'Discard', danger: true }))) setModal(null); };
 
   useEffect(() => {
     api.get('/manage/categories', { params: { all: 1 } }).then((r) => setCats(r.data.data)).catch(() => {});
@@ -29,9 +37,10 @@ export default function AdminPosts() {
 
   useEffect(() => {
     const ctrl = new AbortController();
+    setLoadError('');
     api.get('/manage/posts', { params: { page, search: query, per_page: 10 }, signal: ctrl.signal })
       .then((r) => setData(r.data))
-      .catch((e) => e.code !== 'ERR_CANCELED' && toast(errMsg(e), 'bad'));
+      .catch((e) => { if (e.code !== 'ERR_CANCELED') setLoadError(errMsg(e)); });
     return () => ctrl.abort();
   }, [page, query, tick, toast]);
 
@@ -41,6 +50,7 @@ export default function AdminPosts() {
     setRemoveImage(false);
     if (!item) {
       setForm(empty);
+      setOriginalForm(JSON.stringify(empty));
       setPreview(null);
       setModal({ item: null });
       return;
@@ -48,6 +58,7 @@ export default function AdminPosts() {
     try {
       const { data: full } = await api.get(`/manage/posts/${item.id}`);
       setForm({ title: full.title, description: full.description, content: full.content || '', category_id: full.category_id || '' });
+      setOriginalForm(JSON.stringify({ title: full.title, description: full.description, content: full.content || '', category_id: full.category_id || '' }));
       setPreview(full.image_url);
       setModal({ item: full });
     } catch (e) { toast(errMsg(e), 'bad'); }
@@ -61,7 +72,7 @@ export default function AdminPosts() {
 
   const save = async (e) => {
     e.preventDefault();
-    if (!(await confirmSave(!!modal.item, 'post'))) return;
+    if (saving) return;
     setSaving(true);
     setErrors({});
     const fd = new FormData();
@@ -104,6 +115,7 @@ export default function AdminPosts() {
         <button className="btn primary" onClick={() => open(null)}>＋ New post</button>
       </div>
 
+      {loadError && <LoadError message={loadError} onRetry={() => setTick((t) => t + 1)} />}
       <div className="card">
         <form className="toolbar" onSubmit={(e) => { e.preventDefault(); setPage(1); setQuery(search); }}>
           <input type="search" placeholder="Search by title..." value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -119,7 +131,7 @@ export default function AdminPosts() {
                   <tr key={p.id}>
                     <td>{p.image_url ? <img className="thumb" src={p.image_url} alt="" loading="lazy" /> : '—'}</td>
                     <td style={{ maxWidth: 360, whiteSpace: 'normal' }}><Link to={`/posts/${p.id}`}>{p.title}</Link></td>
-                    <td>{p.category?.name || '—'}</td>
+                    <td>{categoryLabel(p.category) || '—'}</td>
                     <td>{p.author?.name}</td>
                     <td><b>{p.likes_count}</b></td>
                     <td>{p.views_count}</td>
@@ -137,9 +149,9 @@ export default function AdminPosts() {
       </div>
 
       {modal && (
-        <Modal title={modal.item ? 'Edit post' : 'New post'} onClose={() => setModal(null)}
+        <Modal title={modal.item ? 'Edit post' : 'New post'} onClose={closeForm}
           footer={<>
-            <button className="btn" onClick={() => setModal(null)}>Cancel</button>
+            <button className="btn" onClick={closeForm}>Cancel</button>
             <button className="btn primary" form="post-form" disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
           </>}>
           <form id="post-form" onSubmit={save}>
@@ -150,7 +162,7 @@ export default function AdminPosts() {
             <label className="field"><span>Category</span>
               <select value={form.category_id} onChange={(e) => setForm({ ...form, category_id: e.target.value })}>
                 <option value="">— None —</option>
-                {cats.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                {cats.map((c) => <option key={c.id} value={c.id}>{categoryLabel(c)}</option>)}
               </select>
               {errors.category_id && <div className="err">{errors.category_id[0]}</div>}
             </label>
